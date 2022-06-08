@@ -1,0 +1,12 @@
+.layout {
+  display: grid;
+  border: 1px solid green;
+  width: fit-content;
+  height: fit-content;
+  gap: 1em;
+}
+.button {
+  place-self: center;
+  width: 1.5em;
+  height: 1.5em;
+}

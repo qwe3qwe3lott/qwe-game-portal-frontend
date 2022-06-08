@@ -1,0 +1,21 @@
+.layout {
+  border: 1px solid black;
+  display: grid;
+  grid-template:
+    "rb rb rb"
+    "ob gf gb"
+    / 10em 1fr 10em;
+}
+.roomBar {
+  grid-area: rb;
+}
+.optionsBar {
+  grid-area: ob;
+}
+.gameField {
+  grid-area: gf;
+  place-self: center;
+}
+.gameBar {
+  grid-area: gb;
+}

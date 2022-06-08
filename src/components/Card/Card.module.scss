@@ -1,0 +1,27 @@
+.layout {
+  padding: 0.5em;
+  border: 1px solid black;
+  width: 5em;
+  display: grid;
+  gap: 0.5em;
+}
+
+.image {
+  border: 1px solid black;
+  width: 4em;
+  height: 5em;
+  display: flex;
+  align-items: center;
+  :hover > .button {
+    opacity: 1;
+  }
+}
+
+.button {
+  opacity: 0;
+}
+
+.title {
+  text-align: center;
+  font-size: 0.7em;
+}
