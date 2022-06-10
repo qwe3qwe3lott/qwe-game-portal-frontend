@@ -34,6 +34,7 @@ const spySlice = createSlice({
 		setFieldCards(state, action: PayloadAction<FieldCard[]>) { state.fieldCards = action.payload; },
 		setSizes(state, action: PayloadAction<{ rows: number, columns: number }>) { state.sizes = action.payload; },
 		setTimer(state, action: PayloadAction<Timer>) { state.timer = action.payload; },
+		setCard(state, action: PayloadAction<FieldCard>) { state.card = action.payload; },
 		tickTimer(state) { if (state.timer.currentTime > 0) state.timer.currentTime -= 1; },
 		setStartConditionFlag(state, action: PayloadAction<boolean>) { state.startConditionFlag = action.payload; },
 		setNickname(state, action: PayloadAction<string>) { state.nickname = action.payload; },
@@ -46,5 +47,5 @@ const spySlice = createSlice({
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStore, setPlayers, setFieldCards,setIsRunningFlag,
-	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer} = spySlice.actions;
+	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard} = spySlice.actions;
 export default spySlice.reducer;

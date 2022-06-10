@@ -3,7 +3,7 @@ import store, {AppStore} from '../store';
 import {SpyWSEvents} from '../enums/SpyWSEvents';
 import {Member} from '../types/Member';
 import {
-	clearStore,
+	clearStore, setCard,
 	setFieldCards, setIAmActingFlag,
 	setIAmPlayerFlag, setIsOnPauseFlag,
 	setIsRunningFlag,
@@ -61,6 +61,10 @@ class SpyAPI {
 		this._socket.on(SpyWSEvents.GET_SIZES, (sizes: { rows: number, columns: number }) => {
 			console.log(SpyWSEvents.GET_SIZES, sizes);
 			this._store.dispatch(setSizes(sizes));
+		});
+		this._socket.on(SpyWSEvents.GET_CARD, (card: FieldCard) => {
+			console.log(SpyWSEvents.GET_CARD, card);
+			this._store.dispatch(setCard(card));
 		});
 		this._socket.on(SpyWSEvents.GET_TIMER, (timer: Timer) => {
 			console.log(SpyWSEvents.GET_TIMER, timer);
@@ -153,6 +157,11 @@ class SpyAPI {
 	stopGame(ownerKey: string) {
 		console.log(SpyWSEvents.STOP_GAME, ownerKey);
 		this._socket.emit(SpyWSEvents.STOP_GAME, ownerKey);
+	}
+
+	captureCard(cardId: number) {
+		console.log(SpyWSEvents.CAPTURE_CARD, cardId);
+		this._socket.emit(SpyWSEvents.CAPTURE_CARD, cardId);
 	}
 
 	async changeNickname(nickname: string) : Promise<boolean> {

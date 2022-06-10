@@ -1,27 +1,26 @@
 import React, {useCallback} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import spyAPI from '../../services/SpyAPI';
-
-type Params = {
-    roomId: string,
-}
 
 type Props = {
 	className?: string
 }
 
 const RoomBar: React.FC<Props> = ({className}) => {
-	const { roomId } = useParams<Params>();
 	const navigate = useNavigate();
 
-	const handler = useCallback(() => {
+	const exitHandler = useCallback(() => {
 		spyAPI.leaveRoom();
 		navigate('/');
 	}, []);
 
+	const copyHandler = useCallback(() => {
+		navigator.clipboard.writeText(window.location.href);
+	}, []);
+
 	return(<div className={className}>
-		<p>room {roomId}</p>
-		<button onClick={handler}>Выйти</button>
+		<button onClick={copyHandler}>Скопировать ссылку</button>
+		<button onClick={exitHandler}>Выйти</button>
 	</div>);
 };
 

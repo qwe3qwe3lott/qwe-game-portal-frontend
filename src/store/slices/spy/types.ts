@@ -13,7 +13,8 @@ export type SpyState = {
     iAmActing: boolean
     fieldCards: FieldCard[]
     players: Player[]
-    startConditionFlag: boolean,
-    sizes: { rows: number, columns: number },
+    startConditionFlag: boolean
+    sizes: { rows: number, columns: number }
     timer: Timer
+    card?: FieldCard
 }
