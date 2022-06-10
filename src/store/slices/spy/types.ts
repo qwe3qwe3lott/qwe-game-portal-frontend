@@ -1,6 +1,7 @@
 import {Member} from '../../../types/Member';
 import {FieldCard} from '../../../types/FieldCard';
 import {Player} from '../../../types/Player';
+import {Timer} from '../../../types/Timer';
 
 export type SpyState = {
     nickname: string
@@ -13,5 +14,6 @@ export type SpyState = {
     fieldCards: FieldCard[]
     players: Player[]
     startConditionFlag: boolean,
-    sizes: { rows: number, columns: number }
+    sizes: { rows: number, columns: number },
+    timer: Timer
 }

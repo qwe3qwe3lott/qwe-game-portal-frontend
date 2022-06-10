@@ -3,6 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Member} from '../../../types/Member';
 import {Player} from '../../../types/Player';
 import {FieldCard} from '../../../types/FieldCard';
+import {Timer} from '../../../types/Timer';
 
 const initialState: SpyState = {
 	ownerKey: '',
@@ -15,7 +16,8 @@ const initialState: SpyState = {
 	nickname: '',
 	sizes: { rows: 0, columns: 0 },
 	iAmActing: false,
-	isOnPause: false
+	isOnPause: false,
+	timer: { currentTime: 0, maxTime: 0 }
 };
 
 const spySlice = createSlice({
@@ -31,6 +33,8 @@ const spySlice = createSlice({
 		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
 		setFieldCards(state, action: PayloadAction<FieldCard[]>) { state.fieldCards = action.payload; },
 		setSizes(state, action: PayloadAction<{ rows: number, columns: number }>) { state.sizes = action.payload; },
+		setTimer(state, action: PayloadAction<Timer>) { state.timer = action.payload; },
+		tickTimer(state) { if (state.timer.currentTime > 0) state.timer.currentTime -= 1; },
 		setStartConditionFlag(state, action: PayloadAction<boolean>) { state.startConditionFlag = action.payload; },
 		setNickname(state, action: PayloadAction<string>) { state.nickname = action.payload; },
 		clearStore(state) {
@@ -42,5 +46,5 @@ const spySlice = createSlice({
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStore, setPlayers, setFieldCards,setIsRunningFlag,
-	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag} = spySlice.actions;
+	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer} = spySlice.actions;
 export default spySlice.reducer;

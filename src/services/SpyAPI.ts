@@ -9,11 +9,12 @@ import {
 	setIsRunningFlag,
 	setMembers, setNickname,
 	setOwnerKey,
-	setPlayers, setSizes, setStartConditionFlag
+	setPlayers, setSizes, setStartConditionFlag, setTimer
 } from '../store/slices/spy';
 import {Player} from '../types/Player';
 import {FieldCard} from '../types/FieldCard';
 import {MovementDto} from '../dto/MovementDto';
+import {Timer} from '../types/Timer';
 
 class SpyAPI {
 	private readonly _socket: Socket;
@@ -60,6 +61,10 @@ class SpyAPI {
 		this._socket.on(SpyWSEvents.GET_SIZES, (sizes: { rows: number, columns: number }) => {
 			console.log(SpyWSEvents.GET_SIZES, sizes);
 			this._store.dispatch(setSizes(sizes));
+		});
+		this._socket.on(SpyWSEvents.GET_TIMER, (timer: Timer) => {
+			console.log(SpyWSEvents.GET_TIMER, timer);
+			this._store.dispatch(setTimer(timer));
 		});
 		this._socket.on(SpyWSEvents.GET_NICKNAME, ({ nickname, force } : { nickname: string, force: boolean }) => {
 			console.log(SpyWSEvents.GET_NICKNAME, nickname);
@@ -133,6 +138,11 @@ class SpyAPI {
 	pauseGame(ownerKey: string) {
 		console.log(SpyWSEvents.PAUSE_GAME, ownerKey);
 		this._socket.emit(SpyWSEvents.PAUSE_GAME, ownerKey);
+	}
+
+	requestTimer() {
+		console.log(SpyWSEvents.REQUEST_TIMER);
+		this._socket.emit(SpyWSEvents.REQUEST_TIMER);
 	}
 
 	resumeGame(ownerKey: string) {

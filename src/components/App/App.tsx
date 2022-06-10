@@ -20,39 +20,12 @@ const App: React.FC = () => {
 
 	return (<Routes>
 		{!connected && <Route path={'*'} element={<ErrorPage/>}/>}
-		{connected && <Route path={'/'} element={<div>
-			<button onClick={() => console.log(spyAPI.socket)}>check</button>
-			<Outlet/>
-		</div>}>
+		{connected && <Route path={'/'} element={<Outlet/>}>
 			<Route index element={<HomePage/>}/>
 			<Route path={':roomId'} element={<RoomPage/>}/>
 			<Route path={'*'} element={<Navigate to={'/'} replace/>}/>
 		</Route>}
 	</Routes>);
 };
-
-/*function App() {
-	const { data: spectators } = spyAPI.useGetAllSpectatorsQuery();
-	console.log(spectators);
-	const { data: nickname } = spyAPI.useGetNicknameQuery();
-	const [joinRoom, { data: ownerKey }] = spyAPI.useJoinRoomMutation();
-	const [createRoom, { data: roomId }] = spyAPI.useCreateRoomMutation();
-	return (<div>
-		<button onClick={() => { createRoom(undefined); }}>create</button>
-		<p>roomId {roomId}</p>
-		<p>ownerKey {ownerKey}</p>
-		<button onClick={() => {
-			joinRoom({
-				nickname: nickname ?? '',
-				roomId: prompt() ?? ''
-			});
-		}}>join</button>
-		<ul>
-			{spectators && spectators.map((spectator, key) => <li key={key}>
-				{spectator.nickname}
-			</li>)}
-		</ul>
-	</div>);
-}*/
 
 export default App;

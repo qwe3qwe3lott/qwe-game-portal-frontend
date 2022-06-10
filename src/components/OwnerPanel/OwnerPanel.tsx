@@ -19,7 +19,7 @@ const OwnerPanel: React.FC = () => {
 		spyAPI.pauseGame(ownerKey);
 	}, [ownerKey]);
 	return(<div>
-		<button disabled={(gameIsRunning && !gameIsOnPause) || !startConditionFlag} onClick={startHandler}>{gameIsOnPause ? 'Продолжить' : 'Старт'}</button>
+		<button disabled={(gameIsRunning && !gameIsOnPause) || (!gameIsRunning && !startConditionFlag)} onClick={startHandler}>{gameIsOnPause ? 'Продолжить' : 'Старт'}</button>
 		<button disabled={!gameIsRunning} onClick={stopHandler}>Стоп</button>
 		<button disabled={!gameIsRunning || gameIsOnPause} onClick={pauseHandler}>Пауза</button>
 	</div>);
