@@ -2,7 +2,6 @@ import React, {useCallback} from 'react';
 import {FieldCard} from '../../types/FieldCard';
 
 import styles from './Card.module.scss';
-import {useAppSelector} from '../../hooks/typedReduxHooks';
 import spyAPI from '../../services/SpyAPI';
 
 type Props = {
@@ -12,17 +11,19 @@ type Props = {
 }
 
 const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
-	const iAmActing = useAppSelector(state => state.spy.iAmActing);
-
 	const captureHandler = useCallback(() => {
 		spyAPI.captureCard(card.id);
+	}, [card]);
+
+	const askHandler = useCallback(() => {
+		spyAPI.askCard(card.id);
 	}, [card]);
 
 	return(<div className={styles.layout} style={{...layoutStyle, backgroundColor: card.color }}>
 		{!card.captured && <>
 			<div className={styles.image}>
-				{iAmActing && !isDeco && <>
-					<button className={styles.button}>Д</button>
+				{card.hasActOpportunity && !isDeco && <>
+					<button className={styles.button} onClick={askHandler}>Д</button>
 					<button className={styles.button} onClick={captureHandler}>П</button>
 				</>}
 			</div>

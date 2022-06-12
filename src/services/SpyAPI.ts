@@ -3,10 +3,12 @@ import store, {AppStore} from '../store';
 import {SpyWSEvents} from '../enums/SpyWSEvents';
 import {Member} from '../types/Member';
 import {
+	addActCardIds,
+	addLogRecord,
 	clearStore, setCard,
 	setFieldCards, setIAmActingFlag,
 	setIAmPlayerFlag, setIsOnPauseFlag,
-	setIsRunningFlag,
+	setIsRunningFlag, setLogs,
 	setMembers, setNickname,
 	setOwnerKey,
 	setPlayers, setSizes, setStartConditionFlag, setTimer
@@ -15,6 +17,7 @@ import {Player} from '../types/Player';
 import {FieldCard} from '../types/FieldCard';
 import {MovementDto} from '../dto/MovementDto';
 import {Timer} from '../types/Timer';
+import {LogRecord} from '../types/LogRecord';
 
 class SpyAPI {
 	private readonly _socket: Socket;
@@ -62,6 +65,14 @@ class SpyAPI {
 			console.log(SpyWSEvents.GET_SIZES, sizes);
 			this._store.dispatch(setSizes(sizes));
 		});
+		this._socket.on(SpyWSEvents.GET_ALL_LOG_RECORDS, (logs: LogRecord[]) => {
+			console.log(SpyWSEvents.GET_ALL_LOG_RECORDS, logs);
+			this._store.dispatch(setLogs(logs));
+		});
+		this._socket.on(SpyWSEvents.GET_LOG_RECORD, (logRecord: LogRecord) => {
+			console.log(SpyWSEvents.GET_LOG_RECORD, logRecord);
+			this._store.dispatch(addLogRecord(logRecord));
+		});
 		this._socket.on(SpyWSEvents.GET_CARD, (card: FieldCard) => {
 			console.log(SpyWSEvents.GET_CARD, card);
 			this._store.dispatch(setCard(card));
@@ -69,6 +80,10 @@ class SpyAPI {
 		this._socket.on(SpyWSEvents.GET_TIMER, (timer: Timer) => {
 			console.log(SpyWSEvents.GET_TIMER, timer);
 			this._store.dispatch(setTimer(timer));
+		});
+		this._socket.on(SpyWSEvents.GET_ACT_CARD_IDS, (ids: number[]) => {
+			console.log(SpyWSEvents.GET_ACT_CARD_IDS, ids);
+			this._store.dispatch(addActCardIds(ids));
 		});
 		this._socket.on(SpyWSEvents.GET_NICKNAME, ({ nickname, force } : { nickname: string, force: boolean }) => {
 			console.log(SpyWSEvents.GET_NICKNAME, nickname);
@@ -162,6 +177,11 @@ class SpyAPI {
 	captureCard(cardId: number) {
 		console.log(SpyWSEvents.CAPTURE_CARD, cardId);
 		this._socket.emit(SpyWSEvents.CAPTURE_CARD, cardId);
+	}
+
+	askCard(cardId: number) {
+		console.log(SpyWSEvents.ASK_CARD, cardId);
+		this._socket.emit(SpyWSEvents.ASK_CARD, cardId);
 	}
 
 	async changeNickname(nickname: string) : Promise<boolean> {

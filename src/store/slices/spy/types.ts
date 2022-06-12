@@ -2,6 +2,7 @@ import {Member} from '../../../types/Member';
 import {FieldCard} from '../../../types/FieldCard';
 import {Player} from '../../../types/Player';
 import {Timer} from '../../../types/Timer';
+import {LogRecord} from '../../../types/LogRecord';
 
 export type SpyState = {
     nickname: string
@@ -17,4 +18,5 @@ export type SpyState = {
     sizes: { rows: number, columns: number }
     timer: Timer
     card?: FieldCard
+    logs: LogRecord[]
 }

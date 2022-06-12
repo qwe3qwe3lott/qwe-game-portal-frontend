@@ -3,4 +3,5 @@ export type FieldCard = {
     title: string
     captured: boolean
     color: string
+    hasActOpportunity?: boolean
 }

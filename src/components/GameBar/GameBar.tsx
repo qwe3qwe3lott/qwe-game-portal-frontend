@@ -3,6 +3,7 @@ import PlayersList from '../PlayersList';
 import {useAppSelector} from '../../hooks/typedReduxHooks';
 import Timer from '../Timer';
 import Card from '../Card';
+import Logs from '../Logs';
 
 type Props = {
 	className?: string
@@ -17,6 +18,7 @@ const GameBar: React.FC<Props> = ({className}) => {
 			<Timer/>
 			<PlayersList/>
 			{card && <Card card={card} isDeco={true}/>}
+			<Logs/>
 		</>}
 	</div>);
 };

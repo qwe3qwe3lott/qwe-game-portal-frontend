@@ -1,0 +1,15 @@
+.layout {
+  height: 50vh;
+  font-size: 0.5em;
+  border: 1px green solid;
+  overflow-y: auto;
+  & .record:first-child {
+    font-size: 1.5em;
+    border-bottom: 1px green solid;
+    background-color: rgba(blue, 0.1);
+  }
+}
+
+.record {
+
+}
