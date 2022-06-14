@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {FieldCard} from '../../types/FieldCard';
 
 import styles from './Card.module.scss';
 import spyAPI from '../../services/SpyAPI';
+import {rgbToHex} from '../../util/rgbToHex';
 
 type Props = {
 	isDeco?: boolean
@@ -19,7 +20,16 @@ const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 		spyAPI.askCard(card.id);
 	}, [card]);
 
-	return(<div className={styles.layout} style={{...layoutStyle, backgroundColor: card.color }}>
+	const backgroundColor = useMemo(() => {
+		if ('markCaptured' in card) return card.markCaptured ? '#007f00' : '#7f0000';
+		if ('markAsked' in card) return '#ff7f00';
+		if (card.markMovedPercent) {
+			const rb = Math.round(255 - (card.markMovedPercent * 128));
+			return rgbToHex(rb,255, rb);
+		}
+	}, [card]);
+
+	return(<div className={styles.layout} style={{...layoutStyle, backgroundColor }}>
 		{!card.captured && <>
 			<div className={styles.image}>
 				{card.hasActOpportunity && !isDeco && <>

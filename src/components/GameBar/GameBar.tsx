@@ -5,6 +5,8 @@ import Timer from '../Timer';
 import Card from '../Card';
 import Logs from '../Logs';
 
+import styles from './GameBar.module.scss';
+
 type Props = {
 	className?: string
 }
@@ -13,7 +15,7 @@ const GameBar: React.FC<Props> = ({className}) => {
 	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
 	const card = useAppSelector(state => state.spy.card);
 
-	return(<div style={{ border: '1px solid blue' }} className={className}>
+	return(<div className={[className, styles.layout].join(' ')}>
 		{gameIsRunning && <>
 			<Timer/>
 			<PlayersList/>

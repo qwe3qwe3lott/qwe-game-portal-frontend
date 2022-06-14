@@ -1,15 +1,27 @@
+@import "../../mixins";
+@import "../../colors";
 .layout {
-  height: 50vh;
-  font-size: 0.5em;
-  border: 1px green solid;
+  @include panel;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: center;
+  min-height: 50vh;
+  max-height: 50vh;
   overflow-y: auto;
-  & .record:first-child {
-    font-size: 1.5em;
-    border-bottom: 1px green solid;
-    background-color: rgba(blue, 0.1);
-  }
 }
-
+.records {
+  list-style-position: inside;
+}
 .record {
-
+  font-size: 0.8em;
+  border-top: 0.1em solid $secondary-color;
+  list-style-type: decimal;
+  display: list-item;
+  &:first-child {
+    border-top: unset;
+    display: block;
+    font-size: 1em;
+    padding-bottom: 0.3em;
+  }
 }

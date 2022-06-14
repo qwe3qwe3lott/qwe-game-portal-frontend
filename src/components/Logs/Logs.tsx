@@ -5,11 +5,14 @@ import styles from './Logs.module.scss';
 
 const Logs: React.FC = () => {
 	const logs = useAppSelector(state => state.spy.logs);
-	return(<ul className={styles.layout}>
-		{logs.map(logRecord => <li key={logRecord.id} className={styles.record}>
-			{logRecord.text}
-		</li>)}
-	</ul>);
+	return(<div className={styles.layout}>
+		<p>Логи</p>
+		<ol reversed className={styles.records}>
+			{logs.map(logRecord => <li key={logRecord.id} className={styles.record}>
+				{logRecord.text}
+			</li>)}
+		</ol>
+	</div>);
 };
 
 export default Logs;

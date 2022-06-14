@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {useAppSelector} from '../../hooks/typedReduxHooks';
 import spyAPI from '../../services/SpyAPI';
 import NicknameForm from '../NicknameForm';
+import styles from './MemberPanel.module.scss';
 
 const MemberPanel: React.FC = () => {
 	const iAmPlayer = useAppSelector(state => state.spy.iAmPlayer);
@@ -20,10 +21,10 @@ const MemberPanel: React.FC = () => {
 		setShowNicknameFormFlag(true);
 	}, []);
 
-	return(<div>
-		<button disabled={gameIsRunning} onClick={becomeHandler}>{iAmPlayer ? 'Стать зрителем' : 'Стать игроком'}</button>
-		<button disabled={true}>Настройки</button>
-		<button disabled={gameIsRunning || showNicknameForm} onClick={openFormHandler}>Изменить ник</button>
+	return(<div className={styles.layout}>
+		<button className={styles.button} disabled={gameIsRunning} onClick={becomeHandler}>{iAmPlayer ? 'Стать зрителем' : 'Стать игроком'}</button>
+		<button className={styles.button} disabled={true}>Настройки</button>
+		<button className={styles.button} disabled={gameIsRunning || showNicknameForm} onClick={openFormHandler}>Изменить ник</button>
 		{showNicknameForm && <NicknameForm onSuccess={successHandler}/>}
 	</div>);
 };

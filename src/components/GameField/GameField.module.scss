@@ -1,11 +1,16 @@
+@import "../../mixins";
 .layout {
+  overflow: auto;
   display: grid;
-  border: 1px solid green;
-  width: fit-content;
-  height: fit-content;
+  padding: 1em;
+}
+.field {
+  place-self: center;
+  display: grid;
   gap: 1em;
 }
 .button {
+  @include button;
   place-self: center;
   width: 1.5em;
   height: 1.5em;

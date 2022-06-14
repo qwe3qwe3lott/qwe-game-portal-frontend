@@ -1,0 +1,8 @@
+@import "../../mixins";
+.layout {
+  @include panel;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: center;
+}

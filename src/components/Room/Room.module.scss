@@ -1,10 +1,12 @@
 .layout {
   border: 1px solid black;
   display: grid;
+  height: 100%;
+  max-height: 100vh;
   grid-template:
-    "rb rb rb"
-    "ob gf gb"
-    / 10em 1fr 10em;
+    "rb rb rb" auto
+    "ob gf gb" 1fr
+    / 1fr 5fr 2fr;
 }
 .roomBar {
   grid-area: rb;
@@ -14,7 +16,6 @@
 }
 .gameField {
   grid-area: gf;
-  place-self: center;
 }
 .gameBar {
   grid-area: gb;
