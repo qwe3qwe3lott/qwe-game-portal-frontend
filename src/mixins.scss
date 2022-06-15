@@ -26,3 +26,9 @@
   justify-content: center;
   gap: 0.5em;
 }
+@mixin input {
+  padding: 0.25em 0.5em;
+  background-color: $input-background-color;
+  color: $input-text-color;
+  border-radius: 0.5em;
+}

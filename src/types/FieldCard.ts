@@ -2,9 +2,9 @@ import {Directions} from '../enums/Directions';
 
 export type FieldCard = {
     id: number
+    url: string
     title: string
     captured: boolean
-    markMovedPercent?: number
     markMovedDirection?: Directions
     markCaptured?: boolean
     markAsked?: boolean
