@@ -5,19 +5,38 @@
   color: $primary-text-color;
   border-radius: 0.5em;
 }
+@mixin scrollable {
+  &::-webkit-scrollbar {
+    width: 0.3em;
+    background-color: rgba($primary-color, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+    border-radius: 1em;
+  }
+}
 @mixin sideBar {
+  @include scrollable;
   background-color: $section-background-color;
   padding: 0.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5em;
+  overflow-y: auto;
 }
 @mixin panel {
   background-color: rgba($primary-color, 0.1);
   border-radius: 0.5em;
   padding: 0.2em;
   width: 100%;
+}
+@mixin columnPanel {
+  @include panel;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
 }
 @mixin buttonPanel {
   @include panel;

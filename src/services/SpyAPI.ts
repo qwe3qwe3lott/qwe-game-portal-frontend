@@ -5,19 +5,21 @@ import {Member} from '../types/Member';
 import {
 	addActCardIds,
 	addLogRecord,
-	clearStore, setCard,
+	clearStoreAfterLeaving, setCard,
 	setFieldCards, setIAmActingFlag,
 	setIAmPlayerFlag, setIsOnPauseFlag,
-	setIsRunningFlag, setLogs,
+	setIsRunningFlag, setLastWinner, setLogs,
 	setMembers, setNickname,
 	setOwnerKey,
-	setPlayers, setSizes, setStartConditionFlag, setTimer
+	setPlayers, setRoomOptions, setSizes, setStartConditionFlag, setTimer
 } from '../store/slices/spy';
 import {Player} from '../types/Player';
 import {FieldCard} from '../types/FieldCard';
 import {MovementDto} from '../dto/MovementDto';
 import {Timer} from '../types/Timer';
 import {LogRecord} from '../types/LogRecord';
+import {Sizes} from '../types/Sizes';
+import {RoomOptions} from '../types/RoomOptions';
 
 class SpyAPI {
 	private readonly _socket: Socket;
@@ -29,8 +31,8 @@ class SpyAPI {
 	}
 
 	init(): void {
-		this._socket.on(SpyWSEvents.GET_ALL_MEMBERS, (members: Member[]) => {
-			console.log(SpyWSEvents.GET_ALL_MEMBERS, members);
+		this._socket.on(SpyWSEvents.GET_MEMBERS, (members: Member[]) => {
+			console.log(SpyWSEvents.GET_MEMBERS, members);
 			this._store.dispatch(setMembers(members));
 		});
 		this._socket.on(SpyWSEvents.GET_OWNER_KEY, (ownerKey: string) => {
@@ -61,7 +63,7 @@ class SpyAPI {
 			console.log(SpyWSEvents.GET_PAUSE_FLAG, flag);
 			this._store.dispatch(setIsOnPauseFlag(flag));
 		});
-		this._socket.on(SpyWSEvents.GET_SIZES, (sizes: { rows: number, columns: number }) => {
+		this._socket.on(SpyWSEvents.GET_SIZES, (sizes: Sizes) => {
 			console.log(SpyWSEvents.GET_SIZES, sizes);
 			this._store.dispatch(setSizes(sizes));
 		});
@@ -80,6 +82,10 @@ class SpyAPI {
 		this._socket.on(SpyWSEvents.GET_TIMER, (timer: Timer) => {
 			console.log(SpyWSEvents.GET_TIMER, timer);
 			this._store.dispatch(setTimer(timer));
+		});
+		this._socket.on(SpyWSEvents.GET_LAST_WINNER, (lastWinner: string) => {
+			console.log(SpyWSEvents.GET_LAST_WINNER, lastWinner);
+			this._store.dispatch(setLastWinner(lastWinner));
 		});
 		this._socket.on(SpyWSEvents.GET_ACT_CARD_IDS, (ids: number[]) => {
 			console.log(SpyWSEvents.GET_ACT_CARD_IDS, ids);
@@ -130,6 +136,13 @@ class SpyAPI {
 		});
 	}
 
+	requestRoomOptions() {
+		console.log(SpyWSEvents.REQUEST_ROOM_OPTIONS);
+		this._socket.emit(SpyWSEvents.REQUEST_ROOM_OPTIONS, undefined, (roomOptions: RoomOptions) => {
+			this._store.dispatch(setRoomOptions(roomOptions));
+		});
+	}
+
 	become(becomePlayer: boolean) {
 		console.log(SpyWSEvents.BECOME, becomePlayer);
 		this._socket.emit(SpyWSEvents.BECOME, becomePlayer, (flag: boolean) => {
@@ -145,7 +158,7 @@ class SpyAPI {
 	leaveRoom() {
 		console.log(SpyWSEvents.LEAVE_ROOM);
 		this._socket.emit(SpyWSEvents.LEAVE_ROOM, undefined, () => {
-			this._store.dispatch(clearStore());
+			this._store.dispatch(clearStoreAfterLeaving());
 		});
 	}
 

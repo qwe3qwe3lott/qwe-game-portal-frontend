@@ -1,5 +1,6 @@
 @import "../../mixins";
 .layout {
+  @include scrollable;
   overflow: auto;
   display: grid;
   padding: 1em;
@@ -14,4 +15,8 @@
   place-self: center;
   width: 1.5em;
   height: 1.5em;
+}
+.expander {
+  height: 1.5em;
+  width: 1.5em;
 }

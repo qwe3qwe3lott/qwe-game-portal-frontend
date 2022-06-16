@@ -11,10 +11,11 @@ export enum SpyWSEvents {
     BECOME = 'become',
     MOVE_CARDS = 'moveCards',
     REQUEST_TIMER = 'requestTimer',
+    REQUEST_ROOM_OPTIONS = 'requestRoomOptions',
     CAPTURE_CARD = 'captureCard',
     ASK_CARD = 'askCard',
     GET_OWNER_KEY = 'getOwnerKey',
-    GET_ALL_MEMBERS = 'getAllMembers',
+    GET_MEMBERS = 'getMembers',
     GET_NICKNAME = 'getNickname',
     GET_RUNNING_FLAG = 'getRunningFlag',
     GET_PAUSE_FLAG = 'getPauseFlag',
@@ -27,5 +28,6 @@ export enum SpyWSEvents {
     GET_CARD = 'getCard',
     GET_ALL_LOG_RECORDS = 'getAllLogRecords',
     GET_LOG_RECORD = 'getLogRecord',
-    GET_ACT_CARD_IDS = 'getActCardIds'
+    GET_ACT_CARD_IDS = 'getActCardIds',
+    GET_LAST_WINNER = 'getLastWinner'
 }

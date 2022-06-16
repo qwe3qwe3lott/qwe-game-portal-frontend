@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {useAppSelector} from '../../hooks/typedReduxHooks';
 import CardsField from '../CardsField';
 
@@ -10,7 +10,7 @@ type Props = {
 }
 
 const GameField: React.FC<Props> = ({className}) => {
-	const isRunning = useAppSelector(state => state.spy.isRunning);
+	const fieldCards = useAppSelector(state => state.spy.fieldCards);
 	const sizes = useAppSelector(state => state.spy.sizes);
 	const iAmActing = useAppSelector(state => state.spy.iAmActing);
 
@@ -24,10 +24,16 @@ const GameField: React.FC<Props> = ({className}) => {
 	const moveCards = useCallback((isRow: boolean, forward: boolean, id: number) => {
 		spyAPI.moveCards({ id, forward, isRow });
 	}, []);
-
-	return(<div className={[styles.layout, className].join(' ')}>
+	useEffect(() => {
+		document.documentElement.style.setProperty('--rows', `${sizes.rows}00%`);
+		document.documentElement.style.setProperty('--columns', `${sizes.columns}00%`);
+	}, [sizes]);
+	const layoutClass = useMemo(() => {
+		return [styles.layout, className].join(' ');
+	}, [className]);
+	return(<div className={layoutClass}>
 		<div className={styles.field}>
-			{!isRunning ? <p>Ожидайте начала игры</p> : <>
+			{fieldCards.length === 0 ? <p>Ожидайте начала игры</p> : <>
 				{iAmActing && <>
 					{columnsArray.map(column => <button
 						key={column}
@@ -50,7 +56,8 @@ const GameField: React.FC<Props> = ({className}) => {
 						style={getStyle(1, 1+row, 270)}
 						onClick={() => moveCards(true, false, row)}>{row}</button>)}
 				</>}
-				<span style={{ gridRow: 2 + rowsArray.length, gridColumn: 2 + columnsArray.length }}/>
+				<span style={{ gridRow: 1, gridColumn: 1 }} className={styles.expander}/>
+				<span style={{ gridRow: 2 + rowsArray.length, gridColumn: 2 + columnsArray.length }} className={styles.expander}/>
 				<CardsField layoutStyle={{ gridRow: `2 / span ${rowsArray.length}`, gridColumn: `2 / span ${columnsArray.length}`}}/>
 			</>}
 		</div>

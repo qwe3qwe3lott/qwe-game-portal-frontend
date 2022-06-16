@@ -12,3 +12,7 @@ $input-text-color: #000000;
   secondaryColor: $secondary-color;
   secondaryOppositeColor: $secondary-opposite-color;
 }
+:root {
+  --columns: 100%;
+  --rows: 100%;
+}

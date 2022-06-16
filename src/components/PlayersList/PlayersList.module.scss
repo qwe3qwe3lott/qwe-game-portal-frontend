@@ -1,15 +1,13 @@
 @import "../../mixins";
 @import "../../colors";
 .layout {
-  @include panel;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
+  @include columnPanel;
 }
 .player {
   text-align: center;
   font-size: 0.8em;
+}
+.playerInGame {
   &:first-child {
     font-size: 1em;
     padding-bottom: 0.3em;

@@ -1,26 +1,22 @@
 @import "../../mixins";
 @import "../../colors";
 .layout {
-  @include panel;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-  align-items: center;
+  @include scrollable;
+  @include columnPanel;
   min-height: 50vh;
   max-height: 50vh;
   overflow-y: auto;
 }
-.records {
-  list-style-position: inside;
-}
 .record {
+  text-align: center;
   font-size: 0.8em;
   border-top: 0.1em solid $secondary-color;
-  list-style-type: decimal;
-  display: list-item;
   &:first-child {
     border-top: unset;
-    display: block;
+  }
+}
+.recordInGame {
+  &:first-child {
     font-size: 1em;
     padding-bottom: 0.3em;
   }

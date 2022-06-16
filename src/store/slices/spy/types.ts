@@ -3,6 +3,8 @@ import {FieldCard} from '../../../types/FieldCard';
 import {Player} from '../../../types/Player';
 import {Timer} from '../../../types/Timer';
 import {LogRecord} from '../../../types/LogRecord';
+import {Sizes} from '../../../types/Sizes';
+import {RoomOptions} from '../../../types/RoomOptions';
 
 export type SpyState = {
     nickname: string
@@ -15,8 +17,10 @@ export type SpyState = {
     fieldCards: FieldCard[]
     players: Player[]
     startConditionFlag: boolean
-    sizes: { rows: number, columns: number }
+    sizes: Sizes
     timer: Timer
     card?: FieldCard
     logs: LogRecord[]
+    lastWinner: string
+    roomOptions: RoomOptions
 }

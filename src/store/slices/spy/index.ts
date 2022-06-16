@@ -5,6 +5,8 @@ import {Player} from '../../../types/Player';
 import {FieldCard} from '../../../types/FieldCard';
 import {Timer} from '../../../types/Timer';
 import {LogRecord} from '../../../types/LogRecord';
+import {Sizes} from '../../../types/Sizes';
+import {RoomOptions} from '../../../types/RoomOptions';
 
 const initialState: SpyState = {
 	ownerKey: '',
@@ -19,19 +21,69 @@ const initialState: SpyState = {
 	iAmActing: false,
 	isOnPause: false,
 	timer: { currentTime: 0, maxTime: 0 },
-	logs: []
+	logs: [],
+	lastWinner: '',
+	roomOptions: {
+		rows: 5,
+		maxPlayers: 8,
+		winScore: 3,
+		secondsToAct: 60,
+		minPlayers: 2,
+		columns: 5,
+		optionsOfCards: [
+			{ title: 'Radioactive', url: 'http://localhost:3003/cardPacks/HarryDuBois/Radioactive.jpg' },
+			{ title: 'Love', url: 'http://localhost:3003/cardPacks/HarryDuBois/Love.jpg' },
+			{ title: 'Ghibli', url: 'http://localhost:3003/cardPacks/HarryDuBois/Ghibli.jpg' },
+			{ title: 'Death', url: 'http://localhost:3003/cardPacks/HarryDuBois/Death.jpg' },
+			{ title: 'Surreal', url: 'http://localhost:3003/cardPacks/HarryDuBois/Surreal.jpg' },
+			{ title: 'Robots', url: 'http://localhost:3003/cardPacks/HarryDuBois/Robots.jpg' },
+			{ title: 'No Style', url: 'http://localhost:3003/cardPacks/HarryDuBois/NoStyle.jpg' },
+			{ title: 'Wuhtercuhler', url: 'http://localhost:3003/cardPacks/HarryDuBois/Wuhtercuhler.jpg' },
+			{ title: 'Provenance', url: 'http://localhost:3003/cardPacks/HarryDuBois/Provenance.jpg' },
+			{ title: 'Moonwalker', url: 'http://localhost:3003/cardPacks/HarryDuBois/Moonwalker.jpg' },
+			{ title: 'Blacklight', url: 'http://localhost:3003/cardPacks/HarryDuBois/Blacklight.jpg' },
+			{ title: 'Rose Gold', url: 'http://localhost:3003/cardPacks/HarryDuBois/RoseGold.jpg' },
+			{ title: 'Steampunk', url: 'http://localhost:3003/cardPacks/HarryDuBois/Steampunk.jpg' },
+			{ title: 'Fantasy Art', url: 'http://localhost:3003/cardPacks/HarryDuBois/FantasyArt.jpg' },
+			{ title: 'Vibrant', url: 'http://localhost:3003/cardPacks/HarryDuBois/Vibrant.jpg' },
+			{ title: 'HD', url: 'http://localhost:3003/cardPacks/HarryDuBois/HD.jpg' },
+			{ title: 'Psychic', url: 'http://localhost:3003/cardPacks/HarryDuBois/Psychic.jpg' },
+			{ title: 'Dark Fantasy', url: 'http://localhost:3003/cardPacks/HarryDuBois/DarkFantasy.jpg' },
+			{ title: 'Mystical', url: 'http://localhost:3003/cardPacks/HarryDuBois/Mystical.jpg' },
+			{ title: 'Baroque', url: 'http://localhost:3003/cardPacks/HarryDuBois/Baroque.jpg' },
+			{ title: 'Etching', url: 'http://localhost:3003/cardPacks/HarryDuBois/Etching.jpg' },
+			{ title: 'S.Dali', url: 'http://localhost:3003/cardPacks/HarryDuBois/S.Dali.jpg' },
+			{ title: 'Psychedelic', url: 'http://localhost:3003/cardPacks/HarryDuBois/Psychedelic.jpg' },
+			{ title: 'Synthwave', url: 'http://localhost:3003/cardPacks/HarryDuBois/Synthwave.jpg' },
+			{ title: 'Ukiyoe', url: 'http://localhost:3003/cardPacks/HarryDuBois/Ukiyoe.jpg' }
+		]
+	}
 };
 
 const spySlice = createSlice({
 	name: 'spy',
 	initialState,
 	reducers: {
+		setLastWinner(state, action: PayloadAction<string>) { state.lastWinner = action.payload; },
+		setRoomOptions(state, action: PayloadAction<RoomOptions>) { state.roomOptions = action.payload; },
 		setLogs(state, action: PayloadAction<LogRecord[]>) { state.logs = action.payload; },
 		addLogRecord(state, action: PayloadAction<LogRecord>) { state.logs.unshift(action.payload); },
 		setMembers(state, action: PayloadAction<Member[]>) { state.members = action.payload; },
 		setOwnerKey(state, action: PayloadAction<string>) { state.ownerKey = action.payload; },
 		setIAmPlayerFlag(state, action: PayloadAction<boolean>) { state.iAmPlayer = action.payload; },
-		setIsRunningFlag(state, action: PayloadAction<boolean>) { state.isRunning = action.payload; },
+		setIsRunningFlag(state, action: PayloadAction<boolean>) {
+			if (action.payload) {
+				state.lastWinner = '';
+				state.logs = [];
+				state.isOnPause = false;
+				state.isRunning = action.payload;
+			} else {
+				state.isRunning = action.payload;
+				state.isOnPause = false;
+				state.iAmActing = false;
+				state.timer = { currentTime: 0, maxTime: 0 };
+			}
+		},
 		setIAmActingFlag(state, action: PayloadAction<boolean>) { state.iAmActing = action.payload; },
 		setIsOnPauseFlag(state, action: PayloadAction<boolean>) { state.isOnPause = action.payload; },
 		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
@@ -41,21 +93,31 @@ const spySlice = createSlice({
 				if (action.payload.includes(card.id)) card.hasActOpportunity = true;
 			}
 		},
-		setSizes(state, action: PayloadAction<{ rows: number, columns: number }>) { state.sizes = action.payload; },
+		setSizes(state, action: PayloadAction<Sizes>) { state.sizes = action.payload; },
 		setTimer(state, action: PayloadAction<Timer>) { state.timer = action.payload; },
 		setCard(state, action: PayloadAction<FieldCard>) { state.card = action.payload; },
 		tickTimer(state) { if (state.timer.currentTime > 0) state.timer.currentTime -= 1; },
 		setStartConditionFlag(state, action: PayloadAction<boolean>) { state.startConditionFlag = action.payload; },
 		setNickname(state, action: PayloadAction<string>) { state.nickname = action.payload; },
-		clearStore(state) {
+		clearStoreAfterLeaving(state) {
 			state.ownerKey = '';
 			state.members = [];
 			state.iAmPlayer = false;
+			state.players = [];
+			state.isRunning = false;
+			state.fieldCards = [];
+			state.startConditionFlag = false;
+			state.sizes = { rows: 0, columns: 0 };
+			state.iAmActing = false;
+			state.isOnPause = false;
+			state.timer = { currentTime: 0, maxTime: 0 };
+			state.logs = [];
+			state.lastWinner = '';
 		}
 	}
 });
 
-export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStore, setPlayers, setFieldCards,setIsRunningFlag,
+export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,setIsRunningFlag,
 	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard,
-	setLogs, addLogRecord, addActCardIds} = spySlice.actions;
+	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions} = spySlice.actions;
 export default spySlice.reducer;
