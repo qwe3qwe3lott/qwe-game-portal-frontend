@@ -1,0 +1,15 @@
+@import "../../mixins";
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.button {
+  @include button;
+}
+.topLabel {
+  @include topLabel;
+}
+.input {
+  @include input;
+}

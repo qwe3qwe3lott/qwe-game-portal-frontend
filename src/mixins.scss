@@ -15,6 +15,12 @@
     border-radius: 1em;
   }
 }
+@mixin topLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
 @mixin sideBar {
   @include scrollable;
   background-color: $section-background-color;

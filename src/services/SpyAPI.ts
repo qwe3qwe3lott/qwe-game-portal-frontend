@@ -20,6 +20,7 @@ import {Timer} from '../types/Timer';
 import {LogRecord} from '../types/LogRecord';
 import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
+import {OptionsDto} from '../dto/OptionsDto';
 
 class SpyAPI {
 	private readonly _socket: Socket;
@@ -83,6 +84,10 @@ class SpyAPI {
 			console.log(SpyWSEvents.GET_TIMER, timer);
 			this._store.dispatch(setTimer(timer));
 		});
+		this._socket.on(SpyWSEvents.GET_ROOM_OPTIONS, (roomOptions: RoomOptions) => {
+			console.log(SpyWSEvents.GET_ROOM_OPTIONS, roomOptions);
+			this._store.dispatch(setRoomOptions(roomOptions));
+		});
 		this._socket.on(SpyWSEvents.GET_LAST_WINNER, (lastWinner: string) => {
 			console.log(SpyWSEvents.GET_LAST_WINNER, lastWinner);
 			this._store.dispatch(setLastWinner(lastWinner));
@@ -109,10 +114,10 @@ class SpyAPI {
 		});
 	}
 
-	async createRoom(): Promise<string> {
+	async createRoom(roomOptions: RoomOptions): Promise<string> {
 		return new Promise(resolve => {
 			console.log(SpyWSEvents.CREATE_ROOM);
-			this._socket.emit(SpyWSEvents.CREATE_ROOM, undefined, (roomId: string) => {
+			this._socket.emit(SpyWSEvents.CREATE_ROOM, roomOptions, (roomId: string) => {
 				resolve(roomId);
 			});
 		});
@@ -138,9 +143,7 @@ class SpyAPI {
 
 	requestRoomOptions() {
 		console.log(SpyWSEvents.REQUEST_ROOM_OPTIONS);
-		this._socket.emit(SpyWSEvents.REQUEST_ROOM_OPTIONS, undefined, (roomOptions: RoomOptions) => {
-			this._store.dispatch(setRoomOptions(roomOptions));
-		});
+		this._socket.emit(SpyWSEvents.REQUEST_ROOM_OPTIONS);
 	}
 
 	become(becomePlayer: boolean) {
@@ -197,6 +200,16 @@ class SpyAPI {
 		this._socket.emit(SpyWSEvents.ASK_CARD, cardId);
 	}
 
+	async changeRoomOptions(ownerKey: string, roomOptions: RoomOptions) : Promise<boolean> {
+		return new Promise(resolve => {
+			const optionsDto: OptionsDto = { options: roomOptions, ownerKey };
+			console.log(SpyWSEvents.CHANGE_ROOM_OPTIONS, optionsDto);
+			this._socket.emit(SpyWSEvents.CHANGE_ROOM_OPTIONS, optionsDto, (flag: boolean) => {
+				resolve(flag);
+			});
+		});
+	}
+
 	async changeNickname(nickname: string) : Promise<boolean> {
 		return new Promise(resolve => {
 			console.log(SpyWSEvents.CHANGE_NICKNAME, nickname);
@@ -211,9 +224,7 @@ class SpyAPI {
 	}
 }
 
-const socket = io(process.env.REACT_APP_BACKEND_URL ?? '', {
-	withCredentials: true
-});
+const socket = io(process.env.REACT_APP_BACKEND_URL ?? '');
 
 const spyAPI = new SpyAPI(socket, store);
 spyAPI.init();

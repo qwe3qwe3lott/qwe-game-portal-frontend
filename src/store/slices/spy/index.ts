@@ -31,31 +31,31 @@ const initialState: SpyState = {
 		minPlayers: 2,
 		columns: 5,
 		optionsOfCards: [
-			{ title: 'Radioactive', url: 'http://localhost:3003/cardPacks/HarryDuBois/Radioactive.jpg' },
-			{ title: 'Love', url: 'http://localhost:3003/cardPacks/HarryDuBois/Love.jpg' },
-			{ title: 'Ghibli', url: 'http://localhost:3003/cardPacks/HarryDuBois/Ghibli.jpg' },
-			{ title: 'Death', url: 'http://localhost:3003/cardPacks/HarryDuBois/Death.jpg' },
-			{ title: 'Surreal', url: 'http://localhost:3003/cardPacks/HarryDuBois/Surreal.jpg' },
-			{ title: 'Robots', url: 'http://localhost:3003/cardPacks/HarryDuBois/Robots.jpg' },
-			{ title: 'No Style', url: 'http://localhost:3003/cardPacks/HarryDuBois/NoStyle.jpg' },
-			{ title: 'Wuhtercuhler', url: 'http://localhost:3003/cardPacks/HarryDuBois/Wuhtercuhler.jpg' },
-			{ title: 'Provenance', url: 'http://localhost:3003/cardPacks/HarryDuBois/Provenance.jpg' },
-			{ title: 'Moonwalker', url: 'http://localhost:3003/cardPacks/HarryDuBois/Moonwalker.jpg' },
-			{ title: 'Blacklight', url: 'http://localhost:3003/cardPacks/HarryDuBois/Blacklight.jpg' },
-			{ title: 'Rose Gold', url: 'http://localhost:3003/cardPacks/HarryDuBois/RoseGold.jpg' },
-			{ title: 'Steampunk', url: 'http://localhost:3003/cardPacks/HarryDuBois/Steampunk.jpg' },
-			{ title: 'Fantasy Art', url: 'http://localhost:3003/cardPacks/HarryDuBois/FantasyArt.jpg' },
-			{ title: 'Vibrant', url: 'http://localhost:3003/cardPacks/HarryDuBois/Vibrant.jpg' },
-			{ title: 'HD', url: 'http://localhost:3003/cardPacks/HarryDuBois/HD.jpg' },
-			{ title: 'Psychic', url: 'http://localhost:3003/cardPacks/HarryDuBois/Psychic.jpg' },
-			{ title: 'Dark Fantasy', url: 'http://localhost:3003/cardPacks/HarryDuBois/DarkFantasy.jpg' },
-			{ title: 'Mystical', url: 'http://localhost:3003/cardPacks/HarryDuBois/Mystical.jpg' },
-			{ title: 'Baroque', url: 'http://localhost:3003/cardPacks/HarryDuBois/Baroque.jpg' },
-			{ title: 'Etching', url: 'http://localhost:3003/cardPacks/HarryDuBois/Etching.jpg' },
-			{ title: 'S.Dali', url: 'http://localhost:3003/cardPacks/HarryDuBois/S.Dali.jpg' },
-			{ title: 'Psychedelic', url: 'http://localhost:3003/cardPacks/HarryDuBois/Psychedelic.jpg' },
-			{ title: 'Synthwave', url: 'http://localhost:3003/cardPacks/HarryDuBois/Synthwave.jpg' },
-			{ title: 'Ukiyoe', url: 'http://localhost:3003/cardPacks/HarryDuBois/Ukiyoe.jpg' }
+			{ title: 'Radioactive', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Radioactive.jpg' },
+			{ title: 'Love', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Love.jpg' },
+			{ title: 'Ghibli', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Ghibli.jpg' },
+			{ title: 'Death', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Death.jpg' },
+			{ title: 'Surreal', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Surreal.jpg' },
+			{ title: 'Robots', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Robots.jpg' },
+			{ title: 'No Style', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/NoStyle.jpg' },
+			{ title: 'Wuhtercuhler', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Wuhtercuhler.jpg' },
+			{ title: 'Provenance', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Provenance.jpg' },
+			{ title: 'Moonwalker', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Moonwalker.jpg' },
+			{ title: 'Blacklight', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Blacklight.jpg' },
+			{ title: 'Rose Gold', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/RoseGold.jpg' },
+			{ title: 'Steampunk', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Steampunk.jpg' },
+			{ title: 'Fantasy Art', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/FantasyArt.jpg' },
+			{ title: 'Vibrant', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Vibrant.jpg' },
+			{ title: 'HD', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/HD.jpg' },
+			{ title: 'Psychic', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Psychic.jpg' },
+			{ title: 'Dark Fantasy', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/DarkFantasy.jpg' },
+			{ title: 'Mystical', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Mystical.jpg' },
+			{ title: 'Baroque', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Baroque.jpg' },
+			{ title: 'Etching', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Etching.jpg' },
+			{ title: 'S.Dali', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/S.Dali.jpg' },
+			{ title: 'Psychedelic', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Psychedelic.jpg' },
+			{ title: 'Synthwave', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Synthwave.jpg' },
+			{ title: 'Ukiyoe', url: 'https://kozlov-spy-api.tk/cardPacks/HarryDuBois/Ukiyoe.jpg' }
 		]
 	}
 };
@@ -113,11 +113,13 @@ const spySlice = createSlice({
 			state.timer = { currentTime: 0, maxTime: 0 };
 			state.logs = [];
 			state.lastWinner = '';
-		}
+		},
+		setOptionSecondsToAct(state, action: PayloadAction<number>) { state.roomOptions.secondsToAct = action.payload; },
+		setOptionWinScore(state, action: PayloadAction<number>) { state.roomOptions.winScore = action.payload; }
 	}
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,setIsRunningFlag,
 	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard,
-	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions} = spySlice.actions;
+	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore} = spySlice.actions;
 export default spySlice.reducer;
