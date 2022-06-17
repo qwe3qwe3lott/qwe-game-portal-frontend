@@ -8,8 +8,12 @@ const MembersList: React.FC = () => {
 	const members = useAppSelector(state => state.spy.members);
 	return(<div className={styles.layout}>
 		<p>Участники</p>
-		<ul>
-			{members.map((member, key) => <li key={key} style={{ color: member.isPlayer ? globalColors.secondaryColor : globalColors.secondaryOppositeColor }}>
+		<ul className={styles.members}>
+			{members.map((member, key) => <li
+				className={styles.member}
+				key={key}
+				style={{ color: member.isPlayer ? globalColors.secondaryColor : globalColors.secondaryOppositeColor }}
+			>
 				{member.nickname}
 			</li>)}
 		</ul>

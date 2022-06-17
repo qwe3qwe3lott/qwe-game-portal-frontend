@@ -17,7 +17,7 @@ const NicknameForm: React.FC<Props> = ({ onSuccess }) => {
 	}, []);
 	const sendHandler = useCallback(() => {
 		spyAPI.changeNickname(value)
-			.then(flag => { if (flag) onSuccess(); });
+			.then(nickname => { if (nickname) onSuccess(); });
 	}, [onSuccess, value]);
 
 	return(<div className={styles.layout}>

@@ -210,15 +210,15 @@ class SpyAPI {
 		});
 	}
 
-	async changeNickname(nickname: string) : Promise<boolean> {
+	async changeNickname(nickname: string) : Promise<string> {
 		return new Promise(resolve => {
 			console.log(SpyWSEvents.CHANGE_NICKNAME, nickname);
-			this._socket.emit(SpyWSEvents.CHANGE_NICKNAME, nickname, (flag: boolean) => {
-				if (flag) {
+			this._socket.emit(SpyWSEvents.CHANGE_NICKNAME, nickname, (nickname: string) => {
+				if (nickname) {
 					this._store.dispatch(setNickname(nickname));
 					localStorage.setItem('nickname', nickname);
 				}
-				resolve(flag);
+				resolve(nickname);
 			});
 		});
 	}

@@ -11,12 +11,12 @@ const Logs: React.FC = () => {
 	}, [gameIsRunning]);
 	return(<>
 		{(logs.length > 0 || gameIsRunning) && <div className={styles.layout}>
-			<p>Логи</p>
-			<ol className={styles.records}>
+			<p>{gameIsRunning ? 'Логи' : 'Логи предыдущего матча'}</p>
+			<ul className={styles.records}>
 				{logs.map(logRecord => <li key={logRecord.id} className={recordClass}>
 				Шаг №{logRecord.id}. {logRecord.text}
 				</li>)}
-			</ol>
+			</ul>
 		</div>}
 	</>);
 };

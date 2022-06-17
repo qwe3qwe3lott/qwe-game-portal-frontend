@@ -8,7 +8,7 @@
 .field {
   place-self: center;
   display: grid;
-  gap: 1em;
+  gap: 0.5em;
 }
 .button {
   @include button;
