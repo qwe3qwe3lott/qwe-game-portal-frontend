@@ -8,7 +8,7 @@ const MembersList: React.FC = () => {
 	const members = useAppSelector(state => state.spy.members);
 	return(<div className={styles.layout}>
 		<p>Участники</p>
-		<ul className={styles.members}>
+		<ol className={styles.members}>
 			{members.map((member, key) => <li
 				className={styles.member}
 				key={key}
@@ -16,7 +16,7 @@ const MembersList: React.FC = () => {
 			>
 				{member.nickname}
 			</li>)}
-		</ul>
+		</ol>
 	</div>);
 };
 

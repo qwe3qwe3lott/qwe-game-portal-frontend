@@ -115,11 +115,16 @@ const spySlice = createSlice({
 			state.lastWinner = '';
 		},
 		setOptionSecondsToAct(state, action: PayloadAction<number>) { state.roomOptions.secondsToAct = action.payload; },
-		setOptionWinScore(state, action: PayloadAction<number>) { state.roomOptions.winScore = action.payload; }
+		setOptionWinScore(state, action: PayloadAction<number>) { state.roomOptions.winScore = action.payload; },
+		setOptionColumns(state, action: PayloadAction<number>) { state.roomOptions.columns = action.payload; },
+		setOptionRows(state, action: PayloadAction<number>) { state.roomOptions.rows = action.payload; },
+		setOptionMinPlayers(state, action: PayloadAction<number>) { state.roomOptions.minPlayers = action.payload; },
+		setOptionMaxPlayers(state, action: PayloadAction<number>) { state.roomOptions.maxPlayers = action.payload; }
 	}
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,setIsRunningFlag,
 	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard,
-	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore} = spySlice.actions;
+	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
+	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers} = spySlice.actions;
 export default spySlice.reducer;

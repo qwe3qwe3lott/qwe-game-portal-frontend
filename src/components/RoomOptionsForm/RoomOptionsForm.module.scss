@@ -1,11 +1,13 @@
 @import "../../mixins";
 .layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1em;
+  place-items: center;
 }
 .button {
   @include button;
+  grid-column: 1/4;
 }
 .topLabel {
   @include topLabel;

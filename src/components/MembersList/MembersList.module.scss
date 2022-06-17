@@ -3,8 +3,17 @@
   @include columnPanel;
 }
 .members {
-
+  @include scrollable;
+  overflow-x: auto;
+  max-width: 6em;
+  padding-bottom: 0.2em;
+  list-style-position: inside;
 }
 .member {
+  padding-bottom: 0.2em;
+  list-style-type: decimal;
+  display: list-item;
+  white-space: nowrap;
+  font-size: 0.8em;
   text-align: center;
 }

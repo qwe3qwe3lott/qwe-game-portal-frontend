@@ -1,6 +1,5 @@
 import React, {useCallback, useState} from 'react';
 import ModalWindow from '../ModalWindow';
-import {useAppSelector} from '../../hooks/typedReduxHooks';
 
 import styles from './OptionsButton.module.scss';
 import RoomOptionsForm from '../RoomOptionsForm';
@@ -11,7 +10,6 @@ type Props = {
 
 const OptionsButton: React.FC<Props> = ({ inGame }) => {
 	const [showModal, setShowModal] = useState(false);
-	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
 	const closeModalHandler = useCallback(() => {
 		setShowModal(false);
 	}, []);
@@ -19,8 +17,8 @@ const OptionsButton: React.FC<Props> = ({ inGame }) => {
 		setShowModal(true);
 	}, []);
 	return(<>
-		<button className={styles.button} disabled={gameIsRunning || showModal} onClick={openModalHandler}>Настройки</button>
-		{showModal && <ModalWindow onClose={closeModalHandler}>
+		<button className={styles.button} disabled={showModal} onClick={openModalHandler}>Настройки</button>
+		{showModal && <ModalWindow closeHandler={closeModalHandler}>
 			<RoomOptionsForm onSuccess={closeModalHandler} inGame={inGame}/>
 		</ModalWindow>}
 	</>);

@@ -16,7 +16,7 @@ const NicknameButton: React.FC = () => {
 	}, []);
 	return(<>
 		<button className={styles.button} disabled={gameIsRunning || showModal} onClick={openModalHandler}>Изменить ник</button>
-		{showModal && <ModalWindow onClose={closeModalHandler}>
+		{showModal && <ModalWindow closeHandler={closeModalHandler}>
 			<NicknameForm onSuccess={closeModalHandler}/>
 		</ModalWindow>}
 	</>);

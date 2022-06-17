@@ -44,6 +44,14 @@ button, input, select, option {
     color: inherit;
     border: 0;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+fieldset {
+    border: 0;
+}
 button:hover, input[type=button]:hover, input[type=submit]:hover, select:hover {
     cursor: pointer;
 }
