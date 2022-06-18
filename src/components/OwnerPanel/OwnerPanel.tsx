@@ -21,6 +21,7 @@ const OwnerPanel: React.FC = () => {
 		spyAPI.pauseGame(ownerKey);
 	}, [ownerKey]);
 	return(<div className={styles.layout}>
+		<p>Панель владельца</p>
 		<button
 			className={styles.button}
 			disabled={(gameIsRunning && !gameIsOnPause) || (!gameIsRunning && !startConditionFlag)}

@@ -11,7 +11,7 @@ const Logs: React.FC = () => {
 	}, [gameIsRunning]);
 	return(<>
 		{(logs.length > 0 || gameIsRunning) && <div className={styles.layout}>
-			<p>{gameIsRunning ? 'Логи' : 'Логи предыдущего матча'}</p>
+			<p>{gameIsRunning ? 'Логи:' : 'Логи предыдущего матча:'}</p>
 			<ul className={styles.records}>
 				{logs.map(logRecord => <li key={logRecord.id} className={recordClass}>
 				Шаг №{logRecord.id}. {logRecord.text}

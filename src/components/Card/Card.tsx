@@ -15,11 +15,9 @@ const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 	const captureHandler = useCallback(() => {
 		spyAPI.captureCard(card.id);
 	}, [card]);
-
 	const askHandler = useCallback(() => {
 		spyAPI.askCard(card.id);
 	}, [card]);
-
 	const backgroundColor = useMemo(() => {
 		if ('markCaptured' in card) return card.markCaptured ? '#007f0080' : '#7f000080';
 		if ('markAsked' in card) return card.markAsked ? '#007f0080' : '#7f000080';
@@ -54,7 +52,13 @@ const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 			}
 		} else return '';
 	}, []);
-	return(<div className={[styles.layout, getAnimationClass(card)].join(' ')} style={{...layoutStyle, backgroundColor }}>
+	const layoutClass = useMemo(() => {
+		return [styles.layout, getAnimationClass(card)].join(' ');
+	}, [card]);
+	const computedLayoutStyle = useMemo(() => {
+		return {...layoutStyle, backgroundColor };
+	}, [layoutStyle, backgroundColor]);
+	return(<li className={layoutClass} style={computedLayoutStyle}>
 		{!card.captured && <>
 			<div className={styles.image} style={{ backgroundImage: `url(${card.url})` }}>
 				{card.hasActOpportunity && !isDeco && <div className={styles.buttons}>
@@ -64,7 +68,7 @@ const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 			</div>
 			<p className={styles.title}>{card.title}</p>
 		</>}
-	</div>);
+	</li>);
 };
 
 export default Card;

@@ -51,6 +51,11 @@ input::-webkit-inner-spin-button {
 }
 fieldset {
     border: 0;
+    &[disabled] {
+        & input {
+            opacity: 0.5;
+        }
+    }
 }
 button:hover, input[type=button]:hover, input[type=submit]:hover, select:hover {
     cursor: pointer;

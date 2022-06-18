@@ -5,6 +5,7 @@ import {Timer} from '../../../types/Timer';
 import {LogRecord} from '../../../types/LogRecord';
 import {Sizes} from '../../../types/Sizes';
 import {RoomOptions} from '../../../types/RoomOptions';
+import {MembersRestriction} from '../../../types/MembersRestriction';
 
 export type SpyState = {
     nickname: string
@@ -23,4 +24,5 @@ export type SpyState = {
     logs: LogRecord[]
     lastWinner: string
     roomOptions: RoomOptions
+    membersRestriction: MembersRestriction
 }

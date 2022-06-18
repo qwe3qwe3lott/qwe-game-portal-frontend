@@ -23,6 +23,18 @@ import {RoomOptions} from '../types/RoomOptions';
 import {OptionsDto} from '../dto/OptionsDto';
 
 class SpyAPI {
+	public readonly MIN_MIN_PLAYERS = 2;
+	public readonly MAX_MIN_PLAYERS = 8;
+	public readonly MIN_MAX_PLAYERS = 2;
+	public readonly MAX_MAX_PLAYERS = 8;
+	public readonly MIN_ROWS = 3;
+	public readonly MAX_ROWS = 7;
+	public readonly MIN_COLUMNS = 3;
+	public readonly MAX_COLUMNS = 7;
+	public readonly MIN_SECONDS_TO_ACT = 15;
+	public readonly MAX_SECONDS_TO_ACT = 180;
+	public readonly MIN_WIN_SCORE = 1;
+	public readonly MAX_WIN_SCORE = 5;
 	private readonly _socket: Socket;
 	get socket() { return this._socket; }
 	private _store: AppStore;

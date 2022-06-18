@@ -23,6 +23,7 @@ const initialState: SpyState = {
 	timer: { currentTime: 0, maxTime: 0 },
 	logs: [],
 	lastWinner: '',
+	membersRestriction: { min: 2, max: 8 },
 	roomOptions: {
 		rows: 5,
 		maxPlayers: 8,
@@ -65,7 +66,11 @@ const spySlice = createSlice({
 	initialState,
 	reducers: {
 		setLastWinner(state, action: PayloadAction<string>) { state.lastWinner = action.payload; },
-		setRoomOptions(state, action: PayloadAction<RoomOptions>) { state.roomOptions = action.payload; },
+		setRoomOptions(state, action: PayloadAction<RoomOptions>) {
+			state.roomOptions = action.payload;
+			if (action.payload.minPlayers !== state.membersRestriction.min) state.membersRestriction.min = action.payload.minPlayers;
+			if (action.payload.maxPlayers !== state.membersRestriction.max) state.membersRestriction.max = action.payload.maxPlayers;
+		},
 		setLogs(state, action: PayloadAction<LogRecord[]>) { state.logs = action.payload; },
 		addLogRecord(state, action: PayloadAction<LogRecord>) { state.logs.unshift(action.payload); },
 		setMembers(state, action: PayloadAction<Member[]>) { state.members = action.payload; },

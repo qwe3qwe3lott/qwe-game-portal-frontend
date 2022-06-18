@@ -7,6 +7,11 @@
 }
 .button {
   @include button;
+}
+.fakeButton {
+  cursor: pointer;
+}
+.stretchWidth {
   grid-column: 1/4;
 }
 .topLabel {
