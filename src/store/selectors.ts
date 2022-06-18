@@ -14,6 +14,7 @@ export const selectRoomMinPlayers = (state: RootState): number => state.spy.room
 export const selectRoomMaxPlayers = (state: RootState): number => state.spy.roomOptions.maxPlayers;
 export const selectRoomOptions = (state: RootState): RoomOptions => state.spy.roomOptions;
 export const selectGameIsRunning = (state: RootState): boolean => state.spy.isRunning;
+export const selectGameIsOnPause = (state: RootState): boolean => state.spy.isOnPause;
 export const selectOwnerKey = (state: RootState): string => state.spy.ownerKey;
 export const selectFieldCards = (state: RootState): FieldCard[] => state.spy.fieldCards;
 export const selectSizes = (state: RootState): Sizes => state.spy.sizes;

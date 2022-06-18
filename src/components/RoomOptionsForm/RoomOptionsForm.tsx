@@ -22,6 +22,8 @@ import {
 	selectRoomOptionSecondsToAct,
 	selectRoomOptionWinScore
 } from '../../store/selectors';
+import {RootState} from '../../store';
+import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
 const RoomOptionsForm: React.FC<Props> = ({ onSuccess, inGame }) => {
 	const [showCards, setShowCards] = useState(false);
@@ -54,12 +56,15 @@ type InputProps = {
 	min: number
 	max: number
 	type: React.HTMLInputTypeAttribute
-	onChange: (event: ChangeEvent<HTMLInputElement>) => void
-	value: number
+	selector: (state: RootState) => number
+	action: ActionCreatorWithPayload<number>
 	label: string
 }
 
-const Input: React.FC<InputProps> = ({max, min, onChange, type, value, label}) => {
+const Input: React.FC<InputProps> = ({max, min, selector, action, type, label}) => {
+	const value = useAppSelector(selector);
+	const dispatch = useAppDispatch();
+	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(action(+event.target.value)), []);
 	return(<label className={styles.topLabel}>
 		{label}
 		<input
@@ -67,50 +72,24 @@ const Input: React.FC<InputProps> = ({max, min, onChange, type, value, label}) =
 			min={min}
 			max={max}
 			className={styles.input}
-			onChange={onChange}
+			onChange={changeHandler}
 			value={value}
 		/>
 	</label>);
 };
-
-const SecondsToActInput: React.FC = () => {
-	const secondsToAct = useAppSelector(selectRoomOptionSecondsToAct);
-	const dispatch = useAppDispatch();
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(setOptionSecondsToAct(+event.target.value)), []);
-	return(<Input min={spyAPI.MIN_SECONDS_TO_ACT} max={spyAPI.MAX_SECONDS_TO_ACT} type={'number'} onChange={changeHandler} value={secondsToAct} label={'Секунд на ход:'}/>);
-};
-
-const WinScoreInput: React.FC = () => {
-	const winScore = useAppSelector(selectRoomOptionWinScore);
-	const dispatch = useAppDispatch();
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(setOptionWinScore(+event.target.value)), []);
-	return(<Input min={spyAPI.MIN_WIN_SCORE} max={spyAPI.MAX_WIN_SCORE} type={'number'} onChange={changeHandler} value={winScore} label={'Очков для победы:'}/>);
-};
-const ColumnsInput: React.FC = () => {
-	const winScore = useAppSelector(selectRoomOptionColumns);
-	const dispatch = useAppDispatch();
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(setOptionColumns(+event.target.value)), []);
-	return(<Input min={spyAPI.MIN_COLUMNS} max={spyAPI.MAX_COLUMNS} type={'number'} onChange={changeHandler} value={winScore} label={'Колонок с картами:'}/>);
-};
-const RowsInput: React.FC = () => {
-	const winScore = useAppSelector(selectRoomOptionRows);
-	const dispatch = useAppDispatch();
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(setOptionRows(+event.target.value)), []);
-	return(<Input min={spyAPI.MIN_ROWS} max={spyAPI.MAX_ROWS} type={'number'} onChange={changeHandler} value={winScore} label={'Строк с картами:'}/>);
-};
-const MinPlayersInput: React.FC = () => {
-	const winScore = useAppSelector(selectRoomMinPlayers);
-	const dispatch = useAppDispatch();
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(setOptionMinPlayers(+event.target.value)), []);
-	return(<Input min={spyAPI.MIN_MIN_PLAYERS} max={spyAPI.MAX_MIN_PLAYERS} type={'number'} onChange={changeHandler} value={winScore} label={'Минимум игроков:'}/>);
-};
-const MaxPlayersInput: React.FC = () => {
-	const winScore = useAppSelector(selectRoomMaxPlayers);
-	const dispatch = useAppDispatch();
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => dispatch(setOptionMaxPlayers(+event.target.value)), []);
-	return(<Input min={spyAPI.MIN_MAX_PLAYERS} max={spyAPI.MAX_MAX_PLAYERS} type={'number'} onChange={changeHandler} value={winScore} label={'Максимум игроков:'}/>);
-};
-
+const SecondsToActInput: React.FC = () =>
+	<Input min={spyAPI.MIN_SECONDS_TO_ACT} max={spyAPI.MAX_SECONDS_TO_ACT} type={'number'} selector={selectRoomOptionSecondsToAct}
+		   action={setOptionSecondsToAct} label={'Секунд на ход:'}/>;
+const WinScoreInput: React.FC = () =>
+	<Input min={spyAPI.MIN_WIN_SCORE} max={spyAPI.MAX_WIN_SCORE} type={'number'} selector={selectRoomOptionWinScore} action={setOptionWinScore} label={'Очков для победы:'}/>;
+const ColumnsInput: React.FC = () =>
+	<Input min={spyAPI.MIN_COLUMNS} max={spyAPI.MAX_COLUMNS} type={'number'} selector={selectRoomOptionColumns} action={setOptionColumns} label={'Колонок с картами:'}/>;
+const RowsInput: React.FC = () =>
+	<Input min={spyAPI.MIN_ROWS} max={spyAPI.MAX_ROWS} type={'number'} selector={selectRoomOptionRows} action={setOptionRows} label={'Строк с картами:'}/>;
+const MinPlayersInput: React.FC = () =>
+	<Input min={spyAPI.MIN_MIN_PLAYERS} max={spyAPI.MAX_MIN_PLAYERS} type={'number'} selector={selectRoomMinPlayers} action={setOptionMinPlayers} label={'Минимум игроков:'}/>;
+const MaxPlayersInput: React.FC = () =>
+	<Input min={spyAPI.MIN_MAX_PLAYERS} max={spyAPI.MAX_MAX_PLAYERS} type={'number'} selector={selectRoomMaxPlayers} action={setOptionMaxPlayers} label={'Максимум игроков:'}/>;
 type SubmitFormProps = {
 	onSuccess: () => void
 	children: React.ReactNode
