@@ -1,0 +1,12 @@
+@import "../../../mixins";
+.layout {
+  @include columnPanel;
+  padding: 1em;
+  width: 20em;
+}
+.title {
+  font-size: 1.6em;
+}
+.button {
+  @include button;
+}

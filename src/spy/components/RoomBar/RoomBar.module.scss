@@ -1,0 +1,15 @@
+@import "../../../colors";
+.layout {
+  background-color: $primary-color;
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em 1em;
+}
+.button {
+  color: $primary-text-color;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,22 @@
+@import "../../../mixins";
+.layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  place-items: center;
+}
+.button {
+  @include button;
+}
+.fakeButton {
+  cursor: pointer;
+}
+.stretchWidth {
+  grid-column: 1/4;
+}
+.topLabel {
+  @include topLabel;
+}
+.input {
+  @include input;
+}

@@ -1,0 +1,17 @@
+@import "../../../colors";
+.layout {
+  display: grid;
+  gap: 0.5em;
+  width: min-content;
+  height: min-content;
+}
+.yourCard {
+  pointer-events: none;
+  border: 0.2em $primary-color solid;
+  animation: fadeOut 1s linear;
+}
+@keyframes fadeOut {
+  0% { opacity: 0 }
+  50% { opacity: 0 }
+  100% { opacity: 1 }
+}

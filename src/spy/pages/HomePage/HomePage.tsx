@@ -1,11 +1,11 @@
 import React from 'react';
-import GamesList from '../../components/GamesList';
 
 import styles from './HomePage.module.scss';
+import CreateRoomPanel from '../../components/CreateRoomPanel';
 
 const HomePage: React.FC = () => {
-	return(<div className={styles.layout}>
-		<GamesList/>
+	return (<div className={styles.layout}>
+		<CreateRoomPanel/>
 	</div>);
 };
 

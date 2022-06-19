@@ -1,5 +1,5 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import spyReducer from './slices/spy';
+import spyReducer from '../spy/store';
 
 const rootReducer = combineReducers({
 	spy: spyReducer

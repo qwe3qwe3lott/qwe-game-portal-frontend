@@ -1,8 +1,0 @@
-@import "../../colors";
-@import "../../mixins";
-.layout {
-  @include columnPanel;
-}
-.button {
-  @include button;
-}
