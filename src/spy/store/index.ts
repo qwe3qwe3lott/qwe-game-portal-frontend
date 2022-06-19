@@ -16,7 +16,6 @@ const initialState: State = {
 	isRunning: false,
 	fieldCards: [],
 	startConditionFlag: false,
-	nickname: '',
 	sizes: { rows: 0, columns: 0 },
 	iAmActing: false,
 	isOnPause: false,
@@ -103,7 +102,6 @@ const slice = createSlice({
 		setCard(state, action: PayloadAction<FieldCard>) { state.card = action.payload; },
 		tickTimer(state) { if (state.timer.currentTime > 0) state.timer.currentTime -= 1; },
 		setStartConditionFlag(state, action: PayloadAction<boolean>) { state.startConditionFlag = action.payload; },
-		setNickname(state, action: PayloadAction<string>) { state.nickname = action.payload; },
 		clearStoreAfterLeaving(state) {
 			state.ownerKey = '';
 			state.members = [];
@@ -129,7 +127,7 @@ const slice = createSlice({
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,setIsRunningFlag,
-	setStartConditionFlag, setNickname, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard,
+	setStartConditionFlag, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers} = slice.actions;
 export default slice.reducer;

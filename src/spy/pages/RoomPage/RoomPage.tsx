@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
 import Room from '../../components/Room';
-import spyAPI from '../../api';
+import api from '../../api';
 
 type Params = {
     roomId: string
@@ -19,19 +19,17 @@ const RoomPage: React.FC = () => {
 	const [state, setState] = useState(States.CHECKING);
 
 	useEffect(() => {
-		spyAPI.checkRoom(roomId ?? '')
+		api.checkRoom(roomId ?? '')
 			.then(flag => { setState(flag ? States.JOINING : States.REDIRECT); });
 	}, []);
 
 	useEffect(() => {
-		if (state === States.JOINING) spyAPI.joinRoom(roomId ?? '')
+		if (state === States.JOINING) api.joinRoom(roomId ?? '')
 			.then(flag => { setState(flag ? States.JOINED : States.REDIRECT); });
 	}, [state]);
 
 	return (<>
-		{state === States.CHECKING && <p>checking {roomId}</p>}
 		{state === States.REDIRECT && <Navigate to={'/spy'} replace/>}
-		{state === States.JOINING && <p>joining {roomId}</p>}
 		{state === States.JOINED && <Room/>}
 	</>);
 };

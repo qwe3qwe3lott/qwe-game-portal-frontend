@@ -1,0 +1,23 @@
+@import "../../mixins";
+.layout {
+  padding-top: 1em;
+  display: grid;
+  place-items: start center;
+  animation: fadeOut 2s linear;
+}
+.panel {
+  @include columnPanel;
+  padding: 1em;
+  width: max-content;
+}
+.title {
+
+}
+.button {
+  @include button;
+}
+@keyframes fadeOut {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1 }
+}

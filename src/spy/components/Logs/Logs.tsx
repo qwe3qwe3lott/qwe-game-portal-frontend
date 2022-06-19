@@ -2,10 +2,11 @@ import React, {useMemo} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import styles from './Logs.module.scss';
+import {selectGameIsRunning, selectLogs} from '../../store/selectors';
 
 const Logs: React.FC = () => {
-	const logs = useAppSelector(state => state.spy.logs);
-	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
+	const logs = useAppSelector(selectLogs);
+	const gameIsRunning = useAppSelector(selectGameIsRunning);
 	const recordClass = useMemo(() => {
 		return [styles.record, gameIsRunning ? styles.recordInGame : ''].join(' ');
 	}, [gameIsRunning]);

@@ -2,10 +2,11 @@ import React, {useMemo} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import styles from './PlayersList.module.scss';
+import {selectGameIsRunning, selectPlayers} from '../../store/selectors';
 
 const PlayersList: React.FC = () => {
-	const players = useAppSelector(state => state.spy.players);
-	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
+	const players = useAppSelector(selectPlayers);
+	const gameIsRunning = useAppSelector(selectGameIsRunning);
 	const playerClass = useMemo(() => {
 		return [styles.player, gameIsRunning ? styles.playerInGame : ''].join(' ');
 	}, [gameIsRunning]);

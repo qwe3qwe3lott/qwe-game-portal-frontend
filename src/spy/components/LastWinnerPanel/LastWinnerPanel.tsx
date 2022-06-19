@@ -2,9 +2,10 @@ import React from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import styles from './LastWinnerPanel.module.scss';
+import {selectLastWinner} from '../../store/selectors';
 
 const LastWinnerPanel: React.FC = () => {
-	const lastWinner = useAppSelector(state => state.spy.lastWinner);
+	const lastWinner = useAppSelector(selectLastWinner);
 	return(<>
 		{lastWinner && <div className={styles.layout}>
 			<p>Победитель:</p>

@@ -5,11 +5,14 @@ import GameBar from '../GameBar';
 import RoomBar from '../RoomBar';
 
 import styles from './Room.module.scss';
-import spyAPI from '../../api';
+import api from '../../api';
 
 const Room: React.FC = () => {
 	useEffect(() => {
-		spyAPI.become(true);
+		api.become(true);
+		return () => {
+			api.leaveRoom();
+		};
 	}, []);
 	return(<div className={styles.layout}>
 		<RoomBar className={styles.roomBar}/>

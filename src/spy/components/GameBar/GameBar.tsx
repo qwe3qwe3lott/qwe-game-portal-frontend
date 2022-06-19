@@ -7,13 +7,14 @@ import Logs from '../Logs';
 import styles from './GameBar.module.scss';
 import CardPanel from '../CardPanel';
 import LastWinnerPanel from '../LastWinnerPanel';
+import {selectGameIsRunning} from '../../store/selectors';
 
 type Props = {
 	className?: string
 }
 
 const GameBar: React.FC<Props> = ({className}) => {
-	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
+	const gameIsRunning = useAppSelector(selectGameIsRunning);
 
 	return(<div className={[className, styles.layout].join(' ')}>
 		{gameIsRunning ? <>

@@ -4,10 +4,11 @@ import NicknameForm from '../NicknameForm';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import styles from './NicknameButton.module.scss';
+import {selectGameIsRunning} from '../../store/selectors';
 
 const NicknameButton: React.FC = () => {
 	const [showModal, setShowModal] = useState(false);
-	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
+	const gameIsRunning = useAppSelector(selectGameIsRunning);
 	const closeModalHandler = useCallback(() => {
 		setShowModal(false);
 	}, []);

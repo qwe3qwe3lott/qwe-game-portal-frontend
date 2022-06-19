@@ -3,7 +3,7 @@ import {useAppSelector} from '../../../hooks/typedReduxHooks';
 import CardsField from '../CardsField';
 
 import styles from './GameField.module.scss';
-import spyAPI from '../../api';
+import api from '../../api';
 import {
 	selectFieldCards,
 	selectGameIsOnPause,
@@ -55,7 +55,7 @@ let MoveButtons: React.FC = () => {
 	const rowsArray = useMemo(() => Array.from({length: sizes.rows}, (_, i) => i + 1), [sizes]);
 	const columnsArray = useMemo(() => Array.from({length: sizes.columns}, (_, i) => i + 1), [sizes]);
 	const moveCards = useCallback((isRow: boolean, forward: boolean, id: number) => {
-		spyAPI.moveCards({ id, forward, isRow });
+		api.moveCards({ id, forward, isRow });
 	}, []);
 	const getStyle = useCallback((column: number, row: number, rotate: number) => {
 		return { gridColumn: `${column}`, gridRow: `${row}`, transform: `rotate(${rotate}deg)`};

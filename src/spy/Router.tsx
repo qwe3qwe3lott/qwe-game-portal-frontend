@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import spyAPI from './api';
+import api from './api';
 import ErrorPage from '../pages/ErrorPage';
 import RoomPage from './pages/RoomPage';
 
 const Router: React.FC = () => {
 	const [connected, setConnected] = useState(false);
 	useEffect(() => {
-		spyAPI.subscribe();
-		const socket = spyAPI.socket;
+		api.subscribe();
+		const socket = api.socket;
 		if (!socket) return;
 		const handler = () => {
 			setConnected(socket.connected);
@@ -19,7 +19,7 @@ const Router: React.FC = () => {
 		return () => {
 			socket.off('connect', handler);
 			socket.off('disconnect', handler);
-			spyAPI.describe();
+			api.describe();
 		};
 	}, []);
 	return(<Routes>

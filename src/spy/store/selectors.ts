@@ -5,6 +5,9 @@ import {Sizes} from '../types/Sizes';
 import {createSelector} from '@reduxjs/toolkit';
 import {MembersRestriction} from '../types/MembersRestriction';
 import {Member} from '../types/Member';
+import {LogRecord} from '../types/LogRecord';
+import {Player} from '../types/Player';
+import {Timer} from '../types/Timer';
 
 export const selectRoomOptionSecondsToAct = (state: RootState): number => state.spy.roomOptions.secondsToAct;
 export const selectRoomOptionWinScore = (state: RootState): number => state.spy.roomOptions.winScore;
@@ -18,8 +21,14 @@ export const selectGameIsOnPause = (state: RootState): boolean => state.spy.isOn
 export const selectOwnerKey = (state: RootState): string => state.spy.ownerKey;
 export const selectFieldCards = (state: RootState): FieldCard[] => state.spy.fieldCards;
 export const selectSizes = (state: RootState): Sizes => state.spy.sizes;
+export const selectTimer = (state: RootState): Timer => state.spy.timer;
 export const selectIAmActing = (state: RootState): boolean => state.spy.iAmActing;
+export const selectIAmPlayer = (state: RootState): boolean => state.spy.iAmPlayer;
 export const selectCard = (state: RootState): FieldCard | undefined => state.spy.card;
+export const selectLogs = (state: RootState): LogRecord[] => state.spy.logs;
+export const selectLastWinner = (state: RootState): string => state.spy.lastWinner;
+export const selectPlayers = (state: RootState): Player[] => state.spy.players;
+export const selectStartConditionFlag = (state: RootState): boolean => state.spy.startConditionFlag;
 export const selectMembers = (state: RootState): Member[] => state.spy.members;
 export const selectMembersRestriction = (state: RootState): MembersRestriction => state.spy.membersRestriction;
 export const computePlayersAmongMembers = createSelector(

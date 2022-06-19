@@ -8,7 +8,6 @@ import {RoomOptions} from '../types/RoomOptions';
 import {MembersRestriction} from '../types/MembersRestriction';
 
 export type State = {
-    nickname: string
     ownerKey: string
     members: Member[]
     iAmPlayer: boolean

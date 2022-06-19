@@ -1,7 +1,24 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import spyReducer from '../spy/store';
 
+type State = {
+	nickname: string
+}
+const initialState: State = {
+	nickname: ''
+};
+const slice = createSlice({
+	name: 'app',
+	initialState,
+	reducers: {
+		setNickname(state, action: PayloadAction<string>) { state.nickname = action.payload; }
+	}
+});
+export const {setNickname} = slice.actions;
+export const selectNickname = (state: RootState): string => state.app.nickname;
+
 const rootReducer = combineReducers({
+	app: slice.reducer,
 	spy: spyReducer
 });
 

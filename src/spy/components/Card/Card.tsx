@@ -2,7 +2,7 @@ import React, {useCallback, useMemo} from 'react';
 import {FieldCard} from '../../types/FieldCard';
 
 import styles from './Card.module.scss';
-import spyAPI from '../../api';
+import api from '../../api';
 import {Directions} from '../../enums/Directions';
 import globalColors from '../../../colors.scss';
 
@@ -14,10 +14,10 @@ type Props = {
 
 const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 	const captureHandler = useCallback(() => {
-		spyAPI.captureCard(card.id);
+		api.captureCard(card.id);
 	}, [card]);
 	const askHandler = useCallback(() => {
-		spyAPI.askCard(card.id);
+		api.askCard(card.id);
 	}, [card]);
 	const backgroundColor = useMemo(() => {
 		if ('markCaptured' in card) return card.markCaptured ? `${globalColors.secondaryColor}80` : `${globalColors.secondaryOppositeColor}80`;

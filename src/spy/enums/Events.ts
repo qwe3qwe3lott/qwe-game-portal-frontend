@@ -1,4 +1,4 @@
-export enum SpyWSEvents {
+export enum Events {
     CREATE_ROOM = 'createRoom',
     CHECK_ROOM = 'checkRoom',
     JOIN_ROOM = 'joinRoom',

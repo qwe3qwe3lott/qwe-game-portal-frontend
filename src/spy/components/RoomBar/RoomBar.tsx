@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
-import spyAPI from '../../api';
 
 import styles from './RoomBar.module.scss';
+import RulesButton from '../RulesButton';
 
 type Props = {
 	className?: string
@@ -12,7 +12,6 @@ const RoomBar: React.FC<Props> = ({className}) => {
 	const navigate = useNavigate();
 
 	const exitHandler = useCallback(() => {
-		spyAPI.leaveRoom();
 		navigate('/spy');
 	}, []);
 
@@ -21,8 +20,9 @@ const RoomBar: React.FC<Props> = ({className}) => {
 	}, []);
 
 	return(<div className={[className, styles.layout].join(' ')}>
-		<button className={styles.button} onClick={copyHandler}>Скопировать ссылку</button>
-		<button className={styles.button} onClick={exitHandler}>Выйти</button>
+		<button className={styles.button} style={{ placeSelf: 'start'}} onClick={copyHandler}>Скопировать ссылку</button>
+		<RulesButton inGame={true}/>
+		<button className={styles.button} style={{ placeSelf: 'end'}} onClick={exitHandler}>Выйти</button>
 	</div>);
 };
 

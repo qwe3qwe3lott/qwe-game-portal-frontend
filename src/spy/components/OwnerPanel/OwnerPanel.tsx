@@ -1,24 +1,30 @@
 import React, {useCallback} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
-import spyAPI from '../../api';
+import api from '../../api';
 
 import styles from './OwnerPanel.module.scss';
+import {
+	selectGameIsOnPause,
+	selectGameIsRunning,
+	selectOwnerKey,
+	selectStartConditionFlag
+} from '../../store/selectors';
 
 const OwnerPanel: React.FC = () => {
-	const ownerKey = useAppSelector(state => state.spy.ownerKey);
-	const gameIsRunning = useAppSelector(state => state.spy.isRunning);
-	const gameIsOnPause = useAppSelector(state => state.spy.isOnPause);
-	const startConditionFlag = useAppSelector(state => state.spy.startConditionFlag);
+	const ownerKey = useAppSelector(selectOwnerKey);
+	const gameIsRunning = useAppSelector(selectGameIsRunning);
+	const gameIsOnPause = useAppSelector(selectGameIsOnPause);
+	const startConditionFlag = useAppSelector(selectStartConditionFlag);
 
 	const startHandler = useCallback(() => {
-		if (!gameIsOnPause) spyAPI.startGame(ownerKey);
-		else spyAPI.resumeGame(ownerKey);
+		if (!gameIsOnPause) api.startGame(ownerKey);
+		else api.resumeGame(ownerKey);
 	}, [ownerKey, gameIsOnPause]);
 	const stopHandler = useCallback(() => {
-		spyAPI.stopGame(ownerKey);
+		api.stopGame(ownerKey);
 	}, [ownerKey]);
 	const pauseHandler = useCallback(() => {
-		spyAPI.pauseGame(ownerKey);
+		api.pauseGame(ownerKey);
 	}, [ownerKey]);
 	return(<div className={styles.layout}>
 		<p>Панель владельца</p>

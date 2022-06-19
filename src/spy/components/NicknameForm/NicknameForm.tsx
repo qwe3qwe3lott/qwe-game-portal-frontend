@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
-import spyAPI from '../../api';
+import api from '../../api';
 
 type Props = {
     onSuccess: () => void
@@ -7,16 +7,17 @@ type Props = {
 
 import styles from './NicknameForm.module.scss';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
+import {selectNickname} from '../../../store';
 
 const NicknameForm: React.FC<Props> = ({ onSuccess }) => {
-	const nickname = useAppSelector(state => state.spy.nickname);
+	const nickname = useAppSelector(selectNickname);
 	const [value, setValue] = useState(nickname);
 
 	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
 	}, []);
 	const sendHandler = useCallback(() => {
-		spyAPI.changeNickname(value)
+		api.changeNickname(value)
 			.then(nickname => { if (nickname) onSuccess(); });
 	}, [onSuccess, value]);
 

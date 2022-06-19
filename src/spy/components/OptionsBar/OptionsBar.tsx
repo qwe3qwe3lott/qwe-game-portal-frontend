@@ -5,13 +5,14 @@ import OwnerPanel from '../OwnerPanel';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import styles from './OptionsBar.module.scss';
+import {selectOwnerKey} from '../../store/selectors';
 
 type Props = {
 	className?: string
 }
 
 const OptionsBar: React.FC<Props> = ({className}) => {
-	const ownerKey = useAppSelector(state => state.spy.ownerKey);
+	const ownerKey = useAppSelector(selectOwnerKey);
 
 	return(<div className={[className, styles.layout].join(' ')}>
 		{ownerKey && <OwnerPanel/>}

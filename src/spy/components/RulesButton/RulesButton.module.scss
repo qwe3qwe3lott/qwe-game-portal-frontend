@@ -1,0 +1,12 @@
+@import "../../../mixins";
+.button {
+  @include button;
+}
+.buttonInGame {
+  max-width: fit-content;
+  color: $primary-text-color;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+}

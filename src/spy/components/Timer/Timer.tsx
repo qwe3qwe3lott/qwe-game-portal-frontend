@@ -1,18 +1,19 @@
 import React, {useEffect, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../hooks/typedReduxHooks';
 import {tickTimer} from '../../store';
-import spyAPI from '../../api';
+import api from '../../api';
 
 import globalColors from '../../../colors.scss';
 import styles from './Timer.module.scss';
+import {selectGameIsOnPause, selectTimer} from '../../store/selectors';
 
 const Timer: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const timer = useAppSelector(state => state.spy.timer);
-	const isOnPause = useAppSelector(state => state.spy.isOnPause);
+	const timer = useAppSelector(selectTimer);
+	const isOnPause = useAppSelector(selectGameIsOnPause);
 	useEffect(() => {
 		const handler = () => {
-			spyAPI.requestTimer();
+			api.requestTimer();
 		};
 		window.addEventListener('focus', handler);
 		document.addEventListener('focus', handler);
