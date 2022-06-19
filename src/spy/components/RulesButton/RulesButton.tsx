@@ -18,7 +18,7 @@ const RulesButton: React.FC<Props> = ({ inGame }) => {
 	return(<>
 		<button className={inGame ? styles.buttonInGame : styles.button} disabled={showModal} onClick={openModalHandler}>Правила</button>
 		{showModal && <ModalWindow closeHandler={closeModalHandler}>
-			Правила
+			Правила игры (в разработке)
 		</ModalWindow>}
 	</>);
 };

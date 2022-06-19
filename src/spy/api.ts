@@ -7,11 +7,10 @@ import {
 	addLogRecord,
 	clearStoreAfterLeaving, setCard,
 	setFieldCards, setIAmActingFlag,
-	setIAmPlayerFlag, setIsOnPauseFlag,
-	setIsRunningFlag, setLastWinner, setLogs,
+	setIAmPlayerFlag, setLastWinner, setLogs,
 	setMembers,
 	setOwnerKey,
-	setPlayers, setRoomOptions, setSizes, setStartConditionFlag, setTimer
+	setPlayers, setRoomOptions, setRoomStatus, setSizes, setStartConditionFlag, setTimer
 } from './store';
 import {Player} from './types/Player';
 import {FieldCard} from './types/FieldCard';
@@ -21,6 +20,7 @@ import {LogRecord} from './types/LogRecord';
 import {Sizes} from './types/Sizes';
 import {RoomOptions} from './types/RoomOptions';
 import {OptionsDto} from './dto/OptionsDto';
+import {RoomStatuses} from './enums/RoomStatuses';
 
 class Api {
 	public readonly MIN_MIN_PLAYERS = 2;
@@ -60,9 +60,9 @@ class Api {
 			console.log(Events.GET_FIELD_CARDS, fieldCards);
 			this._appDispatch(setFieldCards(fieldCards));
 		});
-		this._socket.on(Events.GET_RUNNING_FLAG, (flag: boolean) => {
-			console.log(Events.GET_RUNNING_FLAG, flag);
-			this._appDispatch(setIsRunningFlag(flag));
+		this._socket.on(Events.GET_ROOM_STATUS, (status: RoomStatuses) => {
+			console.log(Events.GET_ROOM_STATUS, status);
+			this._appDispatch(setRoomStatus(status));
 		});
 		this._socket.on(Events.GET_START_CONDITION_FLAG, (flag: boolean) => {
 			console.log(Events.GET_START_CONDITION_FLAG, flag);
@@ -71,10 +71,6 @@ class Api {
 		this._socket.on(Events.GET_ACT_FLAG, (flag: boolean) => {
 			console.log(Events.GET_ACT_FLAG, flag);
 			this._appDispatch(setIAmActingFlag(flag));
-		});
-		this._socket.on(Events.GET_PAUSE_FLAG, (flag: boolean) => {
-			console.log(Events.GET_PAUSE_FLAG, flag);
-			this._appDispatch(setIsOnPauseFlag(flag));
 		});
 		this._socket.on(Events.GET_SIZES, (sizes: Sizes) => {
 			console.log(Events.GET_SIZES, sizes);

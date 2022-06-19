@@ -7,18 +7,18 @@ import {Timer} from '../types/Timer';
 import {LogRecord} from '../types/LogRecord';
 import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
+import {RoomStatuses} from '../enums/RoomStatuses';
 
 const initialState: State = {
 	ownerKey: '',
 	members: [],
 	iAmPlayer: false,
 	players: [],
-	isRunning: false,
 	fieldCards: [],
 	startConditionFlag: false,
 	sizes: { rows: 0, columns: 0 },
 	iAmActing: false,
-	isOnPause: false,
+	roomStatus: RoomStatuses.IDLE,
 	timer: { currentTime: 0, maxTime: 0 },
 	logs: [],
 	lastWinner: '',
@@ -75,21 +75,25 @@ const slice = createSlice({
 		setMembers(state, action: PayloadAction<Member[]>) { state.members = action.payload; },
 		setOwnerKey(state, action: PayloadAction<string>) { state.ownerKey = action.payload; },
 		setIAmPlayerFlag(state, action: PayloadAction<boolean>) { state.iAmPlayer = action.payload; },
-		setIsRunningFlag(state, action: PayloadAction<boolean>) {
-			if (action.payload) {
-				state.lastWinner = '';
-				state.logs = [];
-				state.isOnPause = false;
-				state.isRunning = action.payload;
-			} else {
-				state.isRunning = action.payload;
-				state.isOnPause = false;
-				state.iAmActing = false;
-				state.timer = { currentTime: 0, maxTime: 0 };
+		setRoomStatus(state, action: PayloadAction<RoomStatuses>) {
+			switch (action.payload) {
+			case RoomStatuses.IDLE:
+			case RoomStatuses.ON_PAUSE:
+				state.roomStatus = action.payload;
+				break;
+			case RoomStatuses.IS_RUNNING:
+				if (action.payload) {
+					state.lastWinner = '';
+					state.roomStatus = action.payload;
+				} else {
+					state.roomStatus = action.payload;
+					state.iAmActing = false;
+					state.timer = { currentTime: 0, maxTime: 0 };
+				}
+				break;
 			}
 		},
 		setIAmActingFlag(state, action: PayloadAction<boolean>) { state.iAmActing = action.payload; },
-		setIsOnPauseFlag(state, action: PayloadAction<boolean>) { state.isOnPause = action.payload; },
 		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
 		setFieldCards(state, action: PayloadAction<FieldCard[]>) { state.fieldCards = action.payload; },
 		addActCardIds(state, action: PayloadAction<number[]>) {
@@ -107,12 +111,11 @@ const slice = createSlice({
 			state.members = [];
 			state.iAmPlayer = false;
 			state.players = [];
-			state.isRunning = false;
+			state.roomStatus = RoomStatuses.IDLE;
 			state.fieldCards = [];
 			state.startConditionFlag = false;
 			state.sizes = { rows: 0, columns: 0 };
 			state.iAmActing = false;
-			state.isOnPause = false;
 			state.timer = { currentTime: 0, maxTime: 0 };
 			state.logs = [];
 			state.lastWinner = '';
@@ -126,8 +129,8 @@ const slice = createSlice({
 	}
 });
 
-export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,setIsRunningFlag,
-	setStartConditionFlag, setIAmActingFlag, setSizes, setIsOnPauseFlag, setTimer, tickTimer, setCard,
+export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,
+	setStartConditionFlag, setIAmActingFlag, setSizes, setRoomStatus, setTimer, tickTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers} = slice.actions;
 export default slice.reducer;

@@ -6,13 +6,13 @@ import {LogRecord} from '../types/LogRecord';
 import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
 import {MembersRestriction} from '../types/MembersRestriction';
+import {RoomStatuses} from '../enums/RoomStatuses';
 
 export type State = {
     ownerKey: string
     members: Member[]
     iAmPlayer: boolean
-    isRunning: boolean
-    isOnPause: boolean
+    roomStatus: RoomStatuses
     iAmActing: boolean
     fieldCards: FieldCard[]
     players: Player[]

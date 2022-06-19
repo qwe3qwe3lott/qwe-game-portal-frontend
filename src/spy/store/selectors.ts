@@ -8,6 +8,7 @@ import {Member} from '../types/Member';
 import {LogRecord} from '../types/LogRecord';
 import {Player} from '../types/Player';
 import {Timer} from '../types/Timer';
+import {RoomStatuses} from '../enums/RoomStatuses';
 
 export const selectRoomOptionSecondsToAct = (state: RootState): number => state.spy.roomOptions.secondsToAct;
 export const selectRoomOptionWinScore = (state: RootState): number => state.spy.roomOptions.winScore;
@@ -16,8 +17,8 @@ export const selectRoomOptionRows = (state: RootState): number => state.spy.room
 export const selectRoomMinPlayers = (state: RootState): number => state.spy.roomOptions.minPlayers;
 export const selectRoomMaxPlayers = (state: RootState): number => state.spy.roomOptions.maxPlayers;
 export const selectRoomOptions = (state: RootState): RoomOptions => state.spy.roomOptions;
-export const selectGameIsRunning = (state: RootState): boolean => state.spy.isRunning;
-export const selectGameIsOnPause = (state: RootState): boolean => state.spy.isOnPause;
+export const selectGameIsRunning = (state: RootState): boolean => state.spy.roomStatus === RoomStatuses.IS_RUNNING || state.spy.roomStatus === RoomStatuses.ON_PAUSE;
+export const selectGameIsOnPause = (state: RootState): boolean => state.spy.roomStatus === RoomStatuses.ON_PAUSE;
 export const selectOwnerKey = (state: RootState): string => state.spy.ownerKey;
 export const selectFieldCards = (state: RootState): FieldCard[] => state.spy.fieldCards;
 export const selectSizes = (state: RootState): Sizes => state.spy.sizes;
