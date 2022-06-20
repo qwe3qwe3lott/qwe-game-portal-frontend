@@ -9,7 +9,7 @@ const CardPanel: React.FC = () => {
 	const card = useAppSelector(selectCard);
 	return(<>
 		{card && <div className={styles.layout}>
-			<p>Ваша карта:</p>
+			<p className={styles.title}>Ваша карта:</p>
 			<Card card={card} isDeco={true}/>
 		</div>}
 	</>);

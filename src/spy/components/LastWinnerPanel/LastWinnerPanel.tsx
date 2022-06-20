@@ -8,7 +8,7 @@ const LastWinnerPanel: React.FC = () => {
 	const lastWinner = useAppSelector(selectLastWinner);
 	return(<>
 		{lastWinner && <div className={styles.layout}>
-			<p>Победитель:</p>
+			<p className={styles.title}>Победитель:</p>
 			<p>{lastWinner}</p>
 		</div>}
 	</>);

@@ -10,3 +10,19 @@
     opacity: 1;
   }
 }
+.layout {
+  @include scrollable;
+  overflow-y: auto;
+  @include columnPanel;
+  background-color: inherit;
+  width: 30em;
+  padding: 1em;
+}
+.title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.text {
+  text-align: justify;
+  text-indent: 1.5em;
+}

@@ -15,7 +15,7 @@ const MemberPanel: React.FC = () => {
 	}, [iAmPlayer]);
 
 	return(<div className={styles.layout}>
-		<p>Панель участника</p>
+		<p className={styles.title}>Панель участника</p>
 		<button className={styles.button} disabled={gameIsRunning} onClick={becomeHandler}>{iAmPlayer ? 'Стать зрителем' : 'Стать игроком'}</button>
 		<OptionsButton inGame={true}/>
 		<NicknameButton/>
