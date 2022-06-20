@@ -5,9 +5,10 @@ import GameBar from '../GameBar';
 import RoomBar from '../RoomBar';
 
 import styles from './Room.module.scss';
-import api from '../../api';
+import {useApi} from '../../api';
 
 const Room: React.FC = () => {
+	const api = useApi();
 	useEffect(() => {
 		api.become(true);
 		return () => {

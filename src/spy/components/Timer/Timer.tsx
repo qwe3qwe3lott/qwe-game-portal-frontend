@@ -1,17 +1,18 @@
 import React, {useEffect, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../hooks/typedReduxHooks';
 import {tickTimer} from '../../store';
-import api from '../../api';
 
 import globalColors from '../../../colors.scss';
 import styles from './Timer.module.scss';
 import {selectGameIsOnPause, selectTimer} from '../../store/selectors';
+import {useApi} from '../../api';
 
 const Timer: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const timer = useAppSelector(selectTimer);
 	const isOnPause = useAppSelector(selectGameIsOnPause);
 	useEffect(() => {
+		const api = useApi();
 		const handler = () => {
 			api.requestTimer();
 		};

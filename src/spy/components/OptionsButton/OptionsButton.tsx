@@ -4,11 +4,7 @@ import ModalWindow from '../ModalWindow';
 import styles from './OptionsButton.module.scss';
 import RoomOptionsForm from '../RoomOptionsForm';
 
-type Props = {
-	inGame: boolean
-}
-
-const OptionsButton: React.FC<Props> = ({ inGame }) => {
+const OptionsButton: React.FC = () => {
 	const [showModal, setShowModal] = useState(false);
 	const closeModalHandler = useCallback(() => {
 		setShowModal(false);
@@ -19,7 +15,7 @@ const OptionsButton: React.FC<Props> = ({ inGame }) => {
 	return(<>
 		<button className={styles.button} disabled={showModal} onClick={openModalHandler}>Настройки</button>
 		{showModal && <ModalWindow closeHandler={closeModalHandler}>
-			<RoomOptionsForm onSuccess={closeModalHandler} inGame={inGame}/>
+			<RoomOptionsForm onSuccess={closeModalHandler}/>
 		</ModalWindow>}
 	</>);
 };

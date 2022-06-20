@@ -3,7 +3,6 @@ import {useAppSelector} from '../../../hooks/typedReduxHooks';
 import CardsField from '../CardsField';
 
 import styles from './GameField.module.scss';
-import api from '../../api';
 import {
 	selectFieldCards,
 	selectGameIsOnPause,
@@ -11,6 +10,7 @@ import {
 	selectIAmActing,
 	selectSizes
 } from '../../store/selectors';
+import {useApi} from '../../api';
 
 type Props = {
 	className?: string
@@ -50,6 +50,7 @@ const StatusBar: React.FC = () => {
 };
 
 let MoveButtons: React.FC = () => {
+	const api = useApi();
 	const iAmActing = useAppSelector(selectIAmActing);
 	const sizes = useAppSelector(selectSizes);
 	const rowsArray = useMemo(() => Array.from({length: sizes.rows}, (_, i) => i + 1), [sizes]);

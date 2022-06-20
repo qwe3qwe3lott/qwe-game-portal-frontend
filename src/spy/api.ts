@@ -22,19 +22,19 @@ import {RoomOptions} from './types/RoomOptions';
 import {OptionsDto} from './dto/OptionsDto';
 import {RoomStatuses} from './enums/RoomStatuses';
 
-class Api {
-	public readonly MIN_MIN_PLAYERS = 2;
-	public readonly MAX_MIN_PLAYERS = 8;
-	public readonly MIN_MAX_PLAYERS = 2;
-	public readonly MAX_MAX_PLAYERS = 8;
-	public readonly MIN_ROWS = 3;
-	public readonly MAX_ROWS = 7;
-	public readonly MIN_COLUMNS = 3;
-	public readonly MAX_COLUMNS = 7;
-	public readonly MIN_SECONDS_TO_ACT = 15;
-	public readonly MAX_SECONDS_TO_ACT = 180;
-	public readonly MIN_WIN_SCORE = 1;
-	public readonly MAX_WIN_SCORE = 5;
+export class Api {
+	public static readonly MIN_MIN_PLAYERS = 2;
+	public static readonly MAX_MIN_PLAYERS = 8;
+	public static readonly MIN_MAX_PLAYERS = 2;
+	public static readonly MAX_MAX_PLAYERS = 8;
+	public static readonly MIN_ROWS = 3;
+	public static readonly MAX_ROWS = 7;
+	public static readonly MIN_COLUMNS = 3;
+	public static readonly MAX_COLUMNS = 7;
+	public static readonly MIN_SECONDS_TO_ACT = 15;
+	public static readonly MAX_SECONDS_TO_ACT = 180;
+	public static readonly MIN_WIN_SCORE = 1;
+	public static readonly MAX_WIN_SCORE = 5;
 	private _socket?: Socket;
 	get socket() { return this._socket; }
 	private readonly _appDispatch: AppDispatch;
@@ -255,4 +255,4 @@ class Api {
 }
 
 const api = new Api(store.dispatch);
-export default api;
+export const useApi = () => (api);

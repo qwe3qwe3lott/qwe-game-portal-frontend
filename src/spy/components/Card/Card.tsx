@@ -2,9 +2,9 @@ import React, {useCallback, useMemo} from 'react';
 import {FieldCard} from '../../types/FieldCard';
 
 import styles from './Card.module.scss';
-import api from '../../api';
 import {Directions} from '../../enums/Directions';
 import globalColors from '../../../colors.scss';
+import {useApi} from '../../api';
 
 type Props = {
 	isDeco?: boolean
@@ -13,6 +13,7 @@ type Props = {
 }
 
 const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
+	const api = useApi();
 	const captureHandler = useCallback(() => {
 		api.captureCard(card.id);
 	}, [card]);

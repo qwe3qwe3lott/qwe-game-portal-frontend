@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
-import api from '../../api';
 
 import styles from './OwnerPanel.module.scss';
 import {
@@ -9,8 +8,10 @@ import {
 	selectOwnerKey,
 	selectStartConditionFlag
 } from '../../store/selectors';
+import {useApi} from '../../api';
 
 const OwnerPanel: React.FC = () => {
+	const api = useApi();
 	const ownerKey = useAppSelector(selectOwnerKey);
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
 	const gameIsOnPause = useAppSelector(selectGameIsOnPause);

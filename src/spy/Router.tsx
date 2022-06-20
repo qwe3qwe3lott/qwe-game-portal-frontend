@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import api from './api';
 import ErrorPage from '../pages/ErrorPage';
 import RoomPage from './pages/RoomPage';
+import {useApi} from './api';
 
 const Router: React.FC = () => {
+	const api = useApi();
 	const [connected, setConnected] = useState(false);
 	useEffect(() => {
 		api.subscribe();

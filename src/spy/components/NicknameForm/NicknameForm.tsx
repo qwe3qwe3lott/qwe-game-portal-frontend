@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
-import api from '../../api';
 
 type Props = {
     onSuccess: () => void
@@ -8,8 +7,10 @@ type Props = {
 import styles from './NicknameForm.module.scss';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 import {selectNickname} from '../../../store';
+import {useApi} from '../../api';
 
 const NicknameForm: React.FC<Props> = ({ onSuccess }) => {
+	const api = useApi();
 	const nickname = useAppSelector(selectNickname);
 	const [value, setValue] = useState(nickname);
 
