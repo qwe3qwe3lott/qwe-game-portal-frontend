@@ -10,7 +10,9 @@ $input-text-color: #000000;
 :export {
   primaryColor: $primary-color;
   secondaryColor: $secondary-color;
+  secondaryColorHalfOppacity: rgba($secondary-color, 0.5);
   secondaryOppositeColor: $secondary-opposite-color;
+  secondaryOppositeColorHalfOppacity: rgba($secondary-opposite-color, 0.5);
 }
 :root {
   --columns: 100%;
