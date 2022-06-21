@@ -15,7 +15,7 @@
   overflow-y: auto;
   @include columnPanel;
   background-color: inherit;
-  width: 30em;
+  max-width: 30em;
   padding: 1em;
 }
 .title {

@@ -48,13 +48,11 @@ const NormalTimer: React.FC<TimerProps> = ({timer, isOnPause}) => {
 		return `linear-gradient(90deg, ${globalColors.secondaryColor} ${(100 - Math.round(timer.currentTime * 100 / timer.maxTime))}%, ${globalColors.secondaryOppositeColor} 0%)`;
 	}, [timer]);
 	const timeText = useMemo(() => {
-		return `${Math.floor(timer.currentTime / 60)}:${timer.currentTime % 60 < 10 ? '0' : ''}${timer.currentTime % 60}`;
-	}, [timer]);
+		return isOnPause ? 'ПАУЗА' : `${Math.floor(timer.currentTime / 60)}:${timer.currentTime % 60 < 10 ? '0' : ''}${timer.currentTime % 60}`;
+	}, [timer, isOnPause]);
 	return(<div className={styles.layout}>
-		{isOnPause ? <p className={styles.text}>ПАУЗА</p> : <>
-			<p className={styles.text}>{timeText}</p>
-			<div className={styles.bar} style={{ background }}/>
-		</>}
+		<p className={styles.text}>{timeText}</p>
+		<div className={styles.bar} style={{ background }}/>
 	</div>);
 };
 

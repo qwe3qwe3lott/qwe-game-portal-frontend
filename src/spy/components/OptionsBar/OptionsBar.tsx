@@ -13,15 +13,18 @@ type Props = {
 
 const OptionsBar: React.FC<Props> = ({className}) => {
 	const ownerKey = useAppSelector(selectOwnerKey);
-	const [hidden, setHidden] = useState(false);
+	const [hidden, setHidden] = useState(window.screen.width < 700);
 	const layoutClass = useMemo(() => {
-		return [className, styles.layout, (hidden ? styles.hiddenLayout : '')].join(' ');
+		return [className, styles.layout, (hidden ? [styles.hiddenLayout, styles.hideLayout].join(' ') : styles.showLayout)].join(' ');
+	}, [hidden]);
+	const buttonClass = useMemo(() => {
+		return [styles.button, (hidden ? [styles.buttonHidden, styles.hideButton].join(' ') : styles.showButton)].join(' ');
 	}, [hidden]);
 	const clickHandler = useCallback(() => {
 		setHidden(!hidden);
 	}, [hidden]);
 	return(<div className={layoutClass}>
-		<button className={styles.button} onClick={clickHandler}>{'*'}</button>
+		<button className={buttonClass} onClick={clickHandler}/>
 		{hidden ? <>
 
 		</> : <>

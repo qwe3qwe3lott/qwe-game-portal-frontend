@@ -10,9 +10,39 @@
   width: 1em;
   padding: 1.5em 0 0 0;
 }
+.showLayout {
+  animation: showLayout linear 0.2s;
+}
+@mixin fromShowLayout {
+  width: 1em;
+}
+@mixin toShowLayout {
+  width: 12em;
+}
+@keyframes showLayout {
+  from {
+    width: 1em;
+    @include fromShowLayout;
+  }
+  to {
+    width: 12em;
+    @include toShowLayout;
+  }
+}
+.hideLayout {
+  animation: hideLayout linear 0.2s;
+}
+@keyframes hideLayout {
+  from { width: 12em; }
+  to { width: 1em; }
+}
 .button {
-  @include button;
+  overflow: hidden;
   background-color: $secondary-color;
+  background-image: url("../../../assets/menu.svg");
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 0;
   height: 1em;
   width: 1em;
@@ -20,4 +50,21 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+.buttonHidden {
+  border-radius: 0;
+}
+.showButton {
+  animation: showButton linear 0.2s;
+}
+@keyframes showButton {
+  from { border-radius: 0; }
+  to { border-radius: 0 0 1em 0; }
+}
+.hideButton {
+  animation: hideButton linear 0.2s;
+}
+@keyframes hideButton {
+  from { border-radius: 0 0 1em 0; }
+  to { border-radius: 0; }
 }
