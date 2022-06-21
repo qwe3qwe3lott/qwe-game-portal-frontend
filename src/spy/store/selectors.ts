@@ -56,3 +56,9 @@ export const computeLastLogs = createSelector(
 		return logs.slice(0, Math.min(logs.length, 10));
 	}
 );
+export const computeCurrentPlayer = createSelector(
+	[selectPlayers],
+	(players) => {
+		return players.length > 0 ? players[0] : undefined;
+	}
+);

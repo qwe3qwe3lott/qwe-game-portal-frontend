@@ -2,11 +2,22 @@ import React, {useMemo} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import styles from './PlayersList.module.scss';
-import {selectGameIsRunning, selectPlayers} from '../../store/selectors';
+import {computeCurrentPlayer, selectGameIsRunning, selectPlayers} from '../../store/selectors';
 
-const PlayersList: React.FC = () => {
-	const players = useAppSelector(selectPlayers);
+type Props = {
+	miniPanel?: boolean
+}
+const PlayersList: React.FC<Props> = ({ miniPanel }) => {
+	return(<>
+		{miniPanel ? <MiniPlayersList/> : <NormalPlayersList/>}
+	</>);
+};
+
+export default PlayersList;
+
+const NormalPlayersList: React.FC = () => {
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
+	const players = useAppSelector(selectPlayers);
 	const playerClass = useMemo(() => {
 		return [styles.player, gameIsRunning ? styles.playerInGame : ''].join(' ');
 	}, [gameIsRunning]);
@@ -22,4 +33,11 @@ const PlayersList: React.FC = () => {
 	</>);
 };
 
-export default PlayersList;
+const MiniPlayersList: React.FC = () => {
+	const player = useAppSelector(computeCurrentPlayer);
+	return(<>
+		{player && <p className={styles.miniPlayer}>
+			<span className={styles.score}>({player.score})</span> {player.nickname}
+		</p>}
+	</>);
+};

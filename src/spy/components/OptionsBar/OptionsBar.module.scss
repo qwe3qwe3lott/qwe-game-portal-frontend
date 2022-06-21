@@ -4,4 +4,20 @@
   @include sideBar;
   padding-top: 1.5em;
   width: 12em;
+  position: relative;
+}
+.hiddenLayout {
+  width: 1em;
+  padding: 1.5em 0 0 0;
+}
+.button {
+  @include button;
+  background-color: $secondary-color;
+  padding: 0;
+  height: 1em;
+  width: 1em;
+  border-radius: 0 0 0 1em;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

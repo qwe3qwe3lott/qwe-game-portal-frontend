@@ -2,11 +2,16 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import globalColors from '../../../colors.scss';
+import {Timer as TimerType} from '../../types/Timer';
 import styles from './Timer.module.scss';
 import {selectGameIsOnPause, selectTimer} from '../../store/selectors';
 import {useApi} from '../../api';
 
-const Timer: React.FC = () => {
+type Props = {
+	miniPanel?: boolean
+}
+
+const Timer: React.FC<Props> = ({miniPanel}) => {
 	const api = useApi();
 	const storeTimer = useAppSelector(selectTimer);
 	const isOnPause = useAppSelector(selectGameIsOnPause);
@@ -27,6 +32,18 @@ const Timer: React.FC = () => {
 		}, 1000);
 		return () => { clearTimeout(timeout); };
 	}, [isOnPause, timer]);
+	return(<>
+		{miniPanel ? <MiniTimer timer={timer} isOnPause={isOnPause}/> : <NormalTimer timer={timer} isOnPause={isOnPause}/>}
+	</>);
+};
+
+export default Timer;
+
+type TimerProps = {
+	timer: TimerType,
+	isOnPause: boolean
+}
+const NormalTimer: React.FC<TimerProps> = ({timer, isOnPause}) => {
 	const background = useMemo(() => {
 		return `linear-gradient(90deg, ${globalColors.secondaryColor} ${(100 - Math.round(timer.currentTime * 100 / timer.maxTime))}%, ${globalColors.secondaryOppositeColor} 0%)`;
 	}, [timer]);
@@ -36,9 +53,14 @@ const Timer: React.FC = () => {
 	return(<div className={styles.layout}>
 		{isOnPause ? <p className={styles.text}>ПАУЗА</p> : <>
 			<p className={styles.text}>{timeText}</p>
-			<div className={styles.bar} style={{ background: background }}/>
+			<div className={styles.bar} style={{ background }}/>
 		</>}
 	</div>);
 };
 
-export default Timer;
+const MiniTimer: React.FC<TimerProps> = ({timer}) => {
+	const background = useMemo(() => {
+		return `linear-gradient(0deg, ${globalColors.secondaryColor} ${(100 - Math.round(timer.currentTime * 100 / timer.maxTime))}%, ${globalColors.secondaryOppositeColor} 0%)`;
+	}, [timer]);
+	return(<div className={styles.miniBar} style={{ background }}/>);
+};

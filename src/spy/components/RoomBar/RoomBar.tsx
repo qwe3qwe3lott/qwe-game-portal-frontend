@@ -20,9 +20,9 @@ const RoomBar: React.FC<Props> = ({className}) => {
 	}, []);
 
 	return(<div className={[className, styles.layout].join(' ')}>
-		<button className={styles.button} style={{ placeSelf: 'start'}} onClick={copyHandler}>Скопировать ссылку</button>
+		<button className={styles.button} style={{ placeSelf: 'center start'}} onClick={copyHandler}>Скопировать ссылку</button>
 		<RulesButton inGame={true}/>
-		<button className={styles.button} style={{ placeSelf: 'end'}} onClick={exitHandler}>Выйти</button>
+		<button className={styles.button} style={{ placeSelf: 'center end'}} onClick={exitHandler}>Выйти</button>
 	</div>);
 };
 

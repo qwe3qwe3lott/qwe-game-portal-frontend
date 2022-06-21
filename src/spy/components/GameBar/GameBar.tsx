@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import PlayersList from '../PlayersList';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 import Timer from '../Timer';
@@ -15,17 +15,31 @@ type Props = {
 
 const GameBar: React.FC<Props> = ({className}) => {
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
-	return(<div className={[className, styles.layout].join(' ')}>
-		<button className={styles.button}>{'*'}</button>
-		{gameIsRunning ? <>
-			<Timer/>
-			<PlayersList/>
-			<CardPanel/>
-			<Logs/>
+	const [hidden, setHidden] = useState(false);
+	const layoutClass = useMemo(() => {
+		return [className, styles.layout, (hidden ? styles.hiddenLayout : '')].join(' ');
+	}, [hidden]);
+	const clickHandler = useCallback(() => {
+		setHidden(!hidden);
+	}, [hidden]);
+	return(<div className={layoutClass}>
+		<button className={styles.button} onClick={clickHandler}>{'*'}</button>
+		{hidden ? <>
+			{gameIsRunning && <>
+				<Timer miniPanel={true}/>
+				<PlayersList miniPanel={true}/>
+			</>}
 		</> : <>
-			<LastWinnerPanel/>
-			<PlayersList/>
-			<Logs/>
+			{gameIsRunning ? <>
+				<Timer/>
+				<PlayersList/>
+				<CardPanel/>
+				<Logs/>
+			</> : <>
+				<LastWinnerPanel/>
+				<PlayersList/>
+				<Logs/>
+			</>}
 		</>}
 	</div>);
 };
