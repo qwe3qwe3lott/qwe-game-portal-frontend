@@ -3,13 +3,23 @@
 .layout {
   @include columnPanel;
 }
-.player {
+.title {
   text-align: center;
-  font-size: 0.8em;
+}
+.players {
+  @include scrollable;
+  overflow-x: auto;
+  max-width: 8em;
+  padding-bottom: 0.2em;
+}
+.player {
+  white-space: nowrap;
+  text-align: start;
+  font-size: 0.7em;
 }
 .playerInGame {
   &:first-child {
-    font-size: 1em;
+    font-size: 0.9em;
     padding-bottom: 0.3em;
   }
 }

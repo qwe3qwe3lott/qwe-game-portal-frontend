@@ -15,8 +15,8 @@ type Props = {
 
 const GameBar: React.FC<Props> = ({className}) => {
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
-
 	return(<div className={[className, styles.layout].join(' ')}>
+		<button className={styles.button}>{'*'}</button>
 		{gameIsRunning ? <>
 			<Timer/>
 			<PlayersList/>

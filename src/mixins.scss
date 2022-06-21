@@ -24,6 +24,12 @@
   place-items: center;
   gap: 0.5em;
 }
+@mixin rightLabel {
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  gap: 0.5em;
+}
 @mixin sideBar {
   @include scrollable;
   background-color: $section-background-color;
@@ -53,4 +59,46 @@
   background-color: $input-background-color;
   color: $input-text-color;
   border-radius: 0.5em;
+}
+@mixin checkbox {
+  height: 1em;
+  width: 1em;
+  position: relative;
+  -webkit-appearance: none;
+  &:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: 1em;
+    width: 1em;
+    border: 1px solid $input-text-color;
+    background-color: $input-background-color;
+  }
+  &:hover {
+    filter: brightness(90%);
+  }
+  &:checked {
+    &:before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      height: 1em;
+      width: 1em;
+      border: 1px solid $input-text-color;
+      background-color: $input-background-color;
+    }
+    &:after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      top: 0.2em;
+      left: 0.3em;
+      height: 0.5em;
+      width: 0.7em;
+      border-left: 0.15em solid $input-text-color;
+      border-bottom: 0.15em solid $input-text-color;
+      -webkit-transform: translateY(-0.1em) rotate(-45deg);
+      transform: translateY(-0.1em) rotate(-45deg);
+    }
+  }
 }

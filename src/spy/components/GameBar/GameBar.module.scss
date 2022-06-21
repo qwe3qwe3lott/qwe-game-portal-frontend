@@ -2,4 +2,18 @@
 @import "../../../mixins";
 .layout {
   @include sideBar;
+  padding-top: 1.5em;
+  width: 12em;
+  position: relative;
+}
+.button {
+  @include button;
+  background-color: $secondary-color;
+  padding: 0;
+  height: 1em;
+  width: 1em;
+  border-radius: 0 0 1em 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

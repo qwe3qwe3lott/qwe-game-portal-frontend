@@ -1,15 +1,30 @@
 @import "../../../mixins";
 @import "../../../colors";
 .layout {
-  @include scrollable;
   @include columnPanel;
-  min-height: 50vh;
-  max-height: 50vh;
+}
+.title {
+  text-align: center;
+}
+.checkLabel {
+  @include rightLabel;
+  font-size: 0.7em;
+}
+.checkBox {
+  @include checkbox;
+}
+.records {
+  height: 100%;
+  min-height: 8em;
+  max-height: 30vh;
+  @include scrollable;
   overflow-y: auto;
 }
 .record {
-  text-align: center;
-  font-size: 0.8em;
+  padding: 0.1em;
+  word-break: break-word;
+  text-align: start;
+  font-size: 0.7em;
   border-top: 0.1em solid $secondary-color;
   &:first-child {
     border-top: unset;
@@ -17,7 +32,10 @@
 }
 .recordInGame {
   &:first-child {
-    font-size: 1em;
+    font-size: 0.8em;
     padding-bottom: 0.3em;
   }
+}
+.step {
+  color: $primary-color;
 }

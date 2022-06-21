@@ -12,10 +12,10 @@ const PlayersList: React.FC = () => {
 	}, [gameIsRunning]);
 	return(<>
 		{players.length > 0 &&<div className={styles.layout}>
-			<p>{gameIsRunning ? 'Ходит игрок:' : 'Учавствовавшие игроки:'}</p>
-			<ul>
+			<p className={styles.title}>{gameIsRunning ? 'Ходит игрок:' : 'Учавствовавшие игроки:'}</p>
+			<ul className={styles.players}>
 				{players.map(player => <li className={playerClass} key={player.id}>
-					{player.nickname} <span className={styles.score}>({player.score})</span>
+					<span className={styles.score}>({player.score})</span> {player.nickname}
 				</li>)}
 			</ul>
 		</div>}

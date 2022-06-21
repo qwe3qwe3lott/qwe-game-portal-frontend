@@ -50,3 +50,9 @@ export const computeYourCardIndex = createSelector(
 		return yourCard ? cards.findIndex(card => card.id === yourCard.id) : -1;
 	}
 );
+export const computeLastLogs = createSelector(
+	[selectLogs],
+	(logs) => {
+		return logs.slice(0, Math.min(logs.length, 10));
+	}
+);

@@ -6,7 +6,7 @@
   grid-template:
     "rb rb rb" auto
     "ob gf gb" 1fr
-    / 12em auto 20em;
+    / max-content auto max-content;
 }
 .roomBar {
   grid-area: rb;
