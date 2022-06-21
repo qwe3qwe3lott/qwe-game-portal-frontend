@@ -21,10 +21,12 @@ const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 		api.askCard(card.id);
 	}, [card]);
 	const backgroundColor = useMemo(() => {
-		if ('markCaptured' in card) return card.markCaptured ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity;
-		if ('markAsked' in card) return card.markAsked ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity;
-		if ('markMovedDirection' in card || 'markTeleportedDirection' in card) return globalColors.secondaryColorHalfOppacity;
-	}, [card]);
+		if (isDeco) return '';
+		if ('markCaptured' in card) return (card.markCaptured ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity) as string;
+		if ('markAsked' in card) return (card.markAsked ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity) as string;
+		if ('markMovedDirection' in card || 'markTeleportedDirection' in card) return (globalColors.secondaryColorHalfOppacity) as string;
+		return '';
+	}, [card, isDeco]);
 	const getAnimationClass = useCallback((card: FieldCard): string => {
 		if ('markMovedDirection' in card) {
 			switch (card.markMovedDirection) {
