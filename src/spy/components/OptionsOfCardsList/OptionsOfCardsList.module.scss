@@ -1,0 +1,32 @@
+@import "../../../mixins";
+@import "../../../colors";
+.layout {
+  max-height: 20em;
+  height: 50vh;
+  padding: 0.5em 1em;
+  overflow-y: auto;
+  width: 20em;
+  display: grid;
+  gap: 0.5em;
+  grid-auto-flow: row;
+  @include scrollable;
+}
+.showButton {
+  @include panel;
+  text-align: center;
+  width: 100%;
+  &:hover {
+    background-color: $primary-color;
+    color: $primary-text-color;
+  }
+}
+.showedItem {
+  @include columnPanel;
+  padding: 0.5em 1em;
+}
+.topLabel {
+  @include topLabel;
+}
+.input {
+  @include input;
+}

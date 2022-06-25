@@ -23,6 +23,7 @@ import {
 import {RootState} from '../../../store';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {Api, useApi} from '../../api';
+import OptionsOfCardsList from '../OptionsOfCardsList';
 
 const RoomOptionsForm: React.FC<Props> = ({ onSuccess }) => {
 	const [showCards, setShowCards] = useState(false);
@@ -47,7 +48,7 @@ export default RoomOptionsForm;
 
 const OptionsOfCards: React.FC = () => {
 	return(<div className={styles.stretchWidth}>
-		в разработке
+		<OptionsOfCardsList/>
 	</div>);
 };
 

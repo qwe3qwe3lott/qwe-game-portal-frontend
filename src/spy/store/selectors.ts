@@ -9,8 +9,10 @@ import {LogRecord} from '../types/LogRecord';
 import {Player} from '../types/Player';
 import {Timer} from '../types/Timer';
 import {RoomStatuses} from '../enums/RoomStatuses';
+import {CardOptions} from '../types/CardOptions';
 
 export const selectRoomOptionSecondsToAct = (state: RootState): number => state.spy.roomOptions.secondsToAct;
+export const selectRoomOptionOptionsOfCards = (state: RootState): CardOptions[] => state.spy.roomOptions.optionsOfCards;
 export const selectRoomOptionWinScore = (state: RootState): number => state.spy.roomOptions.winScore;
 export const selectRoomOptionColumns = (state: RootState): number => state.spy.roomOptions.columns;
 export const selectRoomOptionRows = (state: RootState): number => state.spy.roomOptions.rows;

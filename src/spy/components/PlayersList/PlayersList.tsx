@@ -7,11 +7,8 @@ import {computeCurrentPlayer, selectGameIsRunning, selectPlayers} from '../../st
 type Props = {
 	miniPanel?: boolean
 }
-const PlayersList: React.FC<Props> = ({ miniPanel }) => {
-	return(<>
-		{miniPanel ? <MiniPlayersList/> : <NormalPlayersList/>}
-	</>);
-};
+const PlayersList: React.FC<Props> = ({ miniPanel }) =>
+	miniPanel ? <MiniPlayersList/> : <NormalPlayersList/>;
 
 export default PlayersList;
 

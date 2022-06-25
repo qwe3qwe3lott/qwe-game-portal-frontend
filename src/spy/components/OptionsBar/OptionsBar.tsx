@@ -15,10 +15,10 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 	const ownerKey = useAppSelector(selectOwnerKey);
 	const [hidden, setHidden] = useState(window.screen.width < 700);
 	const layoutClass = useMemo(() => {
-		return [className, styles.layout, (hidden ? [styles.hiddenLayout, styles.hideLayout].join(' ') : styles.showLayout)].join(' ');
+		return [className, styles.layout, (hidden ? styles.hiddenLayout : '')].join(' ');
 	}, [hidden]);
 	const buttonClass = useMemo(() => {
-		return [styles.button, (hidden ? [styles.buttonHidden, styles.hideButton].join(' ') : styles.showButton)].join(' ');
+		return [styles.button, (hidden ? styles.buttonHidden : '')].join(' ');
 	}, [hidden]);
 	const clickHandler = useCallback(() => {
 		setHidden(!hidden);

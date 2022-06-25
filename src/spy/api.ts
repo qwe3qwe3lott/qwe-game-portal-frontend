@@ -128,11 +128,11 @@ export class Api {
 		delete this._socket;
 	}
 
-	async createRoom(roomOptions: RoomOptions): Promise<string> {
+	async createRoom(): Promise<string> {
 		return new Promise(resolve => {
 			if (!this._socket) return resolve('');
 			console.log(Events.CREATE_ROOM);
-			this._socket.emit(Events.CREATE_ROOM, roomOptions, (roomId: string) => {
+			this._socket.emit(Events.CREATE_ROOM, undefined, (roomId: string) => {
 				resolve(roomId);
 			});
 		});

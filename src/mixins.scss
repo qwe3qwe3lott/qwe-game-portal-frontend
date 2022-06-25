@@ -102,3 +102,15 @@
     }
   }
 }
+@mixin sideBarButtonAnim($name, $from, $to) {
+  @keyframes #{$name} {
+    from { border-radius: $from; }
+    to { border-radius: $to; }
+  }
+}
+@mixin sideBarLayoutAnim($name, $from, $to) {
+  @keyframes #{$name} {
+    from { width: $from; }
+    to { width: $to; }
+  }
+}

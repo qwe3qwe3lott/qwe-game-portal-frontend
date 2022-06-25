@@ -32,9 +32,7 @@ const Timer: React.FC<Props> = ({miniPanel}) => {
 		}, 1000);
 		return () => { clearTimeout(timeout); };
 	}, [isOnPause, timer]);
-	return(<>
-		{miniPanel ? <MiniTimer timer={timer} isOnPause={isOnPause}/> : <NormalTimer timer={timer} isOnPause={isOnPause}/>}
-	</>);
+	return miniPanel ? <MiniTimer timer={timer} isOnPause={isOnPause}/> : <NormalTimer timer={timer} isOnPause={isOnPause}/>;
 };
 
 export default Timer;

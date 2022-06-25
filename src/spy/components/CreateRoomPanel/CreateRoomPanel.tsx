@@ -2,8 +2,6 @@ import React, {useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './CreateRoomPanel.module.scss';
 import NicknameButton from '../NicknameButton';
-import {useAppSelector} from '../../../hooks/typedReduxHooks';
-import {selectRoomOptions} from '../../store/selectors';
 import RulesButton from '../RulesButton';
 import {useApi} from '../../api';
 
@@ -26,10 +24,9 @@ export default CreateRoomPanel;
 const CreateRoomButton: React.FC = () => {
 	const api = useApi();
 	const navigate = useNavigate();
-	const roomOptions = useAppSelector(selectRoomOptions);
 	const createHandler = useCallback(async () => {
-		const roomId = await api.createRoom(roomOptions);
+		const roomId = await api.createRoom();
 		if (roomId) navigate(`${roomId}`);
-	}, [roomOptions]);
+	}, []);
 	return(<button className={styles.button} onClick={createHandler}>Создать комнату</button>);
 };

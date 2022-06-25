@@ -5,37 +5,15 @@
   padding-top: 1.5em;
   width: 12em;
   position: relative;
+  animation: showSideBarLayout linear 0.2s;
 }
 .hiddenLayout {
   width: 1em;
   padding: 1.5em 0 0 0;
+  animation: hideSideBarLayout linear 0.2s;
 }
-.showLayout {
-  animation: showLayout linear 0.2s;
-}
-@mixin fromShowLayout {
-  width: 1em;
-}
-@mixin toShowLayout {
-  width: 12em;
-}
-@keyframes showLayout {
-  from {
-    width: 1em;
-    @include fromShowLayout;
-  }
-  to {
-    width: 12em;
-    @include toShowLayout;
-  }
-}
-.hideLayout {
-  animation: hideLayout linear 0.2s;
-}
-@keyframes hideLayout {
-  from { width: 12em; }
-  to { width: 1em; }
-}
+@include sideBarLayoutAnim(hideSideBarLayout, 12em, 1em);
+@include sideBarLayoutAnim(showSideBarLayout, 1em, 12em);
 .button {
   overflow: hidden;
   background-color: $secondary-color;
@@ -50,21 +28,11 @@
   position: absolute;
   top: 0;
   right: 0;
+  animation: showSideBarButton linear 0.2s;
 }
 .buttonHidden {
   border-radius: 0;
+  animation: hideSideBarButton linear 0.2s;
 }
-.showButton {
-  animation: showButton linear 0.2s;
-}
-@keyframes showButton {
-  from { border-radius: 0; }
-  to { border-radius: 0 0 0 1em; }
-}
-.hideButton {
-  animation: hideButton linear 0.2s;
-}
-@keyframes hideButton {
-  from { border-radius: 0 0 0 1em; }
-  to { border-radius: 0; }
-}
+@include sideBarButtonAnim(hideSideBarButton, 0 0 0 1em, 0);
+@include sideBarButtonAnim(showSideBarButton, 0, 0 0 0 1em);
