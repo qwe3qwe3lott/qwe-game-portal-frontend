@@ -29,10 +29,12 @@ const Router: React.FC = () => {
 			{connected && <>
 				<Route index element={<HomePage/>}/>
 				<Route path={':roomId'} element={<RoomPage/>}/>
-				<Route path={'*'} element={<Navigate to={'/spy'}/>}/>
+				<Route path={'*'} element={<Navigate to={`/${routePath}`}/>}/>
 			</>}
 		</Route>
 	</Routes>);
 };
 
 export default Router;
+
+export const routePath = 'spy';

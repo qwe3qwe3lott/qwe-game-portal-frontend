@@ -8,6 +8,7 @@ import {LogRecord} from '../types/LogRecord';
 import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
 import {RoomStatuses} from '../enums/RoomStatuses';
+import {CardOptions} from '../types/CardOptions';
 
 const initialState: State = {
 	ownerKey: '',
@@ -23,15 +24,16 @@ const initialState: State = {
 	logs: [],
 	lastWinner: '',
 	membersRestriction: { min: 2, max: 8 },
+	optionsOfCardsIdCounter: 1,
 	roomOptions: {
 		rows: 5,
 		maxPlayers: 8,
 		winScore: 3,
 		secondsToAct: 60,
 		minPlayers: 2,
-		columns: 5,
-		optionsOfCards: []
-	}
+		columns: 5
+	},
+	optionsOfCards: []
 };
 
 const slice = createSlice({
@@ -41,8 +43,12 @@ const slice = createSlice({
 		setLastWinner(state, action: PayloadAction<string>) { state.lastWinner = action.payload; },
 		setRoomOptions(state, action: PayloadAction<RoomOptions>) {
 			state.roomOptions = action.payload;
-			if (action.payload.minPlayers !== state.membersRestriction.min) state.membersRestriction.min = action.payload.minPlayers;
-			if (action.payload.maxPlayers !== state.membersRestriction.max) state.membersRestriction.max = action.payload.maxPlayers;
+			state.membersRestriction.min = action.payload.minPlayers;
+			state.membersRestriction.max = action.payload.maxPlayers;
+		},
+		setOptionsOfCards(state, action: PayloadAction<CardOptions[]>) {
+			state.optionsOfCards = action.payload;
+			state.optionsOfCardsIdCounter = action.payload.length + 1;
 		},
 		setLogs(state, action: PayloadAction<LogRecord[]>) { state.logs = action.payload; },
 		addLogRecord(state, action: PayloadAction<LogRecord>) { state.logs.unshift(action.payload); },
@@ -101,14 +107,21 @@ const slice = createSlice({
 		setOptionMinPlayers(state, action: PayloadAction<number>) { state.roomOptions.minPlayers = action.payload; },
 		setOptionMaxPlayers(state, action: PayloadAction<number>) { state.roomOptions.maxPlayers = action.payload; },
 		changeOptionTitleOfCard(state, action: PayloadAction<{ id: number, title: string }>) {
-			const optionsOfCard = state.roomOptions.optionsOfCards.find(options => options.id === action.payload.id);
+			const optionsOfCard = state.optionsOfCards.find(options => options.id === action.payload.id);
 			if (!optionsOfCard) return;
 			optionsOfCard.title = action.payload.title;
 		},
 		changeOptionUrlOfCard(state, action: PayloadAction<{ id: number, url: string }>) {
-			const optionsOfCard = state.roomOptions.optionsOfCards.find(options => options.id === action.payload.id);
+			const optionsOfCard = state.optionsOfCards.find(options => options.id === action.payload.id);
 			if (!optionsOfCard) return;
 			optionsOfCard.url = action.payload.url;
+		},
+		addOptionsOfCard(state) {
+			if (state.optionsOfCards.length >= 49) return;
+			state.optionsOfCards.push({ id: state.optionsOfCardsIdCounter++, title: '', url: '' });
+		},
+		deleteOptionsOfCard(state, action: PayloadAction<number>) {
+			state.optionsOfCards = state.optionsOfCards.filter(options => options.id !== action.payload);
 		}
 	}
 });
@@ -117,5 +130,5 @@ export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving,
 	setStartConditionFlag, setIAmActingFlag, setSizes, setRoomStatus, setTimer, tickTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers, changeOptionTitleOfCard,
-	changeOptionUrlOfCard} = slice.actions;
+	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard} = slice.actions;
 export default slice.reducer;

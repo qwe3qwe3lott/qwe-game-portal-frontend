@@ -8,7 +8,7 @@ import {
 	clearStoreAfterLeaving, setCard,
 	setFieldCards, setIAmActingFlag,
 	setIAmPlayerFlag, setLastWinner, setLogs,
-	setMembers,
+	setMembers, setOptionsOfCards,
 	setOwnerKey,
 	setPlayers, setRoomOptions, setRoomStatus, setSizes, setStartConditionFlag, setTimer
 } from './store';
@@ -21,6 +21,8 @@ import {Sizes} from './types/Sizes';
 import {RoomOptions} from './types/RoomOptions';
 import {OptionsDto} from './dto/OptionsDto';
 import {RoomStatuses} from './enums/RoomStatuses';
+import {CardOptions} from './types/CardOptions';
+import {OptionsOfCardsDto} from './dto/OptionsOfCardsDto';
 
 export class Api {
 	public static readonly MIN_MIN_PLAYERS = 2;
@@ -96,6 +98,10 @@ export class Api {
 			console.log(Events.GET_ROOM_OPTIONS, roomOptions);
 			this._appDispatch(setRoomOptions(roomOptions));
 		});
+		this._socket.on(Events.GET_ROOM_OPTIONS_OF_CARDS, (optionsOfCards: CardOptions[]) => {
+			console.log(Events.GET_ROOM_OPTIONS_OF_CARDS, optionsOfCards);
+			this._appDispatch(setOptionsOfCards(optionsOfCards));
+		});
 		this._socket.on(Events.GET_LAST_WINNER, (lastWinner: string) => {
 			console.log(Events.GET_LAST_WINNER, lastWinner);
 			this._appDispatch(setLastWinner(lastWinner));
@@ -162,6 +168,12 @@ export class Api {
 		if (!this._socket) return;
 		console.log(Events.REQUEST_ROOM_OPTIONS);
 		this._socket.emit(Events.REQUEST_ROOM_OPTIONS);
+	}
+
+	requestOptionsOfCards() {
+		if (!this._socket) return;
+		console.log(Events.REQUEST_ROOM_OPTIONS_OF_CARDS);
+		this._socket.emit(Events.REQUEST_ROOM_OPTIONS_OF_CARDS);
 	}
 
 	become(becomePlayer: boolean) {
@@ -234,6 +246,17 @@ export class Api {
 			const optionsDto: OptionsDto = { options: roomOptions, ownerKey };
 			console.log(Events.CHANGE_ROOM_OPTIONS, optionsDto);
 			this._socket.emit(Events.CHANGE_ROOM_OPTIONS, optionsDto, (flag: boolean) => {
+				resolve(flag);
+			});
+		});
+	}
+
+	async changeRoomOptionsOfCards(ownerKey: string, optionsOfCards: CardOptions[]) : Promise<boolean> {
+		return new Promise(resolve => {
+			if (!this._socket) return resolve(false);
+			const optionsOfCardsDto: OptionsOfCardsDto = { optionsOfCards, ownerKey };
+			console.log(Events.CHANGE_ROOM_OPTIONS_OF_CARDS, optionsOfCardsDto);
+			this._socket.emit(Events.CHANGE_ROOM_OPTIONS_OF_CARDS, optionsOfCardsDto, (flag: boolean) => {
 				resolve(flag);
 			});
 		});

@@ -9,10 +9,10 @@ import {useApi} from '../../api';
 type Props = {
 	isDeco?: boolean
 	card: FieldCard
-	layoutStyle?: object
+	layoutStyle?: { gridColumn: string, gridRow: string }
 }
 
-const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
+const RawCard: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 	const api = useApi();
 	const captureHandler = useCallback(() => {
 		api.captureCard(card.id);
@@ -75,4 +75,24 @@ const Card: React.FC<Props> = ({ card, layoutStyle , isDeco}) => {
 	</li>);
 };
 
-export default React.memo(Card);
+const Card = React.memo(RawCard, (before, after) => {
+	if (before.layoutStyle && after.layoutStyle) {
+		if (before.layoutStyle.gridColumn !== after.layoutStyle.gridColumn || before.layoutStyle.gridRow !== after.layoutStyle.gridRow) return false;
+	}
+	const beforeCard = before.card;
+	const afterCard = after.card;
+	if (afterCard.id !== beforeCard.id) return false;
+	if (afterCard.title !== beforeCard.title) return false;
+	if (afterCard.url !== beforeCard.url) return false;
+	if (afterCard.captured !== beforeCard.captured) return false;
+	if (afterCard.markAsked !== beforeCard.markAsked) return false;
+	if (afterCard.markTeleportedDirection !== beforeCard.markTeleportedDirection) return false;
+	if (afterCard.markCaptured !== beforeCard.markCaptured) return false;
+	if (afterCard.markMovedDirection !== beforeCard.markMovedDirection) return false;
+	if (afterCard.hasActOpportunity !== beforeCard.hasActOpportunity) return false;
+	return true;
+});
+
+Card.displayName = 'Card';
+
+export default Card;

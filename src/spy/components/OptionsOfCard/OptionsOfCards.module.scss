@@ -1,0 +1,53 @@
+@import "../../../mixins";
+@import "../../../colors";
+.showButton {
+  @include panel;
+  min-height: 1em;
+  text-align: center;
+  width: 100%;
+  &:hover {
+    background-color: $primary-color;
+    color: $primary-text-color;
+  }
+}
+.layout {
+  @include columnPanel;
+  padding: 0.5em 2em 0.5em 1em;
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  @include button;
+  background-image: url("../../../assets/cross.svg");
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  width: 1.5em;
+}
+.delete {
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+  @include button;
+  background-image: url("../../../assets/trash.svg");
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  width: 1.5em;
+}
+.topLabel {
+  @include topLabel;
+}
+.input {
+  @include input;
+}
+.hidden {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 0;
+  max-height: 0;
+}

@@ -1,5 +1,3 @@
-import {CardOptions} from './CardOptions';
-
 export type RoomOptions = {
     minPlayers: number
     maxPlayers: number
@@ -7,5 +5,4 @@ export type RoomOptions = {
     columns: number
     secondsToAct: number
     winScore: number
-    optionsOfCards: CardOptions[]
 }

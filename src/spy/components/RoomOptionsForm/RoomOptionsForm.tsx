@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useCallback, useEffect, useMemo} from 'react';
 
 type Props = {
     onSuccess: () => void,
@@ -23,34 +23,19 @@ import {
 import {RootState} from '../../../store';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {Api, useApi} from '../../api';
-import OptionsOfCardsList from '../OptionsOfCardsList';
 
 const RoomOptionsForm: React.FC<Props> = ({ onSuccess }) => {
-	const [showCards, setShowCards] = useState(false);
 	return(<SubmitForm onSuccess={onSuccess}>
-		<p
-			className={[styles.button, styles.fakeButton, styles.stretchWidth].join(' ')}
-			role={'button'}
-			onClick={() => setShowCards(!showCards)}
-		>{!showCards ? 'Настройка карт' : 'Настройка правил'}</p>
-		{!showCards ? <>
-			<ColumnsInput/>
-			<RowsInput/>
-			<SecondsToActInput/>
-			<MinPlayersInput/>
-			<MaxPlayersInput/>
-			<WinScoreInput/>
-		</> : <OptionsOfCards/>}
+		<ColumnsInput/>
+		<RowsInput/>
+		<SecondsToActInput/>
+		<MinPlayersInput/>
+		<MaxPlayersInput/>
+		<WinScoreInput/>
 	</SubmitForm>);
 };
 
 export default RoomOptionsForm;
-
-const OptionsOfCards: React.FC = () => {
-	return(<div className={styles.stretchWidth}>
-		<OptionsOfCardsList/>
-	</div>);
-};
 
 type InputProps = {
 	min: number
@@ -94,6 +79,7 @@ type SubmitFormProps = {
 	onSuccess: () => void
 	children: React.ReactNode
 }
+// Помогает избежать лишних ре-рендеров
 const SubmitForm: React.FC<SubmitFormProps> = ({onSuccess, children}) => {
 	const api = useApi();
 	const roomOptions = useAppSelector(selectRoomOptions);

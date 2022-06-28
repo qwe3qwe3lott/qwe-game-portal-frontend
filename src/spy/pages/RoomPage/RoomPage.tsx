@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
 import Room from '../../components/Room';
 import {useApi} from '../../api';
+import {routePath} from '../../Router';
 
 type Params = {
     roomId: string
@@ -30,7 +31,7 @@ const RoomPage: React.FC = () => {
 	}, [state]);
 
 	return (<>
-		{state === States.REDIRECT && <Navigate to={'/spy'} replace/>}
+		{state === States.REDIRECT && <Navigate to={`/${routePath}`} replace/>}
 		{state === States.JOINED && <Room/>}
 	</>);
 };

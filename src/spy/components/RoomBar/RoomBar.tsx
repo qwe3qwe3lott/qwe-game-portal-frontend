@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './RoomBar.module.scss';
 import RulesButton from '../RulesButton';
+import {routePath} from '../../Router';
 
 type Props = {
 	className?: string
@@ -12,7 +13,7 @@ const RoomBar: React.FC<Props> = ({className}) => {
 	const navigate = useNavigate();
 
 	const exitHandler = useCallback(() => {
-		navigate('/spy');
+		navigate(`/${routePath}`);
 	}, []);
 
 	const copyHandler = useCallback(() => {

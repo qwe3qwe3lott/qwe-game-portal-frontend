@@ -7,6 +7,7 @@ import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
 import {MembersRestriction} from '../types/MembersRestriction';
 import {RoomStatuses} from '../enums/RoomStatuses';
+import {CardOptions} from '../types/CardOptions';
 
 export type State = {
     ownerKey: string
@@ -23,5 +24,7 @@ export type State = {
     logs: LogRecord[]
     lastWinner: string
     roomOptions: RoomOptions
+    optionsOfCardsIdCounter: number
+    optionsOfCards: CardOptions[]
     membersRestriction: MembersRestriction
 }
