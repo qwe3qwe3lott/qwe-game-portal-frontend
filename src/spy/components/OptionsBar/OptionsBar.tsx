@@ -26,7 +26,8 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 	return(<div className={layoutClass}>
 		<button className={buttonClass} onClick={clickHandler}/>
 		{hidden ? <>
-
+			{ownerKey && <OwnerPanel miniPanel/>}
+			<MemberPanel mini/>
 		</> : <>
 			{ownerKey && <OwnerPanel/>}
 			<MemberPanel/>
