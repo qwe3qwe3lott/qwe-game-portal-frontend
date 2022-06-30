@@ -31,7 +31,7 @@ export const selectCard = (state: RootState): FieldCard | undefined => state.spy
 export const selectLogs = (state: RootState): LogRecord[] => state.spy.logs;
 export const selectLastWinner = (state: RootState): string => state.spy.lastWinner;
 export const selectPlayers = (state: RootState): Player[] => state.spy.players;
-export const selectStartConditionFlag = (state: RootState): boolean => state.spy.startConditionFlag;
+export const selectRestrictionsToStart = (state: RootState): string[] => state.spy.restrictionsToStart;
 export const selectMembers = (state: RootState): Member[] => state.spy.members;
 export const selectMembersRestriction = (state: RootState): MembersRestriction => state.spy.membersRestriction;
 export const computePlayersAmongMembers = createSelector(

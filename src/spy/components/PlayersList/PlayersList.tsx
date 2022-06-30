@@ -34,7 +34,7 @@ const MiniPlayersList: React.FC = () => {
 	const player = useAppSelector(computeCurrentPlayer);
 	return(<>
 		{player && <p className={styles.miniPlayer}>
-			<span className={styles.score}>({player.score})</span> {player.nickname}
+			Ходит: <span className={styles.score}>({player.score})</span> {player.nickname}
 		</p>}
 	</>);
 };

@@ -16,7 +16,7 @@ const initialState: State = {
 	iAmPlayer: false,
 	players: [],
 	fieldCards: [],
-	startConditionFlag: false,
+	restrictionsToStart: [],
 	sizes: { rows: 0, columns: 0 },
 	iAmActing: false,
 	roomStatus: RoomStatuses.IDLE,
@@ -85,7 +85,7 @@ const slice = createSlice({
 		setTimer(state, action: PayloadAction<Timer>) { state.timer = action.payload; },
 		setCard(state, action: PayloadAction<FieldCard>) { state.card = action.payload; },
 		tickTimer(state) { if (state.timer.currentTime > 0) state.timer.currentTime -= 1; },
-		setStartConditionFlag(state, action: PayloadAction<boolean>) { state.startConditionFlag = action.payload; },
+		setRestrictionsToStart(state, action: PayloadAction<string[]>) { state.restrictionsToStart = action.payload; },
 		clearStoreAfterLeaving(state) {
 			state.ownerKey = '';
 			state.members = [];
@@ -93,7 +93,7 @@ const slice = createSlice({
 			state.players = [];
 			state.roomStatus = RoomStatuses.IDLE;
 			state.fieldCards = [];
-			state.startConditionFlag = false;
+			state.restrictionsToStart = [];
 			state.sizes = { rows: 0, columns: 0 };
 			state.iAmActing = false;
 			state.timer = { currentTime: 0, maxTime: 0 };
@@ -127,7 +127,7 @@ const slice = createSlice({
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,
-	setStartConditionFlag, setIAmActingFlag, setSizes, setRoomStatus, setTimer, tickTimer, setCard,
+	setRestrictionsToStart, setIAmActingFlag, setSizes, setRoomStatus, setTimer, tickTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers, changeOptionTitleOfCard,
 	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard} = slice.actions;

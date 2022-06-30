@@ -17,7 +17,7 @@ export type State = {
     iAmActing: boolean
     fieldCards: FieldCard[]
     players: Player[]
-    startConditionFlag: boolean
+    restrictionsToStart: string[]
     sizes: Sizes
     timer: Timer
     card?: FieldCard

@@ -10,7 +10,7 @@ import {
 	setIAmPlayerFlag, setLastWinner, setLogs,
 	setMembers, setOptionsOfCards,
 	setOwnerKey,
-	setPlayers, setRoomOptions, setRoomStatus, setSizes, setStartConditionFlag, setTimer
+	setPlayers, setRestrictionsToStart, setRoomOptions, setRoomStatus, setSizes, setTimer
 } from './store';
 import {Player} from './types/Player';
 import {FieldCard} from './types/FieldCard';
@@ -66,9 +66,9 @@ export class Api {
 			console.log(Events.GET_ROOM_STATUS, status);
 			this._appDispatch(setRoomStatus(status));
 		});
-		this._socket.on(Events.GET_START_CONDITION_FLAG, (flag: boolean) => {
-			console.log(Events.GET_START_CONDITION_FLAG, flag);
-			this._appDispatch(setStartConditionFlag(flag));
+		this._socket.on(Events.GET_RESTRICTIONS_TO_START, (restrictions: string[]) => {
+			console.log(Events.GET_RESTRICTIONS_TO_START, restrictions);
+			this._appDispatch(setRestrictionsToStart(restrictions));
 		});
 		this._socket.on(Events.GET_ACT_FLAG, (flag: boolean) => {
 			console.log(Events.GET_ACT_FLAG, flag);
