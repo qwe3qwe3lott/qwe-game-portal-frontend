@@ -19,6 +19,7 @@
   }
 }
 @mixin topLabel {
+  text-align: center;
   display: grid;
   grid-auto-flow: row;
   place-items: center;
