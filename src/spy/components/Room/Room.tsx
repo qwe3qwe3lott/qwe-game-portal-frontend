@@ -5,7 +5,7 @@ import GameBar from '../GameBar';
 import RoomBar from '../RoomBar';
 
 import styles from './Room.module.scss';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 const Room: React.FC = () => {
 	const api = useApi();

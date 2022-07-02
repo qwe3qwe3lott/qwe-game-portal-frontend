@@ -7,7 +7,7 @@ type Props = {
 import styles from './NicknameForm.module.scss';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 import {selectNickname} from '../../../store';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 const NicknameForm: React.FC<Props> = ({ onSuccess }) => {
 	const api = useApi();

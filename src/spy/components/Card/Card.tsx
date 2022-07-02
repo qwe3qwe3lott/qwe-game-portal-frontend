@@ -4,7 +4,7 @@ import {FieldCard} from '../../types/FieldCard';
 import styles from './Card.module.scss';
 import {Directions} from '../../enums/Directions';
 import globalColors from '../../../colors.scss';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 type Props = {
 	isDeco?: boolean

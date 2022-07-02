@@ -1,5 +1,6 @@
 import {combineReducers, configureStore, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import spyReducer from '../spy/store';
+import yesntReducer from '../yesnt/store';
 
 type State = {
 	nickname: string
@@ -19,7 +20,8 @@ export const selectNickname = (state: RootState): string => state.app.nickname;
 
 const rootReducer = combineReducers({
 	app: slice.reducer,
-	spy: spyReducer
+	spy: spyReducer,
+	yesnt: yesntReducer
 });
 
 const store = configureStore({

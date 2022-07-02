@@ -2,10 +2,10 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 
 import globalColors from '../../../colors.scss';
-import {Timer as TimerType} from '../../types/Timer';
+import {Timer as TimerType} from '../../../types/Timer';
 import styles from './Timer.module.scss';
 import {selectGameIsOnPause, selectTimer} from '../../store/selectors';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 type Props = {
 	miniPanel?: boolean

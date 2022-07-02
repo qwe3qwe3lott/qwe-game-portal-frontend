@@ -10,7 +10,7 @@ import {
 	selectIAmActing,
 	selectSizes
 } from '../../store/selectors';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 type Props = {
 	className?: string

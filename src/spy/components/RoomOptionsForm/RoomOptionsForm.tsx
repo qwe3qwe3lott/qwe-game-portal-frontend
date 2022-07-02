@@ -22,7 +22,7 @@ import {
 } from '../../store/selectors';
 import {RootState} from '../../../store';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
-import {Api, useApi} from '../../api';
+import {Api, useApi} from '../../Api';
 
 const RoomOptionsForm: React.FC<Props> = ({ onSuccess }) => {
 	return(<SubmitForm onSuccess={onSuccess}>

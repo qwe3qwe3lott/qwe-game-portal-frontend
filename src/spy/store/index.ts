@@ -1,27 +1,17 @@
 import {State} from './types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Member} from '../types/Member';
 import {Player} from '../types/Player';
 import {FieldCard} from '../types/FieldCard';
-import {Timer} from '../types/Timer';
-import {LogRecord} from '../types/LogRecord';
 import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
-import {RoomStatuses} from '../enums/RoomStatuses';
+import {RoomStatuses} from '../../enums/RoomStatuses';
 import {CardOptions} from '../types/CardOptions';
+import {getGameInitialState, getGameReducers} from '../../store/factories';
 
 const initialState: State = {
-	ownerKey: '',
-	members: [],
-	iAmPlayer: false,
-	players: [],
+	...getGameInitialState(),
 	fieldCards: [],
-	restrictionsToStart: [],
 	sizes: { rows: 0, columns: 0 },
-	iAmActing: false,
-	roomStatus: RoomStatuses.IDLE,
-	timer: { currentTime: 0, maxTime: 0 },
-	logs: [],
 	lastWinner: '',
 	membersRestriction: { min: 2, max: 8 },
 	optionsOfCardsIdCounter: 1,
@@ -40,21 +30,8 @@ const slice = createSlice({
 	name: 'spy',
 	initialState,
 	reducers: {
-		setLastWinner(state, action: PayloadAction<string>) { state.lastWinner = action.payload; },
-		setRoomOptions(state, action: PayloadAction<RoomOptions>) {
-			state.roomOptions = action.payload;
-			state.membersRestriction.min = action.payload.minPlayers;
-			state.membersRestriction.max = action.payload.maxPlayers;
-		},
-		setOptionsOfCards(state, action: PayloadAction<CardOptions[]>) {
-			state.optionsOfCards = action.payload;
-			state.optionsOfCardsIdCounter = action.payload.length + 1;
-		},
-		setLogs(state, action: PayloadAction<LogRecord[]>) { state.logs = action.payload; },
-		addLogRecord(state, action: PayloadAction<LogRecord>) { state.logs.unshift(action.payload); },
-		setMembers(state, action: PayloadAction<Member[]>) { state.members = action.payload; },
-		setOwnerKey(state, action: PayloadAction<string>) { state.ownerKey = action.payload; },
-		setIAmPlayerFlag(state, action: PayloadAction<boolean>) { state.iAmPlayer = action.payload; },
+		...getGameReducers<State>(),
+		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
 		setRoomStatus(state, action: PayloadAction<RoomStatuses>) {
 			switch (action.payload) {
 			case RoomStatuses.IDLE:
@@ -73,8 +50,16 @@ const slice = createSlice({
 				break;
 			}
 		},
-		setIAmActingFlag(state, action: PayloadAction<boolean>) { state.iAmActing = action.payload; },
-		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
+		setLastWinner(state, action: PayloadAction<string>) { state.lastWinner = action.payload; },
+		setRoomOptions(state, action: PayloadAction<RoomOptions>) {
+			state.roomOptions = action.payload;
+			state.membersRestriction.min = action.payload.minPlayers;
+			state.membersRestriction.max = action.payload.maxPlayers;
+		},
+		setOptionsOfCards(state, action: PayloadAction<CardOptions[]>) {
+			state.optionsOfCards = action.payload;
+			state.optionsOfCardsIdCounter = action.payload.length + 1;
+		},
 		setFieldCards(state, action: PayloadAction<FieldCard[]>) { state.fieldCards = action.payload; },
 		addActCardIds(state, action: PayloadAction<number[]>) {
 			for (const card of state.fieldCards) {
@@ -82,10 +67,7 @@ const slice = createSlice({
 			}
 		},
 		setSizes(state, action: PayloadAction<Sizes>) { state.sizes = action.payload; },
-		setTimer(state, action: PayloadAction<Timer>) { state.timer = action.payload; },
 		setCard(state, action: PayloadAction<FieldCard>) { state.card = action.payload; },
-		tickTimer(state) { if (state.timer.currentTime > 0) state.timer.currentTime -= 1; },
-		setRestrictionsToStart(state, action: PayloadAction<string[]>) { state.restrictionsToStart = action.payload; },
 		clearStoreAfterLeaving(state) {
 			state.ownerKey = '';
 			state.members = [];
@@ -127,7 +109,7 @@ const slice = createSlice({
 });
 
 export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving, setPlayers, setFieldCards,
-	setRestrictionsToStart, setIAmActingFlag, setSizes, setRoomStatus, setTimer, tickTimer, setCard,
+	setRestrictionsToStart, setIAmActingFlag, setSizes, setRoomStatus, setTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers, changeOptionTitleOfCard,
 	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard} = slice.actions;

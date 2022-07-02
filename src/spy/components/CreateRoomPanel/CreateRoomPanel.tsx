@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import styles from './CreateRoomPanel.module.scss';
 import NicknameButton from '../NicknameButton';
 import RulesButton from '../RulesButton';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 const CreateRoomPanel: React.FC = () => {
 	const navigate = useNavigate();

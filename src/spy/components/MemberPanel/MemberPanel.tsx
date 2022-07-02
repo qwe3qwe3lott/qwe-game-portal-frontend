@@ -4,7 +4,7 @@ import styles from './MemberPanel.module.scss';
 import NicknameButton from '../NicknameButton';
 import RoomOptionsButton from '../RoomOptionsButton';
 import {selectGameIsRunning, selectIAmPlayer} from '../../store/selectors';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 import OptionsOfCardsButton from '../OptionsOfCardsButton';
 import globalColors from '../../../colors.scss';
 

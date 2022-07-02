@@ -8,7 +8,9 @@
   font-size: 1.4em;
 }
 .list {
-
+  display: grid;
+  place-items: center;
+  gap: 0.5em;
 }
 .item {
 

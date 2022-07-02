@@ -8,7 +8,7 @@ import {
 	selectOwnerKey,
 	selectRestrictionsToStart
 } from '../../store/selectors';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 
 type Props = {
 	miniPanel?: boolean

@@ -4,11 +4,11 @@ import {FieldCard} from '../types/FieldCard';
 import {Sizes} from '../types/Sizes';
 import {createSelector} from '@reduxjs/toolkit';
 import {MembersRestriction} from '../types/MembersRestriction';
-import {Member} from '../types/Member';
-import {LogRecord} from '../types/LogRecord';
+import {Member} from '../../types/Member';
+import {LogRecord} from '../../types/LogRecord';
 import {Player} from '../types/Player';
-import {Timer} from '../types/Timer';
-import {RoomStatuses} from '../enums/RoomStatuses';
+import {Timer} from '../../types/Timer';
+import {RoomStatuses} from '../../enums/RoomStatuses';
 import {CardOptions} from '../types/CardOptions';
 
 export const selectRoomOptionSecondsToAct = (state: RootState): number => state.spy.roomOptions.secondsToAct;

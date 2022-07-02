@@ -7,7 +7,7 @@ import {
 } from '../../store/selectors';
 import styles from './OptionsOfCardsForm.module.scss';
 import OptionsOfCards from '../OptionsOfCard';
-import {useApi} from '../../api';
+import {useApi} from '../../Api';
 import {addOptionsOfCard} from '../../store';
 
 type Props = {
