@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import ModalWindow from '../ModalWindow';
+import ModalWindow from '../../../components/ModalWindow';
 
 import styles from './RoomOptionsButton.module.scss';
 import RoomOptionsForm from '../RoomOptionsForm';

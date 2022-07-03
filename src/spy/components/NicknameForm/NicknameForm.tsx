@@ -23,7 +23,7 @@ const NicknameForm: React.FC<Props> = ({ onSuccess }) => {
 	}, [onSuccess, value]);
 
 	return(<div className={styles.layout}>
-		<input className={styles.input} onChange={changeHandler} value={value}/>
+		<input className={styles.input} onChange={changeHandler} placeholder={'Введите ник...'} value={value}/>
 		<button className={styles.button} onClick={sendHandler}>Изменить</button>
 	</div>);
 };

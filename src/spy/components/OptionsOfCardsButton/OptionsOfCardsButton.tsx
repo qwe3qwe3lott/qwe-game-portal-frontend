@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import styles from './OptionsOfCardsButton.module.scss';
-import ModalWindow from '../ModalWindow';
+import ModalWindow from '../../../components/ModalWindow';
 import OptionsOfCardsForm from '../OptionsOfCardsForm';
 
 const OptionsOfCardsButton: React.FC = () => {

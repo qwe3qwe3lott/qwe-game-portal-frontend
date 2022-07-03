@@ -1,0 +1,14 @@
+@import "../../../mixins";
+.layout {
+  @include columnPanel;
+  background-color: inherit;
+  max-width: 30em;
+}
+.title {
+  text-align: center;
+  font-size: 1.2em;
+}
+.text {
+  text-align: justify;
+  text-indent: 1.5em;
+}

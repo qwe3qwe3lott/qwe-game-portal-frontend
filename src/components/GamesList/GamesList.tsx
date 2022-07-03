@@ -4,16 +4,16 @@ import {useNavigate} from 'react-router-dom';
 import styles from './GamesList.module.scss';
 import {routePath as spyRoutePath} from '../../spy/Router';
 import {routePath as yesntRoutePath} from '../../yesnt/Router';
+import ColumnPanel from '../ColumnPanel';
 
 const GamesList: React.FC = () => {
 	const navigate = useNavigate();
-	return(<div className={styles.layout}>
-		<p className={styles.title}>Список игр</p>
+	return(<ColumnPanel title={'Список игр'} hugeTitle width={15}>
 		<ul className={styles.list}>
-			<li className={styles.item}><button className={styles.button} onClick={() => navigate(`/${spyRoutePath}`)}>Шпион</button></li>
-			<li className={styles.item}><button className={styles.button} onClick={() => navigate(`/${yesntRoutePath}`)}>Данет</button></li>
+			<li><button className={styles.button} onClick={() => navigate(`/${spyRoutePath}`)}>Шпион</button></li>
+			<li><button className={styles.button} onClick={() => navigate(`/${yesntRoutePath}`)}>Данет</button></li>
 		</ul>
-	</div>);
+	</ColumnPanel>);
 };
 
 export default GamesList;

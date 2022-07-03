@@ -45,8 +45,8 @@ const MiniOwnerPanel: React.FC = () => {
 			className={[styles.miniButton, styles.miniStart].join(' ')}
 			disabled={(gameIsRunning && !gameIsOnPause) || (!gameIsRunning && restrictionsToStart.length > 0)}
 			onClick={startHandler}/>
-		<button className={[styles.miniButton, styles.miniStop].join(' ')} disabled={!gameIsRunning} onClick={stopHandler}/>
 		<button className={[styles.miniButton, styles.miniPause].join(' ')} disabled={!gameIsRunning || gameIsOnPause} onClick={pauseHandler}/>
+		<button className={[styles.miniButton, styles.miniStop].join(' ')} disabled={!gameIsRunning} onClick={stopHandler}/>
 	</div>);
 };
 

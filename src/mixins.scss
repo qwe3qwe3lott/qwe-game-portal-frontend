@@ -5,6 +5,14 @@
   color: $primary-text-color;
   border-radius: 0.5em;
 }
+@mixin roomBarButton {
+  text-align: center;
+  color: $primary-text-color;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+}
 @mixin scrollable {
   &::-webkit-scrollbar {
     width: 0.3em;
@@ -44,14 +52,14 @@
 @mixin panel {
   background-color: rgba($primary-color, 0.1);
   border-radius: 0.5em;
-  padding: 0.2em;
+  padding: 0.5em;
   width: 100%;
 }
 @mixin columnPanel {
   @include panel;
   display: grid;
   grid-auto-flow: row;
-  place-items: center;
+  place-items: stretch;
   gap: 0.5em;
   grid-auto-rows: minmax(min-content, max-content);
 }

@@ -1,29 +1,6 @@
-import React, {useCallback, useState} from 'react';
-import ModalWindow from '../ModalWindow';
+import React from 'react';
 
-import styles from './RulesButton.module.scss';
-
-type Props = {
-	inGame: boolean
-}
-
-const RulesButton: React.FC<Props> = ({ inGame }) => {
-	const [showModal, setShowModal] = useState(false);
-	const closeModalHandler = useCallback(() => {
-		setShowModal(false);
-	}, []);
-	const openModalHandler = useCallback(() => {
-		setShowModal(true);
-	}, []);
-	return(<>
-		<button className={inGame ? styles.buttonInGame : styles.button} disabled={showModal} onClick={openModalHandler}>Правила</button>
-		{showModal && <ModalWindow closeHandler={closeModalHandler}>
-			<Rules/>
-		</ModalWindow>}
-	</>);
-};
-
-export default RulesButton;
+import styles from './Rules.module.scss';
 
 const Rules: React.FC = () => {
 	return(<div className={styles.layout}>
@@ -84,3 +61,5 @@ const Rules: React.FC = () => {
 		</p>
 	</div>);
 };
+
+export default Rules;

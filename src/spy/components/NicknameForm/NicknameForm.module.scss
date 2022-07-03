@@ -1,7 +1,8 @@
 @import "../../../mixins";
 .layout {
-  display: flex;
-  gap: 1em;
+  display: grid;
+  gap: 0.5em;
+  place-items: center;
 }
 .button {
   @include button;

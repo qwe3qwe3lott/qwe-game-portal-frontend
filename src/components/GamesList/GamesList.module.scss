@@ -1,20 +1,10 @@
 @import "../../mixins";
-.layout {
-  @include columnPanel;
-  padding: 1em;
-  width: 20em;
-}
-.title {
-  font-size: 1.4em;
-}
 .list {
   display: grid;
-  place-items: center;
+  place-items: stretch;
   gap: 0.5em;
-}
-.item {
-
 }
 .button {
   @include button;
+  width: 100%;
 }

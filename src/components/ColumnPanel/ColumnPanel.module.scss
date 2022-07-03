@@ -1,0 +1,11 @@
+@import "../../mixins";
+.layout {
+  @include columnPanel;
+}
+.title {
+  text-align: center;
+  word-break: break-word;
+}
+.hugeTitle {
+  font-size: 1.6em;
+}

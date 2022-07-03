@@ -1,0 +1,38 @@
+@import "../../colors";
+@import "../../mixins";
+.layout {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(black, 0.5);
+  display: grid;
+  place-items: center;
+  grid-auto-rows: minmax(0, 100%);
+  padding: 1em;
+}
+.window {
+  max-height: 90vh;
+  height: fit-content;
+  border-radius: 1em;
+  padding: 1em;
+  background-color: $section-background-color;
+  display: grid;
+  gap: 0.5em;
+  place-items: stretch;
+  min-width: 15em;
+}
+.title {
+  font-size: 1.6em;
+  text-align: center;
+  word-break: break-word;
+}
+.content {
+  max-height: 70vh;
+  height: fit-content;
+  @include scrollable;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
