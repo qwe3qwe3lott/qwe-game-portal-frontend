@@ -2,15 +2,16 @@ import React, {useCallback, useState} from 'react';
 import styles from './ModalButton.module.scss';
 import ModalWindow from '../ModalWindow';
 import {GameApi} from '../../abstracts/GameApi';
+import {GamePlayer} from '../../types/GamePlayer';
 
 type PropsOfForm = {
 	onSuccess: () => void
-	api: GameApi
+	api: GameApi<GamePlayer>
 }
 type Props = {
     label: string
     children?: React.ReactNode
-	formSet?: { form: React.FC<PropsOfForm>, api: GameApi }
+	formSet?: { form: React.FC<PropsOfForm>, api: GameApi<GamePlayer> }
     inRoomBar?: boolean
 	disabled?: boolean
 }

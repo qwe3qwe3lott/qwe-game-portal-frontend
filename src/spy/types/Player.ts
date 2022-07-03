@@ -1,5 +1,5 @@
-export type Player = {
-    id: number
-    nickname: string
+import {GamePlayer} from '../../types/GamePlayer';
+
+export type Player = GamePlayer & {
     score: number
 }

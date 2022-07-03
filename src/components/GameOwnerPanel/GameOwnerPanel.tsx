@@ -5,9 +5,10 @@ import {useOwnerPanel} from '../../hooks/useOwnerPanel';
 import ColumnPanel from '../ColumnPanel';
 import styles from './GameOwnerPanel.module.scss';
 import React from 'react';
+import {GamePlayer} from '../../types/GamePlayer';
 
 type Props = {
-	api: GameApi
+	api: GameApi<GamePlayer>
 	selectOwnerKey: (state: RootState) => string
 	selectGameIsRunning: (state: RootState) => boolean
 	selectGameIsOnPause: (state: RootState) => boolean
@@ -24,11 +25,11 @@ const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGa
 	const { gameIsRunning, gameIsOnPause, startHandler, stopHandler, pauseHandler, restrictionsToStart }
 		= useOwnerPanel(api, selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart);
 	return(<ColumnPanel title={'Панель владельца'}>
-		<ul>
+		{!gameIsRunning && restrictionsToStart.length > 0 && <ul>
 			{restrictionsToStart.map((restriction, index) => <li key={index} className={styles.restriction}>
 				{restriction}
 			</li>)}
-		</ul>
+		</ul>}
 		<button
 			className={styles.button}
 			disabled={(gameIsRunning && !gameIsOnPause) || (!gameIsRunning && restrictionsToStart.length > 0)}

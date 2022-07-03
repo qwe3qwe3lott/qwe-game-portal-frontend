@@ -30,7 +30,7 @@ const slice = createSlice({
 	name: 'spy',
 	initialState,
 	reducers: {
-		...getGameReducers<State>(),
+		...getGameReducers<Player, State>(),
 		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
 		setRoomStatus(state, action: PayloadAction<RoomStatuses>) {
 			switch (action.payload) {
@@ -81,6 +81,7 @@ const slice = createSlice({
 			state.timer = { currentTime: 0, maxTime: 0 };
 			state.logs = [];
 			state.lastWinner = '';
+			delete state.card;
 		},
 		setOptionSecondsToAct(state, action: PayloadAction<number>) { state.roomOptions.secondsToAct = action.payload; },
 		setOptionWinScore(state, action: PayloadAction<number>) { state.roomOptions.winScore = action.payload; },

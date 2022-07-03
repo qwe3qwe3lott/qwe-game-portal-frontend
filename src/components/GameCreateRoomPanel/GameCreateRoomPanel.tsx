@@ -5,8 +5,9 @@ import {GameApi} from '../../abstracts/GameApi';
 import ColumnPanel from '../ColumnPanel';
 import ModalButton from '../ModalButton';
 import NicknameForm from '../NicknameForm';
+import {GamePlayer} from '../../types/GamePlayer';
 type Props = {
-	api: GameApi
+	api: GameApi<GamePlayer>
 	gameTitle: string
 	rules?: ReactNode
 }
@@ -26,7 +27,7 @@ const GameCreateRoomPanel: React.FC<Props> = ({api, gameTitle, rules}) => {
 export default GameCreateRoomPanel;
 
 type CreateRoomButtonProps = {
-	api: GameApi
+	api: GameApi<GamePlayer>
 }
 const CreateRoomButton: React.FC<CreateRoomButtonProps> = ({api}) => {
 	const navigate = useNavigate();

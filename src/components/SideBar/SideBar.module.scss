@@ -24,16 +24,35 @@
   padding: 0;
   height: 1em;
   width: 1em;
-  border-radius: 0 0 0 1em;
   position: absolute;
   top: 0;
-  animation: showSideBarButton linear 0.2s;
 }
-.buttonToLeft { left: 0; }
-.buttonToRight { right: 0; }
+.buttonToLeft {
+  left: 0;
+}
+.buttonToRight {
+  right: 0;
+}
+.showedButton {
+  &.buttonToLeft {
+    border-radius: 0 0 1em 0;
+    animation: showRightSideBarButton linear 0.2s;
+  }
+  &.buttonToRight {
+    border-radius: 0 0 0 1em;
+    animation: showLeftSideBarButton linear 0.2s;
+  }
+}
 .hiddenButton {
   border-radius: 0;
-  animation: hideSideBarButton linear 0.2s;
+  &.buttonToLeft {
+    animation: hideRightSideBarButton linear 0.2s;
+  }
+  &.buttonToRight {
+    animation: hideLeftSideBarButton linear 0.2s;
+  }
 }
-@include sideBarButtonAnim(hideSideBarButton, 0 0 0 1em, 0);
-@include sideBarButtonAnim(showSideBarButton, 0, 0 0 0 1em);
+@include sideBarButtonAnim(hideLeftSideBarButton, 0 0 0 1em, 0);
+@include sideBarButtonAnim(showLeftSideBarButton, 0, 0 0 0 1em);
+@include sideBarButtonAnim(hideRightSideBarButton, 0 0 1em 0, 0);
+@include sideBarButtonAnim(showRightSideBarButton, 0, 0 0 1em 0);

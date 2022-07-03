@@ -1,0 +1,7 @@
+@import "../../colors";
+.bar {
+  width: 0.5em;
+  border: 1px $primary-color solid;
+  border-radius: 1em;
+  height: 4em;
+}

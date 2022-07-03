@@ -4,8 +4,9 @@ import {RoomOptions} from '../types/RoomOptions';
 import {MembersRestriction} from '../types/MembersRestriction';
 import {CardOptions} from '../types/CardOptions';
 import {GameState} from '../../store/types';
+import {Player} from '../types/Player';
 
-export type State = GameState & {
+export type State = GameState<Player> & {
     fieldCards: FieldCard[]
     sizes: Sizes
     card?: FieldCard

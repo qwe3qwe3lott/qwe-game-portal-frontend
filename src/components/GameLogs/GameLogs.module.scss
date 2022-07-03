@@ -1,11 +1,5 @@
-@import "../../../mixins";
-@import "../../../colors";
-.layout {
-  @include columnPanel;
-}
-.title {
-  text-align: center;
-}
+@import "../../mixins";
+@import "../../colors";
 .checkLabel {
   @include rightLabel;
   font-size: 0.7em;
@@ -19,6 +13,7 @@
   max-height: 30vh;
   @include scrollable;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .record {
   padding: 0.1em;

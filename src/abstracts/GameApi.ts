@@ -6,8 +6,9 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {LogRecord} from '../types/LogRecord';
 import {RoomStatuses} from '../enums/RoomStatuses';
 import {Timer} from '../types/Timer';
+import {GamePlayer} from '../types/GamePlayer';
 
-export abstract class GameApi {
+export abstract class GameApi<P extends GamePlayer> {
     protected _socket?: Socket;
     public get socket() { return this._socket; }
     protected constructor(
@@ -28,8 +29,13 @@ export abstract class GameApi {
     	setLogs: (logs: LogRecord[]) => PayloadAction<LogRecord[]>,
     	addLogRecord: (record: LogRecord) => PayloadAction<LogRecord>,
     	setTimer: (timer: Timer) => PayloadAction<Timer>,
-    	setNickname: (nickname: string) => PayloadAction<string>
+    	setNickname: (nickname: string) => PayloadAction<string>,
+    	setPlayers: (player: P[]) => PayloadAction<P[]>
     ): void {
+    	this._socket?.on(GameEvents.GET_PLAYERS, (players: P[]) => {
+    		console.log(GameEvents.GET_PLAYERS, players);
+    		this._appDispatch(setPlayers(players));
+    	});
     	this._socket?.on(GameEvents.GET_MEMBERS, (members: Member[]) => {
     		console.log(GameEvents.GET_MEMBERS, members);
     		this._appDispatch(setMembers(members));

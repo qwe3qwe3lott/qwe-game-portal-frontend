@@ -4,9 +4,10 @@ import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
 import ErrorPage from '../../pages/ErrorPage';
 import {routePath} from '../../spy/Router';
 import {GameApi} from '../../abstracts/GameApi';
+import {GamePlayer} from '../../types/GamePlayer';
 
 type Props = {
-    api: GameApi
+    api: GameApi<GamePlayer>
     homePage: React.ReactNode,
     roomPage: React.ReactNode
 }

@@ -10,10 +10,11 @@ import OptionsOfCards from '../OptionsOfCard';
 import {useApi} from '../../Api';
 import {addOptionsOfCard} from '../../store';
 import {GameApi} from '../../../abstracts/GameApi';
+import {GamePlayer} from '../../../types/GamePlayer';
 
 type Props = {
 	onSuccess: () => void
-	api: GameApi
+	api: GameApi<GamePlayer>
 }
 const OptionsOfCardsForm: React.FC<Props> = ({ onSuccess }) => {
 	return(<SubmitForm onSuccess={onSuccess}>

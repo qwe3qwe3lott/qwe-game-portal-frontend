@@ -1,7 +1,8 @@
 import {GameApi} from '../abstracts/GameApi';
 import {useEffect, useState} from 'react';
+import {GamePlayer} from '../types/GamePlayer';
 
-export const useSocketConnection = (api: GameApi) => {
+export const useSocketConnection = (api: GameApi<GamePlayer>) => {
 	const [connected, setConnected] = useState(false);
 	useEffect(() => {
 		api.subscribe();

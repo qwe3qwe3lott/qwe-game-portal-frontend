@@ -29,8 +29,7 @@ const GameBar: React.FC<Props> = ({className}) => {
 		<button className={buttonClass} onClick={clickHandler}/>
 		{hidden ? <>
 			{gameIsRunning && <>
-				<Timer miniPanel={true}/>
-				<PlayersList miniPanel={true}/>
+				<PlayersList/>
 			</>}
 		</> : <>
 			{gameIsRunning ? <>

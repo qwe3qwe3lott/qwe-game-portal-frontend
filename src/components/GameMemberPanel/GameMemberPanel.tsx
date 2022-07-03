@@ -7,10 +7,11 @@ import ModalButton from '../ModalButton';
 import NicknameForm from '../NicknameForm';
 import {useAppSelector} from '../../hooks/typedReduxHooks';
 import globalColors from '../../colors.scss';
+import {GamePlayer} from '../../types/GamePlayer';
 
 type Props = {
 	children?: React.ReactNode
-	api: GameApi
+	api: GameApi<GamePlayer>
 	selectIAmPlayer: (state: RootState) => boolean
 	selectGameIsRunning: (state: RootState) => boolean
 }
@@ -25,7 +26,7 @@ const GameMemberPanel: React.FC<Props> = ({children, selectGameIsRunning, select
 export default GameMemberPanel;
 
 type BecomeButtonProps = {
-	api: GameApi
+	api: GameApi<GamePlayer>
 	selectIAmPlayer: (state: RootState) => boolean
 	selectGameIsRunning: (state: RootState) => boolean
 }
@@ -43,7 +44,7 @@ const BecomeButton: React.FC<BecomeButtonProps> = ({api, selectGameIsRunning, se
 
 type ChangeNicknameButtonProps = {
 	selectGameIsRunning: (state: RootState) => boolean
-	api: GameApi
+	api: GameApi<GamePlayer>
 }
 const ChangeNicknameButton: React.FC<ChangeNicknameButtonProps> = ({selectGameIsRunning, api}) => {
 	const gameIsRunning = useAppSelector(selectGameIsRunning);

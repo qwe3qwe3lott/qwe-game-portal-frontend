@@ -23,15 +23,14 @@
 }
 @mixin scrollable {
   &::-webkit-scrollbar {
-    width: 0.3em;
-    height: 0.3em;
+    width: 0.25em;
+    height: 0.25em;
   }
   &::-webkit-scrollbar-track {
     background-color: rgba($primary-color, 0.3);
   }
   &::-webkit-scrollbar-thumb {
     background-color: $secondary-color;
-    border-radius: 1em;
   }
 }
 @mixin topLabel {
@@ -46,6 +45,7 @@
   grid-auto-flow: column;
   place-items: center;
   gap: 0.5em;
+  grid-auto-columns: minmax(min-content, max-content);
 }
 @mixin sideBar {
   @include scrollable;

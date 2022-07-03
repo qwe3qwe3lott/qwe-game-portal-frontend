@@ -1,7 +1,4 @@
-@import "../../../mixins";
-.layout {
-  @include columnPanel;
-}
-.title {
+.nick {
   text-align: center;
+  word-break: break-word;
 }

@@ -9,9 +9,10 @@ import startIcon from '../../assets/start.svg';
 import pauseIcon from '../../assets/pause.svg';
 import stopIcon from '../../assets/stop.svg';
 import {getBackgroundImageStyle} from '../../util/getBackgroundImageStyle';
+import {GamePlayer} from '../../types/GamePlayer';
 
 type Props = {
-	api: GameApi
+	api: GameApi<GamePlayer>
 	selectOwnerKey: (state: RootState) => string
 	selectGameIsRunning: (state: RootState) => boolean
 	selectGameIsOnPause: (state: RootState) => boolean

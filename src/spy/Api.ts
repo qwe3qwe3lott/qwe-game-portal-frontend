@@ -19,10 +19,9 @@ import {OptionsDto} from './dto/OptionsDto';
 import {OptionsOfCardsDto} from './dto/OptionsOfCardsDto';
 import {GameApi} from '../abstracts/GameApi';
 import {routePath} from './Router';
-import {GameEvents} from '../enums/GameEvents';
 import {CardOptions} from './types/CardOptions';
 
-export class Api extends GameApi {
+export class Api extends GameApi<Player> {
 	public static readonly MIN_MIN_PLAYERS = 2;
 	public static readonly MAX_MIN_PLAYERS = 8;
 	public static readonly MIN_MAX_PLAYERS = 2;
@@ -39,11 +38,7 @@ export class Api extends GameApi {
 
 	public subscribe(): void {
 		this._socket = GameApi.createSocket(routePath);
-		this.superSubscribe(setMembers, setOwnerKey, setRoomStatus, setRestrictionsToStart, setIAmActingFlag, setLogs, addLogRecord, setTimer, setNickname);
-		this._socket.on(GameEvents.GET_PLAYERS, (players: Player[]) => {
-			console.log(GameEvents.GET_PLAYERS, players);
-			this._appDispatch(setPlayers(players));
-		});
+		this.superSubscribe(setMembers, setOwnerKey, setRoomStatus, setRestrictionsToStart, setIAmActingFlag, setLogs, addLogRecord, setTimer, setNickname, setPlayers);
 		this._socket.on(Events.GET_FIELD_CARDS, (fieldCards: FieldCard[]) => {
 			console.log(Events.GET_FIELD_CARDS, fieldCards);
 			this._appDispatch(setFieldCards(fieldCards));

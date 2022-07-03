@@ -4,8 +4,9 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {LogRecord} from '../types/LogRecord';
 import {Member} from '../types/Member';
 import {Timer} from '../types/Timer';
+import {GamePlayer} from '../types/GamePlayer';
 
-export const getGameInitialState = (): GameState => ({
+export const getGameInitialState = <P extends GamePlayer>(): GameState<P> => ({
 	ownerKey: '',
 	members: [],
 	iAmPlayer: false,
@@ -17,7 +18,8 @@ export const getGameInitialState = (): GameState => ({
 	logs: []
 });
 
-export const getGameReducers = <S extends GameState>() => ({
+export const getGameReducers = <P extends GamePlayer, S extends GameState<P>>() => ({
+	setPlayers(state: S, action: PayloadAction<P[]>) { state.players = action.payload; },
 	setLogs: (state: S, action: PayloadAction<LogRecord[]>) => { state.logs = action.payload; },
 	addLogRecord: (state: S, action: PayloadAction<LogRecord>) => { state.logs.unshift(action.payload); },
 	setMembers: (state: S, action: PayloadAction<Member[]>) => { state.members = action.payload; },

@@ -16,7 +16,7 @@ const SideBar: React.FC<Props> = ({className, maxShowWidth, miniBar, children, r
 		return [className, styles.layout, (mini ? styles.miniLayout : '')].join(' ');
 	}, [mini]);
 	const buttonClass = useMemo(() => {
-		return [styles.button, (mini ? styles.hiddenButton : ''), (rightSide ? styles.buttonToLeft : styles.buttonToRight)].join(' ');
+		return [styles.button, (mini ? styles.hiddenButton : styles.showedButton), (rightSide ? styles.buttonToLeft : styles.buttonToRight)].join(' ');
 	}, [mini]);
 	const clickHandler = useCallback(() => {
 		setMini(!mini);

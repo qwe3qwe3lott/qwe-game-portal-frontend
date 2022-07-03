@@ -1,16 +1,12 @@
 @import "../../../mixins";
 @import "../../../colors";
-.layout {
-  @include columnPanel;
-}
-.title {
-  text-align: center;
-}
 .players {
+  place-self: center;
+  max-width: 10em;
   @include scrollable;
   overflow-x: auto;
-  max-width: 8em;
-  padding-bottom: 0.2em;
+  list-style-position: inside;
+  padding-bottom: 0.25em;
 }
 .player {
   white-space: nowrap;
@@ -20,17 +16,9 @@
 .playerInGame {
   &:first-child {
     font-size: 0.9em;
-    padding-bottom: 0.3em;
+    padding-bottom: 0.5em;
   }
 }
 .score {
   color: $secondary-color;
-}
-.miniPlayer {
-  writing-mode: vertical-rl;
-  font-size: 0.75em;
-  height: 12em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
