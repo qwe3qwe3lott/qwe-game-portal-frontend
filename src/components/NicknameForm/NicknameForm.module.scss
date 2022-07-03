@@ -1,0 +1,12 @@
+@import "../../mixins";
+.layout {
+  display: grid;
+  gap: 0.5em;
+  place-items: center;
+}
+.button {
+  @include button;
+}
+.input {
+  @include input;
+}

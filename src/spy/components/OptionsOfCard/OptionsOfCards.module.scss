@@ -1,7 +1,9 @@
 @import "../../../mixins";
 @import "../../../colors";
 .showButton {
-  @include panel;
+  border-radius: 1em;
+  background-color: rgba($primary-color, 0.1);
+  padding: 0.2em;
   min-height: 1em;
   text-align: center;
   width: 100%;
@@ -16,7 +18,7 @@
   position: relative;
   width: 18em;
 }
-.hiddenLayout {
+.miniLayout {
   width: 18em;
 }
 .close {

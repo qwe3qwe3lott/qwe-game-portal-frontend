@@ -4,8 +4,7 @@ import styles from './GameCreateRoomPanel.module.scss';
 import {GameApi} from '../../abstracts/GameApi';
 import ColumnPanel from '../ColumnPanel';
 import ModalButton from '../ModalButton';
-import NicknameForm from '../../spy/components/NicknameForm';
-
+import NicknameForm from '../NicknameForm';
 type Props = {
 	api: GameApi
 	gameTitle: string
@@ -19,7 +18,7 @@ const GameCreateRoomPanel: React.FC<Props> = ({api, gameTitle, rules}) => {
 	return (<ColumnPanel title={`Игра "${gameTitle}"`} hugeTitle width={15}>
 		<CreateRoomButton api={api}/>
 		{rules && <ModalButton label={'Правила'}>{rules}</ModalButton>}
-		<ModalButton label={'Изменить ник'} Form={NicknameForm}/>
+		<ModalButton label={'Изменить ник'} formSet={{ form: NicknameForm, api }}/>
 		<button className={styles.button} onClick={exitHandler}>К списку игр</button>
 	</ColumnPanel>);
 };

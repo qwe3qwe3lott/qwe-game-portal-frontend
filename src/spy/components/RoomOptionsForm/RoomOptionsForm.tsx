@@ -1,7 +1,8 @@
 import React, {ChangeEvent, FormEvent, useCallback, useEffect, useMemo} from 'react';
 
 type Props = {
-    onSuccess: () => void,
+    onSuccess: () => void
+	api: GameApi
 }
 
 import styles from './RoomOptionsForm.module.scss';
@@ -23,6 +24,7 @@ import {
 import {RootState} from '../../../store';
 import {ActionCreatorWithPayload} from '@reduxjs/toolkit';
 import {Api, useApi} from '../../Api';
+import {GameApi} from '../../../abstracts/GameApi';
 
 const RoomOptionsForm: React.FC<Props> = ({ onSuccess }) => {
 	return(<SubmitForm onSuccess={onSuccess}>

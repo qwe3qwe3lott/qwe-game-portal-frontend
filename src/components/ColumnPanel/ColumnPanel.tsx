@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ColumnPanel: React.FC<Props> = ({ title, children, width, hugeTitle }) => {
-	return(<div className={styles.layout} style={width ? { width: `${width}em` } : {}}>
+	return(<div className={styles.layout} style={width ? { width: `${width}em` } : undefined}>
 		{title && <p className={hugeTitle ? `${styles.title} ${styles.hugeTitle}` : styles.title}>{title}</p>}
 		{children}
 	</div>);

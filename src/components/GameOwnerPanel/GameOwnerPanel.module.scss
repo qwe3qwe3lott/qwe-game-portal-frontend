@@ -1,0 +1,11 @@
+@import "../../colors";
+@import "../../mixins";
+.button {
+  @include button;
+}
+.restriction {
+  text-align: center;
+  word-break: break-word;
+  font-size: 0.7em;
+  color: $secondary-color;
+}

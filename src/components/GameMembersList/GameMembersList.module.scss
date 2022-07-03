@@ -1,0 +1,20 @@
+@import "../../mixins";
+.members {
+  place-self: center;
+  max-width: 10em;
+  @include scrollable;
+  overflow-x: auto;
+  list-style-position: inside;
+  padding-bottom: 0.25em;
+}
+.member {
+  text-align: start;
+  white-space: nowrap;
+  list-style-type: decimal;
+  display: list-item;
+  font-size: 0.8em;
+}
+.restriction {
+  font-size: 0.8em;
+  text-align: center;
+}

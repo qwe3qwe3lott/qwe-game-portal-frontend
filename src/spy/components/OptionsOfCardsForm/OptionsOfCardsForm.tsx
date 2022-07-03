@@ -9,9 +9,11 @@ import styles from './OptionsOfCardsForm.module.scss';
 import OptionsOfCards from '../OptionsOfCard';
 import {useApi} from '../../Api';
 import {addOptionsOfCard} from '../../store';
+import {GameApi} from '../../../abstracts/GameApi';
 
 type Props = {
-	onSuccess: () => void,
+	onSuccess: () => void
+	api: GameApi
 }
 const OptionsOfCardsForm: React.FC<Props> = ({ onSuccess }) => {
 	return(<SubmitForm onSuccess={onSuccess}>

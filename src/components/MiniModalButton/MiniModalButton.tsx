@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import styles from './ModalButton.module.scss';
+import styles from './MiniModalButton.module.scss';
 import ModalWindow from '../ModalWindow';
 import {GameApi} from '../../abstracts/GameApi';
 
@@ -8,13 +8,13 @@ type PropsOfForm = {
 	api: GameApi
 }
 type Props = {
-    label: string
+	label?: string
     children?: React.ReactNode
 	formSet?: { form: React.FC<PropsOfForm>, api: GameApi }
-    inRoomBar?: boolean
+	icon?: string
 	disabled?: boolean
 }
-const ModalButton: React.FC<Props> = ({ children, label, inRoomBar, formSet, disabled }) => {
+const MiniModalButton: React.FC<Props> = ({ children, label, icon, formSet, disabled }) => {
 	const [showModal, setShowModal] = useState(false);
 	const closeModalHandler = useCallback(() => {
 		setShowModal(false);
@@ -24,11 +24,11 @@ const ModalButton: React.FC<Props> = ({ children, label, inRoomBar, formSet, dis
 	}, []);
 	const Form = formSet?.form;
 	return(<>
-		<button className={inRoomBar ? styles.roomBarButton : styles.button} disabled={disabled || showModal} onClick={openModalHandler}>{label}</button>
+		<button className={styles.miniButton} disabled={disabled || showModal} onClick={openModalHandler} style={{ backgroundImage: `url(${icon})` }}/>
 		{showModal && <ModalWindow closeHandler={closeModalHandler} title={label}>
 			{formSet && Form ? <Form onSuccess={closeModalHandler} api={formSet.api}/> : children}
 		</ModalWindow>}
 	</>);
 };
 
-export default ModalButton;
+export default MiniModalButton;
