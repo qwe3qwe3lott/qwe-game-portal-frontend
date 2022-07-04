@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/spy-frontend.iml" filepath="$PROJECT_DIR$/.idea/spy-frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/qwe-game-portal-frontend.iml" filepath="$PROJECT_DIR$/.idea/qwe-game-portal-frontend.iml" />
     </modules>
   </component>
 </project>

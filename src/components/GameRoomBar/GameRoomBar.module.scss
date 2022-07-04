@@ -1,4 +1,5 @@
-@import "../../../colors";
+@import "../../colors";
+@import "../../mixins";
 .layout {
   background-color: $primary-color;
   display: grid;
@@ -8,10 +9,5 @@
   padding: 0.5em 1em;
 }
 .button {
-  max-width: fit-content;
-  color: $primary-text-color;
-  opacity: 0.8;
-  &:hover {
-    opacity: 1;
-  }
+  @include roomBarButton;
 }
