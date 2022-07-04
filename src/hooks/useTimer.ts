@@ -1,5 +1,5 @@
 import {useAppSelector} from './typedReduxHooks';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useState} from 'react';
 import globalColors from '../colors.scss';
 import {GameApi} from '../abstracts/GameApi';
 import {RootState} from '../store';
@@ -32,13 +32,8 @@ export const useTimer = (
 		}, 1000);
 		return () => { clearTimeout(timeout); };
 	}, [isOnPause, timer]);
-	const background = useMemo(() => {
-	    return `linear-gradient(${mini ? 0 : 90}deg, ${globalColors.secondaryColor} ${(100 - Math.round(timer.currentTime * 100 / timer.maxTime))}%, 
-	    ${globalColors.secondaryOppositeColor} 0%)`;
-	}, [timer, mini]);
-	const timeText = useMemo(() => {
-	    if (mini) return '';
-		return isOnPause ? 'ПАУЗА' : `${Math.floor(timer.currentTime / 60)}:${timer.currentTime % 60 < 10 ? '0' : ''}${timer.currentTime % 60}`;
-	}, [timer, isOnPause, mini]);
+	const background = `linear-gradient(${mini ? 0 : 90}deg, ${globalColors.secondaryColor} ${(100 - Math.round(timer.currentTime * 100 / timer.maxTime))}%, 
+	${globalColors.secondaryOppositeColor} 0%)`;
+	const timeText = mini ? '' : (isOnPause ? 'ПАУЗА' : `${Math.floor(timer.currentTime / 60)}:${timer.currentTime % 60 < 10 ? '0' : ''}${timer.currentTime % 60}`);
 	return { background, timeText };
 };

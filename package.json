@@ -1,7 +1,8 @@
 {
-  "name": "spy-frontend",
+  "name": "qwe-game-portal-frontend",
   "version": "0.1.0",
   "private": true,
+  "author": "qwe3qwe3",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "node-sass": "^7.0.1",

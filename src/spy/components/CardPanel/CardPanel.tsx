@@ -10,10 +10,8 @@ const CardPanel: React.FC = () => {
 	const card = useAppSelector(selectCard);
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const fakeHandler = (card: FieldCard) => {};
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const secondFakeHandler = (card: FieldCard) => ('');
 	return card ? <ColumnPanel title={'Ваша карта:'} center>
-		<Card card={card} isDeco={true} getAnimationClass={secondFakeHandler} captureCard={fakeHandler} askCard={fakeHandler}/>
+		<Card card={card} isDeco={true} captureCard={fakeHandler} askCard={fakeHandler}/>
 	</ColumnPanel> : null;
 };
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React from 'react';
 import styles from './MiniGameMemberPanel.module.scss';
 import {GameApi} from '../../abstracts/GameApi';
 import {RootState} from '../../store';
@@ -36,17 +36,14 @@ type BecomeButtonProps = {
 const BecomeButton: React.FC<BecomeButtonProps> = ({api, selectGameIsRunning, selectIAmPlayer}) => {
 	const iAmPlayer = useAppSelector(selectIAmPlayer);
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
-	const becomeHandler = useCallback(() => {
-		api.become(!iAmPlayer);
-	}, [iAmPlayer]);
-	const style = useMemo(() => {
-		return iAmPlayer ? { backgroundColor: globalColors.secondaryColor } : undefined;
-	}, [iAmPlayer]);
+	const becomeHandler = () => api.become(!iAmPlayer);
+	const style = iAmPlayer ? { backgroundColor: globalColors.secondaryColor } : undefined;
 	return <button
 		style={{ ...style, ...getBackgroundImageStyle(profile) }}
 		className={styles.button}
 		disabled={gameIsRunning}
-		onClick={becomeHandler}/>;
+		onClick={becomeHandler}
+	/>;
 };
 
 type ChangeNicknameButtonProps = {

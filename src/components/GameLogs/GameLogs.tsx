@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {useAppSelector} from '../../hooks/typedReduxHooks';
 
 import styles from './GameLogs.module.scss';
@@ -15,12 +15,8 @@ const GameLogs: React.FC<Props> = ({selectGameIsRunning, selectLogs, computeLast
 	const [showOnlyLastLogs, setShowOnlyLastLogs] = useState(true);
 	const logs = useAppSelector(showOnlyLastLogs ? computeLastLogs : selectLogs);
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
-	const recordClass = useMemo(() => {
-		return [styles.record, gameIsRunning ? styles.recordInGame : ''].join(' ');
-	}, [gameIsRunning]);
-	const changeHandler = useCallback(() => {
-		setShowOnlyLastLogs(!showOnlyLastLogs);
-	}, [showOnlyLastLogs]);
+	const recordClass = [styles.record, gameIsRunning ? styles.recordInGame : ''].join(' ');
+	const changeHandler = () => setShowOnlyLastLogs(!showOnlyLastLogs);
 	return logs.length > 0 || gameIsRunning ? <ColumnPanel title={gameIsRunning ? 'Логи:' : 'Логи предыдущего матча:'}>
 		<label className={styles.checkLabel}>
 			<input className={styles.checkBox} checked={showOnlyLastLogs} type={'checkbox'} onChange={changeHandler}/>

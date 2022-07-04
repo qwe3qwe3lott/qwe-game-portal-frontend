@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 
 type Props = {
 	title?: string
@@ -14,9 +14,8 @@ const ModalWindow: React.FC<Props> = ({children, closeHandler, title}) => {
 			document.body.style.overflow = 'unset';
 		};
 	}, []);
-	const stopCloseHandler = useCallback((event: React.MouseEvent<HTMLDivElement>) => event.stopPropagation(), []);
 	return(<div onMouseDown={closeHandler} className={styles.layout}>
-		<div className={styles.window} onMouseDown={stopCloseHandler}>
+		<div className={styles.window} onMouseDown={(event) => event.stopPropagation()}>
 			{title && <p className={styles.title}>{title}</p>}
 			<div className={styles.content}>{children}</div>
 		</div>

@@ -14,7 +14,7 @@ type Props = {
 }
 const GameMembersList: React.FC<Props> = ({selectMembers, selectGameIsRunning, computeMembersRestriction}) => {
 	const members = useAppSelector(selectMembers);
-	return(<ColumnPanel title={'Участники:'}>
+	return(<ColumnPanel title={'Участники:'} center>
 		<ol className={styles.members}>
 			{members.map((member, key) => <li
 				className={styles.member}

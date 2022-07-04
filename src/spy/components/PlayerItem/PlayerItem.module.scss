@@ -1,13 +1,4 @@
-@import "../../../mixins";
 @import "../../../colors";
-.players {
-  place-self: center;
-  max-width: 10em;
-  @include scrollable;
-  overflow-x: auto;
-  list-style-position: inside;
-  padding-bottom: 0.25em;
-}
 .player {
   white-space: nowrap;
   text-align: start;

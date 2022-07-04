@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useState} from 'react';
 
 import styles from './SideBar.module.scss';
 
@@ -12,15 +12,9 @@ type Props = {
 
 const SideBar: React.FC<Props> = ({className, maxShowWidth, miniBar, children, rightSide}) => {
 	const [mini, setMini] = useState(window.screen.width < maxShowWidth);
-	const layoutClass = useMemo(() => {
-		return [className, styles.layout, (mini ? styles.miniLayout : '')].join(' ');
-	}, [mini]);
-	const buttonClass = useMemo(() => {
-		return [styles.button, (mini ? styles.hiddenButton : styles.showedButton), (rightSide ? styles.buttonToLeft : styles.buttonToRight)].join(' ');
-	}, [mini]);
-	const clickHandler = useCallback(() => {
-		setMini(!mini);
-	}, [mini]);
+	const layoutClass = [className, styles.layout, (mini ? styles.miniLayout : '')].join(' ');
+	const buttonClass = [styles.button, (mini ? styles.hiddenButton : styles.showedButton), (rightSide ? styles.buttonToLeft : styles.buttonToRight)].join(' ');
+	const clickHandler = () => setMini(!mini);
 	return(<div className={layoutClass}>
 		<button className={buttonClass} onClick={clickHandler}/>
 		{mini ? miniBar : children}

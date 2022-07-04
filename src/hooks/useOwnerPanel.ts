@@ -1,4 +1,3 @@
-import {useCallback} from 'react';
 import {GameApi} from '../abstracts/GameApi';
 import {RootState} from '../store';
 import {useAppSelector} from './typedReduxHooks';
@@ -15,15 +14,11 @@ export const useOwnerPanel = (
 	const gameIsRunning = useAppSelector(selectGameIsRunning);
 	const gameIsOnPause = useAppSelector(selectGameIsOnPause);
 	const restrictionsToStart = useAppSelector(selectRestrictionsToStart);
-	const startHandler = useCallback(() => {
+	const startHandler = () => {
 		if (!gameIsOnPause) api.startGame(ownerKey);
 		else api.resumeGame(ownerKey);
-	}, [ownerKey, gameIsOnPause]);
-	const stopHandler = useCallback(() => {
-		api.stopGame(ownerKey);
-	}, [ownerKey]);
-	const pauseHandler = useCallback(() => {
-		api.pauseGame(ownerKey);
-	}, [ownerKey]);
+	};
+	const stopHandler = () => api.stopGame(ownerKey);
+	const pauseHandler = () => api.pauseGame(ownerKey);
 	return { gameIsRunning, gameIsOnPause, startHandler, stopHandler, pauseHandler, restrictionsToStart };
 };

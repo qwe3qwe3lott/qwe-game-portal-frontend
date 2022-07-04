@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 type Props = {
     onSuccess: () => void
@@ -14,18 +14,18 @@ import {GamePlayer} from '../../types/GamePlayer';
 const NicknameForm: React.FC<Props> = ({onSuccess, api}) => {
 	const nickname = useAppSelector(selectNickname);
 	const [value, setValue] = useState(nickname);
-
-	const changeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-		setValue(event.target.value);
-	}, []);
-	const sendHandler = useCallback(() => {
-		api.changeNickname(value)
-			.then(nickname => { if (nickname) onSuccess(); });
-	}, [onSuccess, value]);
+	const [delay, setDelay] = useState(false);
+	const changeHandler = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
+	const sendHandler = async () => {
+		setDelay(true);
+		const nickname = await api.changeNickname(value);
+		if (nickname) onSuccess();
+		else setDelay(false);
+	};
 
 	return(<div className={styles.layout}>
 		<input className={styles.input} onChange={changeHandler} placeholder={'Введите ник...'} value={value}/>
-		<button className={styles.button} onClick={sendHandler}>Изменить</button>
+		<button className={styles.button} disabled={delay} onClick={sendHandler}>Изменить</button>
 	</div>);
 };
 

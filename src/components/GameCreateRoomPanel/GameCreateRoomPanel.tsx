@@ -1,4 +1,4 @@
-import React, {ReactNode, useCallback} from 'react';
+import React, {ReactNode, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './GameCreateRoomPanel.module.scss';
 import {GameApi} from '../../abstracts/GameApi';
@@ -13,9 +13,7 @@ type Props = {
 }
 const GameCreateRoomPanel: React.FC<Props> = ({api, gameTitle, rules}) => {
 	const navigate = useNavigate();
-	const exitHandler = useCallback(() => {
-		navigate('/');
-	}, []);
+	const exitHandler = () => navigate('/');
 	return (<ColumnPanel title={`Игра "${gameTitle}"`} hugeTitle width={15}>
 		<CreateRoomButton api={api}/>
 		{rules && <ModalButton label={'Правила'}>{rules}</ModalButton>}
@@ -31,9 +29,12 @@ type CreateRoomButtonProps = {
 }
 const CreateRoomButton: React.FC<CreateRoomButtonProps> = ({api}) => {
 	const navigate = useNavigate();
-	const createHandler = useCallback(async () => {
+	const [delay, setDelay] = useState(false);
+	const createHandler = async () => {
+		setDelay(true);
 		const roomId = await api.createRoom();
 		if (roomId) navigate(`${roomId}`);
-	}, []);
-	return(<button className={styles.button} onClick={createHandler}>Создать комнату</button>);
+		else setDelay(false);
+	};
+	return(<button className={styles.button} disabled={delay} onClick={createHandler}>Создать комнату</button>);
 };

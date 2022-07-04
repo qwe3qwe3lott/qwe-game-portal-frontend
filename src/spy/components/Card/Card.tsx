@@ -1,8 +1,39 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {FieldCard} from '../../types/FieldCard';
 
 import styles from './Card.module.scss';
 import globalColors from '../../../colors.scss';
+import {Directions} from '../../enums/Directions';
+
+const getAnimationClass = (card: FieldCard): string => {
+	if ('markMovedDirection' in card) {
+		switch (card.markMovedDirection) {
+		case Directions.UP:
+			return styles.moveUp;
+		case Directions.DOWN:
+			return styles.moveDown;
+		case Directions.LEFT:
+			return styles.moveLeft;
+		case Directions.RIGHT:
+			return styles.moveRight;
+		default:
+			return '';
+		}
+	} else if ('markTeleportedDirection' in card) {
+		switch (card.markTeleportedDirection) {
+		case Directions.UP:
+			return styles.teleportUp;
+		case Directions.DOWN:
+			return styles.teleportDown;
+		case Directions.LEFT:
+			return styles.teleportLeft;
+		case Directions.RIGHT:
+			return styles.teleportRight;
+		default:
+			return '';
+		}
+	} else return '';
+};
 
 type Props = {
 	isDeco?: boolean
@@ -10,23 +41,16 @@ type Props = {
 	layoutStyle?: { gridColumn: string, gridRow: string }
 	captureCard: (card: FieldCard) => void
 	askCard: (card: FieldCard) => void
-	getAnimationClass: (card: FieldCard) => string
 }
-
-const RawCard: React.FC<Props> = ({ card, layoutStyle , isDeco, askCard, captureCard, getAnimationClass}) => {
-	const backgroundColor = useMemo(() => {
-		if (isDeco) return '';
-		if ('markCaptured' in card) return (card.markCaptured ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity) as string;
-		if ('markAsked' in card) return (card.markAsked ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity) as string;
-		if ('markMovedDirection' in card || 'markTeleportedDirection' in card) return (globalColors.secondaryColorHalfOppacity) as string;
-		return '';
-	}, [card, isDeco]);
-	const layoutClass = useMemo(() => {
-		return [styles.layout, getAnimationClass(card)].join(' ');
-	}, [card]);
-	const computedLayoutStyle = useMemo(() => {
-		return {...layoutStyle, backgroundColor };
-	}, [layoutStyle, backgroundColor]);
+const RawCard: React.FC<Props> = ({ card, layoutStyle , isDeco, askCard, captureCard}) => {
+	let backgroundColor = '';
+	if (!isDeco) {
+		if ('markCaptured' in card) backgroundColor = (card.markCaptured ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity) as string;
+		else if ('markAsked' in card) backgroundColor = (card.markAsked ? globalColors.secondaryColorHalfOppacity : globalColors.secondaryOppositeColorHalfOppacity) as string;
+		else if ('markMovedDirection' in card || 'markTeleportedDirection' in card) backgroundColor = (globalColors.secondaryColorHalfOppacity) as string;
+	}
+	const layoutClass = `${styles.layout} ${getAnimationClass(card)}`;
+	const computedLayoutStyle = { ...layoutStyle, backgroundColor };
 	return(<li className={layoutClass} style={computedLayoutStyle}>
 		{!card.captured && <>
 			<div className={styles.image} style={{ backgroundImage: `url(${card.url})` }}>

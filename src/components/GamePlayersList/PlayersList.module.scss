@@ -1,0 +1,8 @@
+@import "../../mixins";
+@import "../../colors";
+.players {
+  max-width: 10em;
+  @include scrollable;
+  overflow-x: auto;
+  padding-bottom: 0.25em;
+}

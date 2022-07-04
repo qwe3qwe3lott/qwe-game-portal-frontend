@@ -1,6 +1,5 @@
 @import "../../mixins";
 .members {
-  place-self: center;
   max-width: 10em;
   @include scrollable;
   overflow-x: auto;
