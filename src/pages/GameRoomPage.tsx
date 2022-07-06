@@ -4,6 +4,8 @@ import {GameApi} from '../abstracts/GameApi';
 import {GamePlayer} from '../types/GamePlayer';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {useAppDispatch} from '../hooks/typedReduxHooks';
+import {GameRoomStatus} from '../types/GameRoomStatus';
+import {GameRoomOptions} from '../types/GameRoomOptions';
 
 type Params = {
     roomId: string
@@ -15,7 +17,7 @@ enum States {
 	JOINED
 }
 type Props = {
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 	routePath: string
 	Room: React.FC
 	clearStoreAfterLeaving: () => PayloadAction

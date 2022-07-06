@@ -1,6 +1,6 @@
-export type RoomOptions = {
-    minPlayers: number
-    maxPlayers: number
+import {GameRoomOptions} from '../../types/GameRoomOptions';
+
+export type RoomOptions = GameRoomOptions & {
     rows: number
     columns: number
     secondsToAct: number

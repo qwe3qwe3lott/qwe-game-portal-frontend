@@ -4,11 +4,13 @@ import {Member} from '../types/Member';
 import {GameEvents} from '../enums/GameEvents';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {LogRecord} from '../types/LogRecord';
-import {RoomStatuses} from '../enums/RoomStatuses';
 import {Timer} from '../types/Timer';
 import {GamePlayer} from '../types/GamePlayer';
+import {GameRoomStatus} from '../types/GameRoomStatus';
+import {GameRoomOptions} from '../types/GameRoomOptions';
+import {OptionsDto} from '../dto/OptionsDto';
 
-export abstract class GameApi<P extends GamePlayer> {
+export abstract class GameApi<P extends GamePlayer, S extends GameRoomStatus, O extends GameRoomOptions> {
     protected _socket?: Socket;
     public get socket() { return this._socket; }
     protected constructor(
@@ -23,15 +25,20 @@ export abstract class GameApi<P extends GamePlayer> {
     protected superSubscribe(
     	setMembers: (members: Member[]) => PayloadAction<Member[]>,
     	setOwnerKey: (ownerKey: string) => PayloadAction<string>,
-    	setRoomStatus: (status: RoomStatuses) => PayloadAction<RoomStatuses>,
+    	setRoomStatus: (status: S) => PayloadAction<S>,
     	setRestrictionsToStart: (restrictions: string[]) => PayloadAction<string[]>,
     	setIAmActingFlag: (flag: boolean) => PayloadAction<boolean>,
     	setLogs: (logs: LogRecord[]) => PayloadAction<LogRecord[]>,
     	addLogRecord: (record: LogRecord) => PayloadAction<LogRecord>,
     	setTimer: (timer: Timer) => PayloadAction<Timer>,
     	setNickname: (nickname: string) => PayloadAction<string>,
-    	setPlayers: (player: P[]) => PayloadAction<P[]>
+    	setPlayers: (player: P[]) => PayloadAction<P[]>,
+    	setRoomOptions: (options: O) => PayloadAction<O>
     ): void {
+    	this._socket?.on(GameEvents.GET_ROOM_OPTIONS, (roomOptions: O) => {
+    		console.log(GameEvents.GET_ROOM_OPTIONS, roomOptions);
+    		this._appDispatch(setRoomOptions(roomOptions));
+    	});
     	this._socket?.on(GameEvents.GET_PLAYERS, (players: P[]) => {
     		console.log(GameEvents.GET_PLAYERS, players);
     		this._appDispatch(setPlayers(players));
@@ -44,7 +51,7 @@ export abstract class GameApi<P extends GamePlayer> {
     		console.log(GameEvents.GET_OWNER_KEY, ownerKey);
     		this._appDispatch(setOwnerKey(ownerKey));
     	});
-    	this._socket?.on(GameEvents.GET_ROOM_STATUS, (status: RoomStatuses) => {
+    	this._socket?.on(GameEvents.GET_ROOM_STATUS, (status: S) => {
     		console.log(GameEvents.GET_ROOM_STATUS, status);
     		this._appDispatch(setRoomStatus(status));
     	});
@@ -148,6 +155,11 @@ export abstract class GameApi<P extends GamePlayer> {
     	this._socket?.emit(GameEvents.REQUEST_TIMER);
     }
 
+    public requestRoomOptions() {
+    	console.log(GameEvents.REQUEST_ROOM_OPTIONS);
+    	this._socket?.emit(GameEvents.REQUEST_ROOM_OPTIONS);
+    }
+
     public resumeGame(ownerKey: string) {
     	console.log(GameEvents.RESUME_GAME, ownerKey);
     	this._socket?.emit(GameEvents.RESUME_GAME, ownerKey);
@@ -168,6 +180,17 @@ export abstract class GameApi<P extends GamePlayer> {
     				localStorage.setItem('nickname', nickname);
     			}
     			resolve(nickname);
+    		});
+    	});
+    }
+
+    public async changeRoomOptions(ownerKey: string, roomOptions: O) : Promise<boolean> {
+    	return new Promise(resolve => {
+    		if (!this._socket) return resolve(false);
+    		const optionsDto: OptionsDto<O> = { options: roomOptions, ownerKey };
+    		console.log(GameEvents.CHANGE_ROOM_OPTIONS, optionsDto);
+    		this._socket.emit(GameEvents.CHANGE_ROOM_OPTIONS, optionsDto, (flag: boolean) => {
+    			resolve(flag);
     		});
     	});
     }

@@ -6,18 +6,20 @@ import ColumnPanel from '../ColumnPanel';
 import ModalButton from '../ModalButton';
 import NicknameForm from '../NicknameForm';
 import {GamePlayer} from '../../types/GamePlayer';
+import {GameRoomStatus} from '../../types/GameRoomStatus';
+import {GameRoomOptions} from '../../types/GameRoomOptions';
 type Props = {
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 	gameTitle: string
-	rules?: ReactNode
+	children?: ReactNode
 }
-const GameCreateRoomPanel: React.FC<Props> = ({api, gameTitle, rules}) => {
+const GameCreateRoomPanel: React.FC<Props> = ({api, gameTitle, children}) => {
 	const navigate = useNavigate();
 	const exitHandler = () => navigate('/');
 	return (<ColumnPanel title={`Игра "${gameTitle}"`} hugeTitle width={15}>
 		<CreateRoomButton api={api}/>
-		{rules && <ModalButton label={'Правила'}>{rules}</ModalButton>}
 		<ModalButton label={'Изменить ник'} formSet={{ form: NicknameForm, api }}/>
+		{children}
 		<button className={styles.button} onClick={exitHandler}>К списку игр</button>
 	</ColumnPanel>);
 };
@@ -25,7 +27,7 @@ const GameCreateRoomPanel: React.FC<Props> = ({api, gameTitle, rules}) => {
 export default GameCreateRoomPanel;
 
 type CreateRoomButtonProps = {
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 }
 const CreateRoomButton: React.FC<CreateRoomButtonProps> = ({api}) => {
 	const navigate = useNavigate();

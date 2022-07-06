@@ -15,13 +15,13 @@ import {FieldCard} from './types/FieldCard';
 import {MovementDto} from './dto/MovementDto';
 import {Sizes} from './types/Sizes';
 import {RoomOptions} from './types/RoomOptions';
-import {OptionsDto} from './dto/OptionsDto';
 import {OptionsOfCardsDto} from './dto/OptionsOfCardsDto';
 import {GameApi} from '../abstracts/GameApi';
 import {routePath} from './Router';
 import {CardOptions} from './types/CardOptions';
+import {RoomStatus} from './types/RoomStatus';
 
-export class Api extends GameApi<Player> {
+export class Api extends GameApi<Player, RoomStatus, RoomOptions> {
 	public static readonly MIN_MIN_PLAYERS = 2;
 	public static readonly MAX_MIN_PLAYERS = 8;
 	public static readonly MIN_MAX_PLAYERS = 2;
@@ -38,7 +38,8 @@ export class Api extends GameApi<Player> {
 
 	public subscribe(): void {
 		this._socket = GameApi.createSocket(routePath);
-		this.superSubscribe(setMembers, setOwnerKey, setRoomStatus, setRestrictionsToStart, setIAmActingFlag, setLogs, addLogRecord, setTimer, setNickname, setPlayers);
+		this.superSubscribe(setMembers, setOwnerKey, setRoomStatus, setRestrictionsToStart, setIAmActingFlag,
+			setLogs, addLogRecord, setTimer, setNickname, setPlayers, setRoomOptions);
 		this._socket.on(Events.GET_FIELD_CARDS, (fieldCards: FieldCard[]) => {
 			console.log(Events.GET_FIELD_CARDS, fieldCards);
 			this._appDispatch(setFieldCards(fieldCards));
@@ -50,10 +51,6 @@ export class Api extends GameApi<Player> {
 		this._socket.on(Events.GET_CARD, (card: FieldCard) => {
 			console.log(Events.GET_CARD, card);
 			this._appDispatch(setCard(card));
-		});
-		this._socket.on(Events.GET_ROOM_OPTIONS, (roomOptions: RoomOptions) => {
-			console.log(Events.GET_ROOM_OPTIONS, roomOptions);
-			this._appDispatch(setRoomOptions(roomOptions));
 		});
 		this._socket.on(Events.GET_ROOM_OPTIONS_OF_CARDS, (optionsOfCards: CardOptions[]) => {
 			console.log(Events.GET_ROOM_OPTIONS_OF_CARDS, optionsOfCards);
@@ -67,11 +64,6 @@ export class Api extends GameApi<Player> {
 			console.log(Events.GET_ACT_CARD_IDS, ids);
 			this._appDispatch(addActCardIds(ids));
 		});
-	}
-
-	public requestRoomOptions() {
-		console.log(Events.REQUEST_ROOM_OPTIONS);
-		this._socket?.emit(Events.REQUEST_ROOM_OPTIONS);
 	}
 
 	public requestOptionsOfCards() {
@@ -92,17 +84,6 @@ export class Api extends GameApi<Player> {
 	public askCard(cardId: number) {
 		console.log(Events.ASK_CARD, cardId);
 		this._socket?.emit(Events.ASK_CARD, cardId);
-	}
-
-	public async changeRoomOptions(ownerKey: string, roomOptions: RoomOptions) : Promise<boolean> {
-		return new Promise(resolve => {
-			if (!this._socket) return resolve(false);
-			const optionsDto: OptionsDto = { options: roomOptions, ownerKey };
-			console.log(Events.CHANGE_ROOM_OPTIONS, optionsDto);
-			this._socket.emit(Events.CHANGE_ROOM_OPTIONS, optionsDto, (flag: boolean) => {
-				resolve(flag);
-			});
-		});
 	}
 
 	public async changeRoomOptionsOfCards(ownerKey: string, optionsOfCards: CardOptions[]) : Promise<boolean> {

@@ -10,9 +10,6 @@ import {
 } from '../store/selectors';
 import GameOwnerPanel from '../../components/GameOwnerPanel';
 import {useApi} from '../Api';
-import ModalButton from '../../components/ModalButton';
-import RoomOptionsForm from './RoomOptionsForm';
-import OptionsOfCardsForm from './OptionsOfCardsForm';
 import GameMemberPanel from '../../components/GameMemberPanel';
 import GameMembersList from '../../components/GameMembersList';
 import MiniGameOwnerPanel from '../../components/MiniGameOwnerPanel';
@@ -32,8 +29,7 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 			selectRestrictionsToStart={selectRestrictionsToStart}
 		/>
 		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning}>
-			<ModalButton label={'Настройки'} formSet={{ form: RoomOptionsForm, api }}/>
-			<ModalButton label={'Карты'} formSet={{ form: OptionsOfCardsForm, api }}/>
+
 		</GameMemberPanel>
 		<GameMembersList selectMembers={selectMembers} selectGameIsRunning={selectGameIsRunning} computeMembersRestriction={computeMembersRestriction}/>
 	</SideBar>);

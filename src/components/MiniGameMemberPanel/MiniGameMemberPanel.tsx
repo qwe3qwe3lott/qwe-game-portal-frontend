@@ -11,10 +11,12 @@ import pen from '../../assets/pen.svg';
 import profile from '../../assets/profile.svg';
 import MiniModalButton from '../MiniModalButton';
 import {GamePlayer} from '../../types/GamePlayer';
+import {GameRoomStatus} from '../../types/GameRoomStatus';
+import {GameRoomOptions} from '../../types/GameRoomOptions';
 
 type Props = {
 	children?: React.ReactNode
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 	selectIAmPlayer: (state: RootState) => boolean
 	selectGameIsRunning: (state: RootState) => boolean
 }
@@ -29,7 +31,7 @@ const MiniGameMemberPanel: React.FC<Props> = ({children, selectGameIsRunning, se
 export default MiniGameMemberPanel;
 
 type BecomeButtonProps = {
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 	selectIAmPlayer: (state: RootState) => boolean
 	selectGameIsRunning: (state: RootState) => boolean
 }
@@ -48,7 +50,7 @@ const BecomeButton: React.FC<BecomeButtonProps> = ({api, selectGameIsRunning, se
 
 type ChangeNicknameButtonProps = {
 	selectGameIsRunning: (state: RootState) => boolean
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 }
 const ChangeNicknameButton: React.FC<ChangeNicknameButtonProps> = ({selectGameIsRunning, api}) => {
 	const gameIsRunning = useAppSelector(selectGameIsRunning);

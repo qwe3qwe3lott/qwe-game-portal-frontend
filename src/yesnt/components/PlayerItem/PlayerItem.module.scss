@@ -1,0 +1,12 @@
+@import "../../../colors";
+.player {
+  white-space: nowrap;
+  text-align: start;
+  font-size: 0.7em;
+}
+.playerInGame {
+  &:first-child {
+    font-size: 0.9em;
+    padding-bottom: 0.5em;
+  }
+}

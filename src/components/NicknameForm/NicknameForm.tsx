@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 
 type Props = {
     onSuccess: () => void
-	api: GameApi<GamePlayer>
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
 }
 
 import styles from './NicknameForm.module.scss';
@@ -10,6 +10,8 @@ import {useAppSelector} from '../../hooks/typedReduxHooks';
 import {selectNickname} from '../../store';
 import {GameApi} from '../../abstracts/GameApi';
 import {GamePlayer} from '../../types/GamePlayer';
+import {GameRoomStatus} from '../../types/GameRoomStatus';
+import {GameRoomOptions} from '../../types/GameRoomOptions';
 
 const NicknameForm: React.FC<Props> = ({onSuccess, api}) => {
 	const nickname = useAppSelector(selectNickname);

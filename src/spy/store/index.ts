@@ -4,25 +4,17 @@ import {Player} from '../types/Player';
 import {FieldCard} from '../types/FieldCard';
 import {Sizes} from '../types/Sizes';
 import {RoomOptions} from '../types/RoomOptions';
-import {RoomStatuses} from '../../enums/RoomStatuses';
 import {CardOptions} from '../types/CardOptions';
 import {getGameInitialState, getGameReducers} from '../../store/factories';
+import {RoomStatus} from '../types/RoomStatus';
 
 const initialState: State = {
-	...getGameInitialState(),
+	...getGameInitialState<Player, RoomStatus, RoomOptions>({ rows: 5, maxPlayers: 8, winScore: 3, secondsToAct: 60, minPlayers: 2, columns: 5 }),
 	fieldCards: [],
 	sizes: { rows: 0, columns: 0 },
 	lastWinner: '',
 	membersRestriction: { min: 2, max: 8 },
 	optionsOfCardsIdCounter: 1,
-	roomOptions: {
-		rows: 5,
-		maxPlayers: 8,
-		winScore: 3,
-		secondsToAct: 60,
-		minPlayers: 2,
-		columns: 5
-	},
 	optionsOfCards: []
 };
 
@@ -30,15 +22,15 @@ const slice = createSlice({
 	name: 'spy',
 	initialState,
 	reducers: {
-		...getGameReducers<Player, State>(),
+		...getGameReducers<Player, State, RoomStatus, RoomOptions>(),
 		setPlayers(state, action: PayloadAction<Player[]>) { state.players = action.payload; },
-		setRoomStatus(state, action: PayloadAction<RoomStatuses>) {
+		setRoomStatus(state, action: PayloadAction<RoomStatus>) {
 			switch (action.payload) {
-			case RoomStatuses.IDLE:
-			case RoomStatuses.ON_PAUSE:
+			case 'idle':
+			case 'pause':
 				state.roomStatus = action.payload;
 				break;
-			case RoomStatuses.IS_RUNNING:
+			case 'run':
 				if (action.payload) {
 					state.lastWinner = '';
 					state.roomStatus = action.payload;
@@ -51,11 +43,6 @@ const slice = createSlice({
 			}
 		},
 		setLastWinner(state, action: PayloadAction<string>) { state.lastWinner = action.payload; },
-		setRoomOptions(state, action: PayloadAction<RoomOptions>) {
-			state.roomOptions = action.payload;
-			state.membersRestriction.min = action.payload.minPlayers;
-			state.membersRestriction.max = action.payload.maxPlayers;
-		},
 		setOptionsOfCards(state, action: PayloadAction<CardOptions[]>) {
 			state.optionsOfCards = action.payload;
 			state.optionsOfCardsIdCounter = action.payload.length + 1;
@@ -73,7 +60,7 @@ const slice = createSlice({
 			state.members = [];
 			state.iAmPlayer = false;
 			state.players = [];
-			state.roomStatus = RoomStatuses.IDLE;
+			state.roomStatus = 'idle';
 			state.fieldCards = [];
 			state.restrictionsToStart = [];
 			state.sizes = { rows: 0, columns: 0 };
@@ -87,8 +74,6 @@ const slice = createSlice({
 		setOptionWinScore(state, action: PayloadAction<number>) { state.roomOptions.winScore = action.payload; },
 		setOptionColumns(state, action: PayloadAction<number>) { state.roomOptions.columns = action.payload; },
 		setOptionRows(state, action: PayloadAction<number>) { state.roomOptions.rows = action.payload; },
-		setOptionMinPlayers(state, action: PayloadAction<number>) { state.roomOptions.minPlayers = action.payload; },
-		setOptionMaxPlayers(state, action: PayloadAction<number>) { state.roomOptions.maxPlayers = action.payload; },
 		changeOptionTitleOfCard(state, action: PayloadAction<{ id: number, title: string }>) {
 			const optionsOfCard = state.optionsOfCards.find(options => options.id === action.payload.id);
 			if (!optionsOfCard) return;

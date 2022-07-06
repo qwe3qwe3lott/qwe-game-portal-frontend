@@ -8,7 +8,7 @@ import {GamePlayer} from '../../types/GamePlayer';
 
 type PropsOfItem<P extends GamePlayer> = {
 	player: P
-	gameIsRunning: boolean
+	gameIsRunning?: boolean
 }
 type Props<P extends GamePlayer> = {
 	selectGameIsRunning: (state: RootState) => boolean

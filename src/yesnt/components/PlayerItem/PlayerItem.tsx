@@ -10,11 +10,11 @@ type Props = {
 }
 const PlayerItem: React.FC<Props> = ({player, gameIsRunning, current}) => {
 	if (current) return <>
-		<span className={styles.score}>{`(${player.score})`}</span> {player.nickname}
+		{player.nickname}
 	</>;
 	const playerClass = `${styles.player} ${gameIsRunning ? styles.playerInGame : ''}`;
 	return <li className={playerClass} key={player.id}>
-		<span className={styles.score}>({player.score})</span> {player.nickname}
+		{player.nickname}
 	</li>;
 };
 

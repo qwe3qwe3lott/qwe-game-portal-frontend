@@ -5,9 +5,11 @@ import {GameApi} from '../abstracts/GameApi';
 import {RootState} from '../store';
 import {Timer} from '../types/Timer';
 import {GamePlayer} from '../types/GamePlayer';
+import {GameRoomStatus} from '../types/GameRoomStatus';
+import {GameRoomOptions} from '../types/GameRoomOptions';
 
 export const useTimer = (
-	api: GameApi<GamePlayer>,
+	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>,
 	selectTimer: (state: RootState) => Timer,
 	selectGameIsOnPause: (state: RootState) => boolean,
 	mini: boolean

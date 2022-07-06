@@ -1,0 +1,6 @@
+@import "../../../mixins";
+.layout {
+  @include scrollable;
+  overflow: auto;
+  display: grid;
+}
