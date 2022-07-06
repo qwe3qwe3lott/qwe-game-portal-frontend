@@ -43,6 +43,8 @@ const FileButtons: React.FC = () => {
 				if (!cardsOptions[i].url) cardsOptions[i].title = '';
 			}
 			dispatch(setOptionsOfCards(cardsOptions));
+			// Чтобы позволить повторно импортировать тот же самый файл (иначе не срабатывает повторно onChange)
+			event.target.value = '';
 		}
 		reader.onloadend = onReaderLoad;
 		reader.readAsText(event.target?.files[0]);
