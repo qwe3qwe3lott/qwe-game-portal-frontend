@@ -1,10 +1,11 @@
 import {GameState} from './types';
 import {RoomStatuses} from '../enums/RoomStatuses';
-import {PayloadAction} from '@reduxjs/toolkit';
+import {$CombinedState, PayloadAction} from '@reduxjs/toolkit';
 import {LogRecord} from '../types/LogRecord';
 import {Member} from '../types/Member';
 import {Timer} from '../types/Timer';
 import {GamePlayer} from '../types/GamePlayer';
+import {RootState} from './index';
 
 export const getGameInitialState = <P extends GamePlayer>(): GameState<P> => ({
 	ownerKey: '',
@@ -29,3 +30,10 @@ export const getGameReducers = <P extends GamePlayer, S extends GameState<P>>() 
 	setTimer: (state: S, action: PayloadAction<Timer>) => { state.timer = action.payload; },
 	setRestrictionsToStart: (state: S, action: PayloadAction<string[]>) => { state.restrictionsToStart = action.payload; }
 });
+
+export const getGameSelectors = <M extends keyof Omit<Omit<RootState, typeof $CombinedState>, 'app'>>(module: M) => {
+	const selectOwnerKey = (state: RootState) => state[module].ownerKey;
+	const selectGameIsRunning = (state: RootState) => state[module].roomStatus === RoomStatuses.IS_RUNNING || state[module].roomStatus === RoomStatuses.ON_PAUSE;
+	const selectGameIsOnPause = (state: RootState) => state[module].roomStatus === RoomStatuses.ON_PAUSE;
+	return {selectOwnerKey, selectGameIsRunning, selectGameIsOnPause};
+};

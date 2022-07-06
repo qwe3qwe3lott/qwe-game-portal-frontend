@@ -16,20 +16,16 @@
   @include columnPanel;
   padding: 0.5em 2.5em 0.5em 1em;
   position: relative;
-  width: 18em;
 }
 .miniLayout {
-  width: 18em;
 }
 .close {
   position: absolute;
   top: 0.5em;
   right: 0.5em;
-  @include button;
+  @include miniButton;
   background-image: url("../../../assets/cross.svg");
-  background-size: 60%;
-  background-position: center;
-  background-repeat: no-repeat;
+  border-radius: 0.25em;
   height: 1.5em;
   width: 1.5em;
 }
@@ -37,11 +33,9 @@
   position: absolute;
   bottom: 0.5em;
   right: 0.5em;
-  @include button;
+  @include miniButton;
   background-image: url("../../../assets/trash.svg");
-  background-size: 60%;
-  background-position: center;
-  background-repeat: no-repeat;
+  border-radius: 0.25em;
   height: 1.5em;
   width: 1.5em;
 }

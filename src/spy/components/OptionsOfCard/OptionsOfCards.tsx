@@ -24,7 +24,7 @@ type OptionsOfCardsProps = Props & {
 }
 
 const OptionsOfCardsHidden: React.FC<OptionsOfCardsProps> = ({ cardOptions, visibilityHandler }) => {
-	return(<li className={styles.hiddenLayout}>
+	return(<li className={styles.miniLayout}>
 		<button type={'button'} className={styles.showButton} onClick={visibilityHandler}>{cardOptions.title}</button>
 		<label className={styles.hidden}>
             Название
