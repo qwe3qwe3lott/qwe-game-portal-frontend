@@ -6,11 +6,10 @@ import ColumnPanel from '../ColumnPanel';
 import styles from './GameOwnerPanel.module.scss';
 import React from 'react';
 import {GamePlayer} from '../../types/GamePlayer';
-import {GameRoomStatus} from '../../types/GameRoomStatus';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
 
 type Props = {
-	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
+	api: GameApi<GamePlayer, string, GameRoomOptions>
 	selectOwnerKey: (state: RootState) => string
 	selectGameIsRunning: (state: RootState) => boolean
 	selectGameIsOnPause: (state: RootState) => boolean

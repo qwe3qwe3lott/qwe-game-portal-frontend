@@ -10,37 +10,36 @@ import {
 	selectSizes
 } from '../../store/selectors';
 import {useApi} from '../../Api';
+import GameRoomStatusBar from '../../../components/GameRoomStatusBar/GameRoomStatusBar';
 
 type Props = {
 	className?: string
 }
 const GameField: React.FC<Props> = ({className}) => {
+	const layoutClass = `${styles.layout} ${className}`;
+	return(<div className={layoutClass}>
+		<GameRoomStatusBar selectGameIsRunning={selectGameIsRunning} selectGameIsOnPause={selectGameIsOnPause}/>
+		<Content/>
+	</div>);
+};
+
+export default GameField;
+
+const Content: React.FC = () => {
 	const fieldCards = useAppSelector(selectFieldCards);
 	const sizes = useAppSelector(selectSizes);
 	useEffect(() => {
 		document.documentElement.style.setProperty('--rows', `${sizes.rows}00%`);
 		document.documentElement.style.setProperty('--columns', `${sizes.columns}00%`);
 	}, [sizes]);
-	const layoutClass = `${styles.layout} ${className}`;
-	return(<div className={layoutClass}>
-		<StatusBar/>
+	return <>
 		{fieldCards.length !== 0 && <div className={styles.field}>
 			<MoveButtons/>
 			<span style={{ gridRow: 1, gridColumn: 1 }} className={styles.expander}/>
 			<span style={{ gridRow: 2 + sizes.rows, gridColumn: 2 + sizes.columns }} className={styles.expander}/>
 			<CardsField layoutStyle={{ gridRow: `2 / span ${sizes.rows}`, gridColumn: `2 / span ${sizes.columns}`}}/>
 		</div>}
-	</div>);
-};
-
-export default GameField;
-
-const StatusBar: React.FC = () => {
-	const gameIsRunning = useAppSelector(selectGameIsRunning);
-	const gameIsOnPause = useAppSelector(selectGameIsOnPause);
-	return !gameIsRunning || gameIsOnPause ? <div className={styles.statusBar}>
-		<p className={styles.status}>{gameIsOnPause ? 'Ожидайте' : 'Ожидайте начала игры'}</p>
-	</div> : null;
+	</>;
 };
 
 let MoveButtons: React.FC = () => {

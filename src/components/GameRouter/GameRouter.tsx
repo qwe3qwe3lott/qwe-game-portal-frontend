@@ -5,11 +5,10 @@ import ErrorPage from '../../pages/ErrorPage';
 import {routePath} from '../../spy/Router';
 import {GameApi} from '../../abstracts/GameApi';
 import {GamePlayer} from '../../types/GamePlayer';
-import {GameRoomStatus} from '../../types/GameRoomStatus';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
 
 type Props = {
-    api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
+    api: GameApi<GamePlayer, string, GameRoomOptions>
     homePage: React.ReactNode,
     roomPage: React.ReactNode
 }

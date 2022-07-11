@@ -7,10 +7,12 @@ import {CardOptions} from '../types/CardOptions';
 import {getGameSelectors} from '../../store/factories';
 import {Player} from '../types/Player';
 
-export const {selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectIAmActing, selectIAmPlayer, selectTimer,
+export const {selectOwnerKey, selectGameIsOnPause, selectIAmActing, selectIAmPlayer, selectTimer,
 	selectMembers, selectMembersRestriction, selectRestrictionsToStart, selectPlayers, selectLogs,
 	computeMembersRestriction, computePlayersAmongMembers, computeCurrentPlayer, computeLastLogs, selectRoomOptions,
 	selectRoomMinPlayers, selectRoomMaxPlayers} = getGameSelectors<'spy', Player, RoomOptions>('spy');
+
+export const selectGameIsRunning = (state: RootState): boolean => state.spy.roomStatus === 'run';
 export const selectOptionsOfCards = (state: RootState): CardOptions[] => state.spy.optionsOfCards;
 export const selectRoomOptionSecondsToAct = (state: RootState): number => state.spy.roomOptions.secondsToAct;
 export const selectRoomOptionWinScore = (state: RootState): number => state.spy.roomOptions.winScore;

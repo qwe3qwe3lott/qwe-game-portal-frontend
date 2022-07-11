@@ -3,4 +3,11 @@
   @include scrollable;
   overflow: auto;
   display: grid;
+  place-items: center;
+}
+.sectionsLayout {
+  grid-area: 1 / 1;
+  gap: 1em;
+  display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
 }

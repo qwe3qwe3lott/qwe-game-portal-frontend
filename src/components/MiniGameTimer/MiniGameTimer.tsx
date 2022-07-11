@@ -8,11 +8,10 @@ import {RootState} from '../../store';
 import {useTimer} from '../../hooks/useTimer';
 import MiniColumnPanel from '../MiniColumnPanel';
 import {GamePlayer} from '../../types/GamePlayer';
-import {GameRoomStatus} from '../../types/GameRoomStatus';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
 
 type Props = {
-    api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
+    api: GameApi<GamePlayer, string, GameRoomOptions>
     selectTimer: (state: RootState) => TimerType
     selectGameIsOnPause: (state: RootState) => boolean
     selectGameIsRunning: (state: RootState) => boolean

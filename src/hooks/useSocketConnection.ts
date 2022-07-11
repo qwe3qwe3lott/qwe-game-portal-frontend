@@ -1,10 +1,9 @@
 import {GameApi} from '../abstracts/GameApi';
 import {useEffect, useState} from 'react';
 import {GamePlayer} from '../types/GamePlayer';
-import {GameRoomStatus} from '../types/GameRoomStatus';
 import {GameRoomOptions} from '../types/GameRoomOptions';
 
-export const useSocketConnection = (api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>) => {
+export const useSocketConnection = (api: GameApi<GamePlayer, string, GameRoomOptions>) => {
 	const [connected, setConnected] = useState(false);
 	useEffect(() => {
 		api.subscribe();

@@ -9,7 +9,7 @@ import {getGameInitialState, getGameReducers} from '../../store/factories';
 import {RoomStatus} from '../types/RoomStatus';
 
 const initialState: State = {
-	...getGameInitialState<Player, RoomStatus, RoomOptions>({ rows: 5, maxPlayers: 8, winScore: 3, secondsToAct: 60, minPlayers: 2, columns: 5 }),
+	...getGameInitialState<Player, RoomStatus, RoomOptions>({ rows: 5, maxPlayers: 8, winScore: 3, secondsToAct: 60, minPlayers: 2, columns: 5 }, 'idle'),
 	fieldCards: [],
 	sizes: { rows: 0, columns: 0 },
 	lastWinner: '',
@@ -27,18 +27,13 @@ const slice = createSlice({
 		setRoomStatus(state, action: PayloadAction<RoomStatus>) {
 			switch (action.payload) {
 			case 'idle':
-			case 'pause':
 				state.roomStatus = action.payload;
+				state.timer = { currentTime: 0, maxTime: 0 };
+				state.iAmActing = false;
 				break;
 			case 'run':
-				if (action.payload) {
-					state.lastWinner = '';
-					state.roomStatus = action.payload;
-				} else {
-					state.roomStatus = action.payload;
-					state.iAmActing = false;
-					state.timer = { currentTime: 0, maxTime: 0 };
-				}
+				if (state.roomStatus === 'idle') state.lastWinner = '';
+				state.roomStatus = action.payload;
 				break;
 			}
 		},
@@ -98,5 +93,5 @@ export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving,
 	setRestrictionsToStart, setIAmActingFlag, setSizes, setRoomStatus, setTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers, changeOptionTitleOfCard,
-	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard} = slice.actions;
+	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard, setGameIsOnPauseFlag} = slice.actions;
 export default slice.reducer;

@@ -2,14 +2,13 @@ import React, {useEffect} from 'react';
 import styles from './GameRoom.module.scss';
 import {GameApi} from '../../abstracts/GameApi';
 import {GamePlayer} from '../../types/GamePlayer';
-import {GameRoomStatus} from '../../types/GameRoomStatus';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
 
 type PropsOfFC = {
 	className?: string
 }
 type Props = {
-	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>
+	api: GameApi<GamePlayer, string, GameRoomOptions>
 	RoomBar: React.FC<PropsOfFC>
 	OptionsBar: React.FC<PropsOfFC>
 	GameField: React.FC<PropsOfFC>

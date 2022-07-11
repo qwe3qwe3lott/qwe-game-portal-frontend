@@ -2,20 +2,20 @@ import {Member} from '../types/Member';
 import {Timer} from '../types/Timer';
 import {LogRecord} from '../types/LogRecord';
 import {GamePlayer} from '../types/GamePlayer';
-import {GameRoomStatus} from '../types/GameRoomStatus';
 import {MembersRestriction} from '../types/MembersRestriction';
 import {GameRoomOptions} from '../types/GameRoomOptions';
 
-export type GameState<P extends GamePlayer, S extends GameRoomStatus, O extends GameRoomOptions> = {
+export type GameState<PLAYER extends GamePlayer, STATUS extends string, OPTIONS extends GameRoomOptions> = {
     ownerKey: string
     members: Member[]
     membersRestriction: MembersRestriction
     iAmPlayer: boolean
-    roomStatus: S
+    roomStatus: STATUS
     iAmActing: boolean
-    players: P[]
+    gameIsOnPause: boolean
+    players: PLAYER[]
     restrictionsToStart: string[]
     timer: Timer
     logs: LogRecord[]
-    roomOptions: O
+    roomOptions: OPTIONS
 }

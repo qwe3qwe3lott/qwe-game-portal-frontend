@@ -2,11 +2,10 @@ import {GameApi} from '../abstracts/GameApi';
 import {RootState} from '../store';
 import {useAppSelector} from './typedReduxHooks';
 import {GamePlayer} from '../types/GamePlayer';
-import {GameRoomStatus} from '../types/GameRoomStatus';
 import {GameRoomOptions} from '../types/GameRoomOptions';
 
 export const useOwnerPanel = (
-	api: GameApi<GamePlayer, GameRoomStatus, GameRoomOptions>,
+	api: GameApi<GamePlayer, string, GameRoomOptions>,
 	selectOwnerKey: (state: RootState) => string,
 	selectGameIsRunning: (state: RootState) => boolean,
 	selectGameIsOnPause: (state: RootState) => boolean,

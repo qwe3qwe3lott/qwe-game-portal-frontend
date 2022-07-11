@@ -4,7 +4,7 @@ import {
 	addActCardIds,
 	addLogRecord,
 	setCard,
-	setFieldCards, setIAmActingFlag,
+	setFieldCards, setGameIsOnPauseFlag, setIAmActingFlag,
 	setIAmPlayerFlag, setLastWinner, setLogs,
 	setMembers, setOptionsOfCards,
 	setOwnerKey,
@@ -39,7 +39,7 @@ export class Api extends GameApi<Player, RoomStatus, RoomOptions> {
 	public subscribe(): void {
 		this._socket = GameApi.createSocket(routePath);
 		this.superSubscribe(setMembers, setOwnerKey, setRoomStatus, setRestrictionsToStart, setIAmActingFlag,
-			setLogs, addLogRecord, setTimer, setNickname, setPlayers, setRoomOptions);
+			setLogs, addLogRecord, setTimer, setNickname, setPlayers, setRoomOptions, setGameIsOnPauseFlag);
 		this._socket.on(Events.GET_FIELD_CARDS, (fieldCards: FieldCard[]) => {
 			console.log(Events.GET_FIELD_CARDS, fieldCards);
 			this._appDispatch(setFieldCards(fieldCards));
