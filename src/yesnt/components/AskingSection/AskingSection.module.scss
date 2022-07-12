@@ -1,0 +1,21 @@
+@import "../../../mixins";
+@import "../../../colors";
+.input {
+  @include input;
+}
+.button {
+  @include button;
+}
+.silenceButton {
+  @include button;
+  background-color: $secondary-color;
+}
+.form {
+  display: grid;
+  gap: 0.5em;
+  grid-auto-flow: column;
+}
+.question {
+  word-break: break-word;
+  text-align: center;
+}

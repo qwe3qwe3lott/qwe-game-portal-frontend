@@ -2,15 +2,14 @@ import React, {useState} from 'react';
 import {selectGameIsOnAsking, selectIAmActing, selectQuestion} from '../../store/selectors';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
 import {useApi} from '../../Api';
-
+import ColumnPanel from '../../../components/ColumnPanel';
+import styles from './AskingSection.module.scss';
 const AskingSection: React.FC = () => {
 	const iAmActing = useAppSelector(selectIAmActing);
 	const gameIsOnAsking = useAppSelector(selectGameIsOnAsking);
 	if (!gameIsOnAsking) return <QuestionSection/>;
 	if (iAmActing) return <AskingForm/>;
-	return <div>
-		<p>Ждите вопроса</p>
-	</div>;
+	return <ColumnPanel title={'Ожидайте вопроса'}/>;
 };
 
 export default AskingSection;
@@ -18,17 +17,22 @@ export default AskingSection;
 const AskingForm: React.FC = () => {
 	const api = useApi();
 	const [value, setValue] = useState('');
-	return <div>
-		<input type={'text'} value={value} onChange={(event) => setValue(event.target.value)}/>
-		<button onClick={() => api.ask(value)}>Спросить</button>
-		<button onClick={() => api.skipAsk()}>Воздержаться</button>
-	</div>;
+	const handler = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		api.ask(value);
+	};
+	return <ColumnPanel title={'Задайте вопрос'} center>
+		<form onSubmit={handler} className={styles.form}>
+			<input required className={styles.input} type={'text'} value={value} onChange={(event) => setValue(event.target.value)}/>
+			<input type={'submit'} value={'Спросить'} className={styles.button}/>
+		</form>
+		<button onClick={() => api.skipAsk()} className={styles.silenceButton}>Воздержаться</button>
+	</ColumnPanel>;
 };
 
 const QuestionSection: React.FC = () => {
 	const question = useAppSelector(selectQuestion);
-	return <div>
-		<p>Вопрос:</p>
-		<p>{question}</p>
-	</div>;
+	return <ColumnPanel title={'Вопрос:'}>
+		<p className={styles.question}>{question}</p>
+	</ColumnPanel>;
 };

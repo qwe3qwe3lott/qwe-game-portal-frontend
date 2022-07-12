@@ -10,4 +10,5 @@
   gap: 1em;
   display: grid;
   grid-auto-rows: minmax(min-content, max-content);
+  min-width: 20em;
 }

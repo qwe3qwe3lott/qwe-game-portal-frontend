@@ -3,7 +3,7 @@ import styles from './ColumnPanel.module.scss';
 
 type Props = {
     title?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     width?: number;
     hugeTitle?: boolean
     center?: boolean

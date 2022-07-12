@@ -23,12 +23,14 @@ const slice = createSlice({
 				state.roomStatus = action.payload;
 				state.iAmActing = false;
 				state.timer = { currentTime: 0, maxTime: 0 };
+				state.result = undefined;
 				break;
 			case 'ask':
 				state.roomStatus = action.payload;
 				break;
 			case 'answer':
 				state.roomStatus = action.payload;
+				state.answer = undefined;
 				break;
 			}
 		},
