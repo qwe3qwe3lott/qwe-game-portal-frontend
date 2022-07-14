@@ -46,6 +46,6 @@ const MiniBar: React.FC = () => {
 			selectGameIsOnPause={selectGameIsOnPause}
 			selectRestrictionsToStart={selectRestrictionsToStart}
 		/>
-		<MiniGameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning}/>
+		<MiniGameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}/>
 	</>;
 };

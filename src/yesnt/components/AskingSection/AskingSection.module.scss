@@ -3,8 +3,9 @@
 .input {
   @include input;
 }
-.button {
+.askButton {
   @include button;
+  grid-column: 1 / span 2;
 }
 .silenceButton {
   @include button;
@@ -13,7 +14,7 @@
 .form {
   display: grid;
   gap: 0.5em;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr min-content;
 }
 .question {
   word-break: break-word;

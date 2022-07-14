@@ -24,7 +24,7 @@ const GameLogs: React.FC<Props> = ({selectGameIsRunning, selectLogs, computeLast
 		</label>
 		<ul className={styles.records}>
 			{logs.map(logRecord => <li key={logRecord.id} className={recordClass}>
-				<span className={styles.step}>Шаг №{logRecord.id}.</span><br/>{logRecord.text}
+				<span className={styles.step}>Действие №{logRecord.id}.</span><br/>{logRecord.text}
 			</li>)}
 		</ul>
 	</ColumnPanel> : null;

@@ -24,9 +24,9 @@ const AskingForm: React.FC = () => {
 	return <ColumnPanel title={'Задайте вопрос'} center>
 		<form onSubmit={handler} className={styles.form}>
 			<input required className={styles.input} type={'text'} value={value} onChange={(event) => setValue(event.target.value)}/>
-			<input type={'submit'} value={'Спросить'} className={styles.button}/>
+			<button type={'button'} onClick={() => api.skipAsk()} className={styles.silenceButton}>Воздержаться</button>
+			<input type={'submit'} value={'Спросить'} className={styles.askButton}/>
 		</form>
-		<button onClick={() => api.skipAsk()} className={styles.silenceButton}>Воздержаться</button>
 	</ColumnPanel>;
 };
 
