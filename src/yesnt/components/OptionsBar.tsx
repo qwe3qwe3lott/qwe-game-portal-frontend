@@ -14,6 +14,7 @@ import GameMemberPanel from '../../components/GameMemberPanel';
 import GameMembersList from '../../components/GameMembersList';
 import MiniGameOwnerPanel from '../../components/MiniGameOwnerPanel';
 import MiniGameMemberPanel from '../../components/MiniGameMemberPanel';
+import RoomOptionsForm from './RoomOptionsForm';
 
 type Props = {
     className?: string
@@ -28,9 +29,7 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 			selectGameIsOnPause={selectGameIsOnPause}
 			selectRestrictionsToStart={selectRestrictionsToStart}
 		/>
-		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning}>
-
-		</GameMemberPanel>
+		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}/>
 		<GameMembersList selectMembers={selectMembers} selectGameIsRunning={selectGameIsRunning} computeMembersRestriction={computeMembersRestriction}/>
 	</SideBar>);
 };

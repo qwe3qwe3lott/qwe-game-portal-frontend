@@ -46,7 +46,7 @@ export const getGameReducers = <PLAYER extends GamePlayer, STATE extends GameSta
 
 export const getGameSelectors =
 	<MODULE extends keyof Omit<Omit<RootState, typeof $CombinedState>, 'app'>, PLAYER extends GamePlayer, OPTIONS extends GameRoomOptions>(module: MODULE) => {
-		const selectRoomOptions = (state: RootState): OPTIONS => state[module].roomOptions as OPTIONS;
+		const selectRoomOptions = (state: RootState): OPTIONS => state[module].roomOptions as unknown as OPTIONS;
 		const selectRoomMinPlayers = (state: RootState): number => state[module].roomOptions.minPlayers;
 		const selectRoomMaxPlayers = (state: RootState): number => state[module].roomOptions.maxPlayers;
 		const selectOwnerKey = (state: RootState): string => state[module].ownerKey;

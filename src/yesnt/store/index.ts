@@ -8,7 +8,7 @@ import {Answers} from '../enums/Answers';
 import {Result} from '../types/Result';
 
 const initialState: State = {
-	...getGameInitialState<Player, RoomStatus, RoomOptions>({ minPlayers: 2, maxPlayers: 8 }, 'idle'),
+	...getGameInitialState<Player, RoomStatus, RoomOptions>({ minPlayers: 2, maxPlayers: 8, secondsToAsk: 60, secondsToAnswer: 60 }, 'idle'),
 	question: ''
 };
 
@@ -47,11 +47,13 @@ const slice = createSlice({
 		},
 		setQuestion(state, action: PayloadAction<string>) { state.question = action.payload; },
 		setAnswer(state, action: PayloadAction<Answers | undefined>) { state.answer = action.payload; },
-		setResult(state, action: PayloadAction<Result>) { state.result = action.payload; }
+		setResult(state, action: PayloadAction<Result>) { state.result = action.payload; },
+		setOptionSecondsToAsk(state, action: PayloadAction<number>) { state.roomOptions.secondsToAsk = action.payload; },
+		setOptionSecondsToAnswer(state, action: PayloadAction<number>) { state.roomOptions.secondsToAnswer = action.payload; }
 	}
 });
 
 export const {setLogs, addLogRecord, setTimer, setIAmActingFlag, setIAmPlayerFlag, setOwnerKey, setRestrictionsToStart,
 	setMembers, setRoomStatus, setPlayers, setRoomOptions, setOptionMinPlayers, setOptionMaxPlayers, clearStoreAfterLeaving,
-	setQuestion, setAnswer, setResult, setGameIsOnPauseFlag} = slice.actions;
+	setQuestion, setAnswer, setResult, setGameIsOnPauseFlag, setOptionSecondsToAnswer, setOptionSecondsToAsk} = slice.actions;
 export default slice.reducer;

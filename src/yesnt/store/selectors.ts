@@ -16,3 +16,5 @@ export const selectGameIsOnAnswering = (state: RootState): boolean => state.yesn
 export const selectQuestion = (state: RootState): string => state.yesnt.question;
 export const selectAnswer = (state: RootState): string | undefined => state.yesnt.answer;
 export const selectResult = (state: RootState): Result | undefined => state.yesnt.result;
+export const selectRoomOptionsSecondsToAsk = (state: RootState): number => state.yesnt.roomOptions.secondsToAsk;
+export const selectRoomOptionsSecondsToAnswer = (state: RootState): number => state.yesnt.roomOptions.secondsToAnswer;

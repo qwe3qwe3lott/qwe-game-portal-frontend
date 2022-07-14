@@ -10,16 +10,22 @@ import globalColors from '../../colors.scss';
 import {GamePlayer} from '../../types/GamePlayer';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
 
+type PropsOfForm = {
+	onSuccess: () => void
+	api: GameApi<GamePlayer, string, GameRoomOptions>
+}
 type Props = {
 	children?: React.ReactNode
 	api: GameApi<GamePlayer, string, GameRoomOptions>
 	selectIAmPlayer: (state: RootState) => boolean
 	selectGameIsRunning: (state: RootState) => boolean
+	OptionsForm: React.FC<PropsOfForm>
 }
-const GameMemberPanel: React.FC<Props> = ({children, selectGameIsRunning, selectIAmPlayer, api}) => {
+const GameMemberPanel: React.FC<Props> = ({children, selectGameIsRunning, selectIAmPlayer, api, OptionsForm}) => {
 	return(<ColumnPanel title={'Панель участника'}>
 		<BecomeButton api={api} selectGameIsRunning={selectGameIsRunning} selectIAmPlayer={selectIAmPlayer}/>
 		<ChangeNicknameButton api={api} selectGameIsRunning={selectGameIsRunning}/>
+		<ModalButton label={'Настройки'} formSet={{ form: OptionsForm, api }}/>
 		{children}
 	</ColumnPanel>);
 };

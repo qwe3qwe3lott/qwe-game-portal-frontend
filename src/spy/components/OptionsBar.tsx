@@ -31,8 +31,7 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 			selectGameIsOnPause={selectGameIsOnPause}
 			selectRestrictionsToStart={selectRestrictionsToStart}
 		/>
-		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning}>
-			<ModalButton label={'Настройки'} formSet={{ form: RoomOptionsForm, api }}/>
+		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}>
 			<ModalButton label={'Карты'} formSet={{ form: OptionsOfCardsForm, api }}/>
 		</GameMemberPanel>
 		<GameMembersList selectMembers={selectMembers} selectGameIsRunning={selectGameIsRunning} computeMembersRestriction={computeMembersRestriction}/>
