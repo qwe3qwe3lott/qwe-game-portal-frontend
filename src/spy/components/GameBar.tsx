@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBar from '../../components/SideBar';
+import GameRoomSideBar from '../../components/GameRoomSideBar';
 import LastWinnerPanel from './LastWinnerPanel';
 import CardPanel from './CardPanel';
 import GameTimer from '../../components/GameTimer';
@@ -27,13 +27,13 @@ type Props = {
 }
 const OptionsBar: React.FC<Props> = ({className}) => {
 	const api = useApi();
-	return(<SideBar maxShowWidth={900} className={className} miniBar={<MiniBar/>} rightSide>
+	return(<GameRoomSideBar maxShowWidth={900} className={className} miniBar={<MiniBar/>} rightSide>
 		<LastWinnerPanel/>
 		<GameTimer api={api} selectTimer={selectTimer} selectGameIsOnPause={selectGameIsOnPause} selectGameIsRunning={selectGameIsRunning}/>
 		<PlayersList selectGameIsRunning={selectGameIsRunning} selectPlayers={selectPlayers} Item={PlayerItem}/>
 		<CardPanel/>
 		<GameLogs selectGameIsRunning={selectGameIsRunning} selectLogs={selectLogs} computeLastLogs={computeLastLogs}/>
-	</SideBar>);
+	</GameRoomSideBar>);
 };
 
 export default OptionsBar;

@@ -2,3 +2,7 @@
 .button {
   @include button;
 }
+.info {
+  font-size: 0.8em;
+  text-align: center;
+}

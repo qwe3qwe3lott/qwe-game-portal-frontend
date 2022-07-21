@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBar from '../../components/SideBar';
+import GameRoomSideBar from '../../components/GameRoomSideBar';
 import {
 	computeMembersRestriction,
 	selectGameIsOnPause,
@@ -17,13 +17,15 @@ import GameMemberPanel from '../../components/GameMemberPanel';
 import GameMembersList from '../../components/GameMembersList';
 import MiniGameOwnerPanel from '../../components/MiniGameOwnerPanel';
 import MiniGameMemberPanel from '../../components/MiniGameMemberPanel';
+import MiniModalButton from '../../components/MiniModalButton';
+import cards from '../../assets/cards.svg';
 
 type Props = {
     className?: string
 }
 const OptionsBar: React.FC<Props> = ({className}) => {
 	const api = useApi();
-	return(<SideBar maxShowWidth={700} className={className} miniBar={<MiniBar/>}>
+	return(<GameRoomSideBar maxShowWidth={700} className={className} miniBar={<MiniBar/>}>
 		<GameOwnerPanel
 			api={api}
 			selectOwnerKey={selectOwnerKey}
@@ -35,7 +37,7 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 			<ModalButton label={'Карты'} formSet={{ form: OptionsOfCardsForm, api }}/>
 		</GameMemberPanel>
 		<GameMembersList selectMembers={selectMembers} selectGameIsRunning={selectGameIsRunning} computeMembersRestriction={computeMembersRestriction}/>
-	</SideBar>);
+	</GameRoomSideBar>);
 };
 
 export default OptionsBar;
@@ -50,6 +52,8 @@ const MiniBar: React.FC = () => {
 			selectGameIsOnPause={selectGameIsOnPause}
 			selectRestrictionsToStart={selectRestrictionsToStart}
 		/>
-		<MiniGameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}/>
+		<MiniGameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}>
+			<MiniModalButton icon={cards} label={'Карты'} formSet={{api, form: OptionsOfCardsForm}}/>
+		</MiniGameMemberPanel>
 	</>;
 };

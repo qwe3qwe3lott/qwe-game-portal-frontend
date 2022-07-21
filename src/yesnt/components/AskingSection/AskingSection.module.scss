@@ -5,11 +5,11 @@
 }
 .askButton {
   @include button;
-  grid-column: 1 / span 2;
 }
 .silenceButton {
   @include button;
   background-color: $secondary-color;
+  place-self: center;
 }
 .form {
   display: grid;
@@ -18,5 +18,9 @@
 }
 .question {
   word-break: break-word;
+  text-align: center;
+}
+.info {
+  font-size: 0.8em;
   text-align: center;
 }

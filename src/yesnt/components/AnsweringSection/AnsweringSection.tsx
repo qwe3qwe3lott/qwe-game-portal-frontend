@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppSelector} from '../../../hooks/typedReduxHooks';
-import {selectAnswer, selectGameIsOnAnswering} from '../../store/selectors';
+import {computeAnsweringInfo, selectAnswer, selectGameIsOnAnswering} from '../../store/selectors';
 import {useApi} from '../../Api';
 import {Answers} from '../../enums/Answers';
 import styles from './AnsweringSection.module.scss';
@@ -32,5 +32,11 @@ const Content: React.FC = () => {
 			style={answer === Answers.SILENCE ? { backgroundColor: globalColors.secondaryColor } : undefined}
 			onClick={() => api.answer(Answers.SILENCE)}
 		>Воздержаться</button>
+		<Info/>
 	</ColumnPanel>;
+};
+
+const Info: React.FC = () => {
+	const info = useAppSelector(computeAnsweringInfo);
+	return <p className={styles.info}>{info}</p>;
 };

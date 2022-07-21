@@ -14,8 +14,8 @@
   }
 }
 @mixin miniButton {
-  width: 1em;
-  height: 1em;
+  width: 2em;
+  height: 2em;
   background-color: $primary-color;
   background-size: 70%;
   background-position: center;
@@ -53,7 +53,7 @@
   padding: 0.5em;
   display: grid;
   place-items: center;
-  gap: 0.5em;
+  gap: 1em;
   grid-auto-rows: minmax(min-content, max-content);
   overflow-y: auto;
   overflow-x: hidden;
@@ -71,12 +71,12 @@
 }
 @mixin miniColumnPanel {
   background-color: rgba($primary-color, 0.1);
-  padding: 0.5em 0;
+  padding: 1em 0;
   width: 100%;
   display: grid;
   grid-auto-flow: row;
   place-items: center;
-  gap: 0.5em;
+  gap: 1em;
   grid-auto-rows: minmax(min-content, max-content);
 }
 @mixin input {
@@ -127,10 +127,18 @@
     }
   }
 }
-@mixin sideBarButtonAnim($name, $from, $to) {
+@mixin sideBarButtonAnim($name, $br-from, $br-to, $size-from, $size-to) {
   @keyframes #{$name} {
-    from { border-radius: $from; }
-    to { border-radius: $to; }
+    from {
+      border-radius: $br-from;
+      width: $size-from;
+      height: $size-from;
+    }
+    to {
+      border-radius: $br-to;
+      width: $size-to;
+      height: $size-to;
+    }
   }
 }
 @mixin sideBarLayoutAnim($name, $from, $to) {

@@ -55,8 +55,12 @@ const RawCard: React.FC<Props> = ({ card, layoutStyle , isDeco, askCard, capture
 		{!card.captured && <>
 			<div className={styles.image} style={{ backgroundImage: `url(${card.url})` }}>
 				{card.hasActOpportunity && !isDeco && <div className={styles.buttons}>
-					<button className={styles.button} onClick={() => askCard(card)}>Д</button>
-					<button className={styles.button} onClick={() => captureCard(card)}>П</button>
+					<button className={styles.button} onClick={() => askCard(card)}>
+						Допрос
+					</button>
+					<button className={styles.button} onClick={() => captureCard(card)}>
+						Ловля
+					</button>
 				</div>}
 			</div>
 			<p className={styles.title}>{card.title}</p>

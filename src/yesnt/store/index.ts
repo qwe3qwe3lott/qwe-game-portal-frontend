@@ -8,8 +8,9 @@ import {Answers} from '../enums/Answers';
 import {Result} from '../types/Result';
 
 const initialState: State = {
-	...getGameInitialState<Player, RoomStatus, RoomOptions>({ minPlayers: 2, maxPlayers: 8, secondsToAsk: 60, secondsToAnswer: 60 }, 'idle'),
-	question: ''
+	...getGameInitialState<Player, RoomStatus, RoomOptions>({ minPlayers: 3, maxPlayers: 16, secondsToAsk: 60, secondsToAnswer: 60 }, 'idle'),
+	question: '',
+	countOfAnswers: 0
 };
 
 const slice = createSlice({
@@ -23,14 +24,18 @@ const slice = createSlice({
 				state.roomStatus = action.payload;
 				state.iAmActing = false;
 				state.timer = { currentTime: 0, maxTime: 0 };
-				state.result = undefined;
+				state.question = '';
+				state.countOfAnswers = 0;
+				delete state.result;
+				delete state.answer;
 				break;
 			case 'ask':
 				state.roomStatus = action.payload;
 				break;
 			case 'answer':
 				state.roomStatus = action.payload;
-				state.answer = undefined;
+				state.countOfAnswers = 0;
+				delete state.answer;
 				break;
 			}
 		},
@@ -44,7 +49,12 @@ const slice = createSlice({
 			state.iAmActing = false;
 			state.timer = { currentTime: 0, maxTime: 0 };
 			state.logs = [];
+			state.question = '';
+			state.countOfAnswers = 0;
+			delete state.result;
+			delete state.answer;
 		},
+		setCountOfAnswers(state, action: PayloadAction<number>) { state.countOfAnswers = action.payload; },
 		setQuestion(state, action: PayloadAction<string>) { state.question = action.payload; },
 		setAnswer(state, action: PayloadAction<Answers | undefined>) { state.answer = action.payload; },
 		setResult(state, action: PayloadAction<Result>) { state.result = action.payload; },
@@ -55,5 +65,5 @@ const slice = createSlice({
 
 export const {setLogs, addLogRecord, setTimer, setIAmActingFlag, setIAmPlayerFlag, setOwnerKey, setRestrictionsToStart,
 	setMembers, setRoomStatus, setPlayers, setRoomOptions, setOptionMinPlayers, setOptionMaxPlayers, clearStoreAfterLeaving,
-	setQuestion, setAnswer, setResult, setGameIsOnPauseFlag, setOptionSecondsToAnswer, setOptionSecondsToAsk} = slice.actions;
+	setQuestion, setAnswer, setResult, setGameIsOnPauseFlag, setOptionSecondsToAnswer, setOptionSecondsToAsk, setCountOfAnswers} = slice.actions;
 export default slice.reducer;

@@ -9,4 +9,5 @@ export type State = GameState<Player, RoomStatus, RoomOptions> & {
     question: string
     answer?: Answers
     result?: Result
+    countOfAnswers: number
 }

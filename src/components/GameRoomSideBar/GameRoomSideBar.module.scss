@@ -2,14 +2,14 @@
 @import "../../mixins";
 .layout {
   @include sideBar;
-  padding-top: 1.5em;
+  padding-top: 2.5em;
   width: 12em;
   position: relative;
   animation: showSideBarLayout linear 0.2s;
 }
 .miniLayout {
-  width: 1em;
-  padding: 1.5em 0 0 0;
+  width: 2em;
+  padding: 2.5em 0 0 0;
   animation: hideSideBarLayout linear 0.2s;
 }
 @include sideBarLayoutAnim(hideSideBarLayout, 12em, 1em);
@@ -22,8 +22,8 @@
   background-position: center;
   background-repeat: no-repeat;
   padding: 0;
-  height: 1em;
-  width: 1em;
+  height: 1.5em;
+  width: 1.5em;
   position: absolute;
   top: 0;
 }
@@ -45,6 +45,8 @@
 }
 .hiddenButton {
   border-radius: 0;
+  height: 2em;
+  width: 2em;
   &.buttonToLeft {
     animation: hideRightSideBarButton linear 0.2s;
   }
@@ -52,7 +54,7 @@
     animation: hideLeftSideBarButton linear 0.2s;
   }
 }
-@include sideBarButtonAnim(hideLeftSideBarButton, 0 0 0 1em, 0);
-@include sideBarButtonAnim(showLeftSideBarButton, 0, 0 0 0 1em);
-@include sideBarButtonAnim(hideRightSideBarButton, 0 0 1em 0, 0);
-@include sideBarButtonAnim(showRightSideBarButton, 0, 0 0 1em 0);
+@include sideBarButtonAnim(hideLeftSideBarButton, 0 0 0 1em, 0, 1.5em, 2em);
+@include sideBarButtonAnim(showLeftSideBarButton, 0, 0 0 0 1em, 2em, 1.5em);
+@include sideBarButtonAnim(hideRightSideBarButton, 0 0 1em 0, 0, 1.5em, 2em);
+@include sideBarButtonAnim(showRightSideBarButton, 0, 0 0 1em 0, 2em, 1.5em);

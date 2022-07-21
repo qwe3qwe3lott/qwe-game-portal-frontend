@@ -1,5 +1,5 @@
 import React from 'react';
-import SideBar from '../../components/SideBar';
+import GameRoomSideBar from '../../components/GameRoomSideBar';
 import {
 	computeMembersRestriction,
 	selectGameIsOnPause,
@@ -21,7 +21,7 @@ type Props = {
 }
 const OptionsBar: React.FC<Props> = ({className}) => {
 	const api = useApi();
-	return(<SideBar maxShowWidth={700} className={className} miniBar={<MiniBar/>}>
+	return(<GameRoomSideBar maxShowWidth={700} className={className} miniBar={<MiniBar/>}>
 		<GameOwnerPanel
 			api={api}
 			selectOwnerKey={selectOwnerKey}
@@ -31,7 +31,7 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 		/>
 		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}/>
 		<GameMembersList selectMembers={selectMembers} selectGameIsRunning={selectGameIsRunning} computeMembersRestriction={computeMembersRestriction}/>
-	</SideBar>);
+	</GameRoomSideBar>);
 };
 
 export default OptionsBar;

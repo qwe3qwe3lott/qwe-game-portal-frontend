@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import styles from './SideBar.module.scss';
+import styles from './GameRoomSideBar.module.scss';
 
 type Props = {
 	className?: string
@@ -10,7 +10,7 @@ type Props = {
 	rightSide?: boolean
 }
 
-const SideBar: React.FC<Props> = ({className, maxShowWidth, miniBar, children, rightSide}) => {
+const GameRoomSideBar: React.FC<Props> = ({className, maxShowWidth, miniBar, children, rightSide}) => {
 	const [mini, setMini] = useState(window.screen.width < maxShowWidth);
 	const layoutClass = [className, styles.layout, (mini ? styles.miniLayout : '')].join(' ');
 	const buttonClass = [styles.button, (mini ? styles.hiddenButton : styles.showedButton), (rightSide ? styles.buttonToLeft : styles.buttonToRight)].join(' ');
@@ -21,4 +21,4 @@ const SideBar: React.FC<Props> = ({className, maxShowWidth, miniBar, children, r
 	</div>);
 };
 
-export default SideBar;
+export default GameRoomSideBar;
