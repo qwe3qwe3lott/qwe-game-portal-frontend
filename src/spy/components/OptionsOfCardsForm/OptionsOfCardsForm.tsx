@@ -1,4 +1,4 @@
-import React, {FormEvent, useCallback, useEffect, useMemo} from 'react';
+import React, {FormEvent, useCallback, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../hooks/typedReduxHooks';
 import {
 	selectGameIsRunning,
@@ -9,25 +9,39 @@ import styles from './OptionsOfCardsForm.module.scss';
 import OptionsOfCards from '../OptionsOfCard';
 import {useApi} from '../../Api';
 import {addOptionsOfCard, setOptionsOfCards} from '../../store';
-import {GameApi} from '../../../abstracts/GameApi';
-import {GamePlayer} from '../../../types/GamePlayer';
 import {CardOptions} from '../../types/CardOptions';
-import {GameRoomOptions} from '../../../types/GameRoomOptions';
+import {PropsOfForm} from '../../../types/PropsOfForm';
+import SubmitForm from '../../../components/SubmitForm';
 
-type Props = {
-	onSuccess: () => void
-	api: GameApi<GamePlayer, string, GameRoomOptions>
-}
-const OptionsOfCardsForm: React.FC<Props> = ({ onSuccess }) => {
-	return(<SubmitForm onSuccess={onSuccess}>
+const OptionsOfCardsForm: React.FC<PropsOfForm> = ({ onSuccess }) => {
+	const api = useApi();
+	useEffect(() => {
+		api.requestOptionsOfCards();
+	}, []);
+	const useSubmitForm = () => {
+		const ownerKey = useAppSelector(selectOwnerKey);
+		const gameIsRunning = useAppSelector(selectGameIsRunning);
+		const notAllowedToChange = gameIsRunning || !ownerKey;
+		const optionsOfCards = useAppSelector(selectOptionsOfCards);
+		const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
+			api.changeRoomOptionsOfCards(ownerKey, optionsOfCards)
+				.then(flag => { if (flag) onSuccess(); });
+		};
+		return { notAllowedToChange, submitHandler };
+	};
+	return <div className={styles.layout}>
 		<FileButtons/>
-		<OptionsOfCardsList/>
-	</SubmitForm>);
+		<SubmitForm useSubmitForm={useSubmitForm}>
+			<OptionsOfCardsList/>
+		</SubmitForm>
+	</div>;
 };
 
 export default OptionsOfCardsForm;
 
 const FileButtons: React.FC = () => {
+	const gameIsRunning = useAppSelector(selectGameIsRunning);
 	const dispatch = useAppDispatch();
 	const optionsOfCards = useAppSelector(selectOptionsOfCards);
 	const importHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,11 +77,11 @@ const FileButtons: React.FC = () => {
 		document.body.removeChild(link);
 	};
 	return <div className={styles.buttons}>
-		<label className={styles.button} style={{ cursor: 'pointer' }}>
-			<input type={'file'} name={'json'} accept={'application/json'} onChange={importHandler} style={{ display: 'none' }}/>
+		<label className={styles.fileButton} style={{ cursor: 'pointer', opacity: gameIsRunning ? 0.5 : 1 }}>
+			<input disabled={gameIsRunning} type={'file'} name={'json'} accept={'application/json'} onChange={importHandler} style={{ display: 'none' }}/>
 			Импорт списка
 		</label>
-		<button type={'button'} className={styles.button} onClick={exportHandler}>Экспорт списка</button>
+		<button type={'button'} className={styles.fileButton} onClick={exportHandler}>Экспорт списка</button>
 	</div>;
 };
 
@@ -83,35 +97,4 @@ const OptionsOfCardsList: React.FC = () => {
 			<button type={'button'} onClick={addHandler} className={styles.addButton}/>
 		</li>
 	</ul>);
-};
-
-type SubmitFormProps = {
-	onSuccess: () => void
-	children: React.ReactNode
-}
-// Помогает избежать лишних ре-рендеров
-const SubmitForm: React.FC<SubmitFormProps> = ({onSuccess, children}) => {
-	const api = useApi();
-	const optionsOfCards = useAppSelector(selectOptionsOfCards);
-	const ownerKey = useAppSelector(selectOwnerKey);
-	const gameIsRunning = useAppSelector(selectGameIsRunning);
-	useEffect(() => {
-		api.requestOptionsOfCards();
-	}, []);
-	const notAllowedToChange = useMemo(() => {
-		return gameIsRunning || !ownerKey;
-	}, [ownerKey, gameIsRunning]);
-	const submitHandler = useCallback((event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		api.changeRoomOptionsOfCards(ownerKey, optionsOfCards)
-			.then(flag => { if (flag) onSuccess(); });
-	}, [onSuccess, optionsOfCards, ownerKey]);
-	return(<form onSubmit={submitHandler}>
-		<fieldset disabled={notAllowedToChange}>
-			<div className={styles.layout}>
-				{children}
-				<input type={'submit'} className={styles.button}/>
-			</div>
-		</fieldset>
-	</form>);
 };

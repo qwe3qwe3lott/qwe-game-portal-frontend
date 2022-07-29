@@ -1,3 +1,6 @@
 .layout {
+  display: grid;
+  gap: 1em;
+  place-items: center;
   grid-template-columns: repeat(2, 1fr);
 }

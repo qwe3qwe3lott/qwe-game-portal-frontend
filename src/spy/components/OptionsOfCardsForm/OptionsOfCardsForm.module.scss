@@ -2,9 +2,7 @@
 @import "../../../colors";
 .layout {
   display: grid;
-  grid-auto-flow: row;
-  gap: 1em;
-  place-items: center;
+  gap: 0.5em;
 }
 .list {
   grid-auto-rows: minmax(min-content, max-content);
@@ -20,12 +18,14 @@
 }
 .buttons {
   display: grid;
-  gap: 1em;
+  gap: 0.5em;
   place-items: center;
   grid-auto-flow: column;
 }
-.button {
+.fileButton {
   @include button;
+  width: 100%;
+  text-align: center;
 }
 .gridCenter {
   place-self: center;

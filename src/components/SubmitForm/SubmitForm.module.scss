@@ -1,10 +1,11 @@
 @import "../../mixins";
 .layout {
   display: grid;
+  grid-auto-flow: row;
   gap: 1em;
   place-items: center;
 }
-.submitButton {
+.button {
   @include button;
   grid-column: 1/-1;
 }

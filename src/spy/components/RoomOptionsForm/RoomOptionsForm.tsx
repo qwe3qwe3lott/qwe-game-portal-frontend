@@ -1,7 +1,4 @@
 import React from 'react';
-import {GameApi} from '../../../abstracts/GameApi';
-import {GamePlayer} from '../../../types/GamePlayer';
-import {GameRoomOptions} from '../../../types/GameRoomOptions';
 import {Api, useApi} from '../../Api';
 import GameRoomOptionsForm from '../../../components/GameRoomOptionsForm';
 import GameRoomOptionsNumberInput from '../../../components/GameRoomOptionsNumberInput';
@@ -19,13 +16,9 @@ import {
 	setOptionWinScore
 } from '../../store';
 import styles from './RoomOptionsForm.module.scss';
+import {PropsOfForm} from '../../../types/PropsOfForm';
 
-type Props = {
-    onSuccess: () => void
-	api: GameApi<GamePlayer, string, GameRoomOptions>
-}
-
-const RoomOptionsForm: React.FC<Props> = ({ onSuccess }) => {
+const RoomOptionsForm: React.FC<PropsOfForm> = ({ onSuccess }) => {
 	const api = useApi();
 	return(<GameRoomOptionsForm
 		onSuccess={onSuccess}

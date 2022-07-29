@@ -9,11 +9,8 @@ import {useAppSelector} from '../../hooks/typedReduxHooks';
 import globalColors from '../../colors.scss';
 import {GamePlayer} from '../../types/GamePlayer';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
+import {PropsOfForm} from '../../types/PropsOfForm';
 
-type PropsOfForm = {
-	onSuccess: () => void
-	api: GameApi<GamePlayer, string, GameRoomOptions>
-}
 type Props = {
 	children?: React.ReactNode
 	api: GameApi<GamePlayer, string, GameRoomOptions>

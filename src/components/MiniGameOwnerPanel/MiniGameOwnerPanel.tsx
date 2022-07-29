@@ -5,12 +5,15 @@ import {useOwnerPanel} from '../../hooks/useOwnerPanel';
 import styles from './MiniGameOwnerPanel.module.scss';
 import React from 'react';
 import MiniColumnPanel from '../MiniColumnPanel';
+import penIcon from '../../assets/pen.svg';
 import startIcon from '../../assets/start.svg';
 import pauseIcon from '../../assets/pause.svg';
 import stopIcon from '../../assets/stop.svg';
 import {getBackgroundImageStyle} from '../../util/getBackgroundImageStyle';
 import {GamePlayer} from '../../types/GamePlayer';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
+import {PropsOfForm} from '../../types/PropsOfForm';
+import MiniModalButton from '../MiniModalButton';
 
 type Props = {
 	api: GameApi<GamePlayer, string, GameRoomOptions>
@@ -18,6 +21,7 @@ type Props = {
 	selectGameIsRunning: (state: RootState) => boolean
 	selectGameIsOnPause: (state: RootState) => boolean
 	selectRestrictionsToStart: (state: RootState) => string[]
+	RoomTitleForm: React.FC<PropsOfForm>
 }
 const MiniGameOwnerPanel: React.FC<Props> = (props) => {
 	const ownerKey = useAppSelector(props.selectOwnerKey);
@@ -26,7 +30,7 @@ const MiniGameOwnerPanel: React.FC<Props> = (props) => {
 
 export default MiniGameOwnerPanel;
 
-const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart, api}) => {
+const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart, api, RoomTitleForm}) => {
 	const { gameIsRunning, gameIsOnPause, startHandler, stopHandler, pauseHandler, restrictionsToStart }
 		= useOwnerPanel(api, selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart);
 	return(<MiniColumnPanel>
@@ -38,5 +42,6 @@ const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGa
 		/>
 		<button style={getBackgroundImageStyle(pauseIcon)} className={styles.button} disabled={!gameIsRunning || gameIsOnPause} onClick={pauseHandler}/>
 		<button style={getBackgroundImageStyle(stopIcon)} className={styles.button} disabled={!gameIsRunning} onClick={stopHandler}/>
+		<MiniModalButton label={'Переименновать комнату'} icon={penIcon} formSet={{ form: RoomTitleForm, api }}/>
 	</MiniColumnPanel>);
 };

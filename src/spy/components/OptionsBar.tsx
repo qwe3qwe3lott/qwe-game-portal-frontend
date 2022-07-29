@@ -53,6 +53,7 @@ const MiniBar: React.FC = () => {
 			selectGameIsRunning={selectGameIsRunning}
 			selectGameIsOnPause={selectGameIsOnPause}
 			selectRestrictionsToStart={selectRestrictionsToStart}
+			RoomTitleForm={RoomTitleForm}
 		/>
 		<MiniGameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}>
 			<MiniModalButton icon={cards} label={'Карты'} formSet={{api, form: OptionsOfCardsForm}}/>

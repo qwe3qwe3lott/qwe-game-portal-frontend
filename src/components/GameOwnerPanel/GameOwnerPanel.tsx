@@ -8,11 +8,8 @@ import React from 'react';
 import {GamePlayer} from '../../types/GamePlayer';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
 import ModalButton from '../ModalButton';
+import {PropsOfForm} from '../../types/PropsOfForm';
 
-type PropsOfForm = {
-	onSuccess: () => void
-	api: GameApi<GamePlayer, string, GameRoomOptions>
-}
 type Props = {
 	api: GameApi<GamePlayer, string, GameRoomOptions>
 	selectOwnerKey: (state: RootState) => string

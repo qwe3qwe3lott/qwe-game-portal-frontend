@@ -4,11 +4,8 @@ import ModalWindow from '../ModalWindow';
 import {GameApi} from '../../abstracts/GameApi';
 import {GamePlayer} from '../../types/GamePlayer';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
+import {PropsOfForm} from '../../types/PropsOfForm';
 
-type PropsOfForm = {
-	onSuccess: () => void
-	api: GameApi<GamePlayer, string, GameRoomOptions>
-}
 type Props = {
     label: string
     children?: React.ReactNode
