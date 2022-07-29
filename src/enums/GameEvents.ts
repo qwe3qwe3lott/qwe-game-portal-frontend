@@ -3,6 +3,7 @@ export enum GameEvents {
     CHECK_ROOM = 'checkRoom',
     JOIN_ROOM = 'joinRoom',
     LEAVE_ROOM = 'leaveRoom',
+    RENAME_ROOM = 'renameRoom',
     START_GAME = 'startGame',
     STOP_GAME = 'stopGame',
     PAUSE_GAME = 'pauseGame',
@@ -23,5 +24,6 @@ export enum GameEvents {
     GET_RESTRICTIONS_TO_START = 'getRestrictionsToStart',
     GET_TIMER = 'getTimer',
     GET_ALL_LOG_RECORDS = 'getAllLogRecords',
-    GET_LOG_RECORD = 'getLogRecord'
+    GET_LOG_RECORD = 'getLogRecord',
+    GET_ROOM_TITLE = 'getRoomTitle'
 }

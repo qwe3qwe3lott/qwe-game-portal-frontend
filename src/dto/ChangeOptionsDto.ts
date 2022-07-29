@@ -1,6 +1,6 @@
 import {GameRoomOptions} from '../types/GameRoomOptions';
 
-export type OptionsDto<O extends GameRoomOptions> = {
+export type ChangeOptionsDto<O extends GameRoomOptions> = {
     ownerKey: string
     options: O
 }

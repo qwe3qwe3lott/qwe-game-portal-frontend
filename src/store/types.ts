@@ -18,4 +18,5 @@ export type GameState<PLAYER extends GamePlayer, STATUS extends string, OPTIONS 
     timer: Timer
     logs: LogRecord[]
     roomOptions: OPTIONS
+    roomTitle: string
 }

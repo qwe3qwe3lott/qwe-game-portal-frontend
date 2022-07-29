@@ -19,6 +19,7 @@ import MiniGameOwnerPanel from '../../components/MiniGameOwnerPanel';
 import MiniGameMemberPanel from '../../components/MiniGameMemberPanel';
 import MiniModalButton from '../../components/MiniModalButton';
 import cards from '../../assets/cards.svg';
+import RoomTitleForm from './RoomTitleForm';
 
 type Props = {
     className?: string
@@ -32,6 +33,7 @@ const OptionsBar: React.FC<Props> = ({className}) => {
 			selectGameIsRunning={selectGameIsRunning}
 			selectGameIsOnPause={selectGameIsOnPause}
 			selectRestrictionsToStart={selectRestrictionsToStart}
+			RoomTitleForm={RoomTitleForm}
 		/>
 		<GameMemberPanel api={api} selectIAmPlayer={selectIAmPlayer} selectGameIsRunning={selectGameIsRunning} OptionsForm={RoomOptionsForm}>
 			<ModalButton label={'Карты'} formSet={{ form: OptionsOfCardsForm, api }}/>

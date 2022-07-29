@@ -10,7 +10,7 @@ import {Player} from '../types/Player';
 export const {selectOwnerKey, selectGameIsOnPause, selectIAmActing, selectIAmPlayer, selectTimer,
 	selectMembers, selectMembersRestriction, selectRestrictionsToStart, selectPlayers, selectLogs,
 	computeMembersRestriction, computePlayersAmongMembers, computeCurrentPlayer, computeLastLogs, selectRoomOptions,
-	selectRoomMinPlayers, selectRoomMaxPlayers} = getGameSelectors<'spy', Player, RoomOptions>('spy');
+	selectRoomMinPlayers, selectRoomMaxPlayers, selectRoomTitle} = getGameSelectors<'spy', Player, RoomOptions>('spy');
 
 export const selectGameIsRunning = (state: RootState): boolean => state.spy.roomStatus === 'run';
 export const selectOptionsOfCards = (state: RootState): CardOptions[] => state.spy.optionsOfCards;

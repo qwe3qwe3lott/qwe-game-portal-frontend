@@ -7,7 +7,8 @@ import {LogRecord} from '../types/LogRecord';
 import {Timer} from '../types/Timer';
 import {GamePlayer} from '../types/GamePlayer';
 import {GameRoomOptions} from '../types/GameRoomOptions';
-import {OptionsDto} from '../dto/OptionsDto';
+import {ChangeOptionsDto} from '../dto/ChangeOptionsDto';
+import {RenameRoomDto} from '../dto/RenameRoomDto';
 
 export abstract class GameApi<PLAYER extends GamePlayer, STATUS extends string, OPTIONS extends GameRoomOptions> {
 	protected _socket?: Socket;
@@ -34,7 +35,8 @@ export abstract class GameApi<PLAYER extends GamePlayer, STATUS extends string, 
     	setNickname: (nickname: string) => PayloadAction<string>,
     	setPlayers: (player: PLAYER[]) => PayloadAction<PLAYER[]>,
     	setRoomOptions: (options: OPTIONS) => PayloadAction<OPTIONS>,
-    	setGameIsOnRunningFlag: (flag: boolean) => PayloadAction<boolean>
+    	setGameIsOnRunningFlag: (flag: boolean) => PayloadAction<boolean>,
+    	setRoomTitle: (title: string) => PayloadAction<string>
     ): void {
     	this._socket?.on(GameEvents.GET_ROOM_OPTIONS, (roomOptions: OPTIONS) => {
     		this._appDispatch(setRoomOptions(roomOptions));
@@ -68,6 +70,9 @@ export abstract class GameApi<PLAYER extends GamePlayer, STATUS extends string, 
     	});
     	this._socket?.on(GameEvents.GET_TIMER, (timer: Timer) => {
     		this._appDispatch(setTimer(timer));
+    	});
+    	this._socket?.on(GameEvents.GET_ROOM_TITLE, (title: string) => {
+    		this._appDispatch(setRoomTitle(title));
     	});
     	this._socket?.on(GameEvents.GET_NICKNAME, ({ nickname, force } : { nickname: string, force: boolean }) => {
     		if (force) {
@@ -132,6 +137,16 @@ export abstract class GameApi<PLAYER extends GamePlayer, STATUS extends string, 
     	this._socket?.emit(GameEvents.START_GAME, ownerKey);
     }
 
+    public renameRoom(ownerKey: string, roomTitle: string): Promise<boolean> {
+    	return new Promise(resolve => {
+    		if (!this._socket) return resolve(false);
+    		const renameRoomDto: RenameRoomDto = { ownerKey, roomTitle };
+    		this._socket.emit(GameEvents.RENAME_ROOM, renameRoomDto, (flag: boolean) => {
+    			resolve(flag);
+    		});
+    	});
+    }
+
     public pauseGame(ownerKey: string) {
     	this._socket?.emit(GameEvents.PAUSE_GAME, ownerKey);
     }
@@ -168,7 +183,7 @@ export abstract class GameApi<PLAYER extends GamePlayer, STATUS extends string, 
     public async changeRoomOptions(ownerKey: string, roomOptions: OPTIONS) : Promise<boolean> {
     	return new Promise(resolve => {
     		if (!this._socket) return resolve(false);
-    		const optionsDto: OptionsDto<OPTIONS> = { options: roomOptions, ownerKey };
+    		const optionsDto: ChangeOptionsDto<OPTIONS> = { options: roomOptions, ownerKey };
     		this._socket.emit(GameEvents.CHANGE_ROOM_OPTIONS, optionsDto, (flag: boolean) => {
     			resolve(flag);
     		});

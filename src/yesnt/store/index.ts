@@ -6,6 +6,7 @@ import {RoomStatus} from '../types/RoomStatus';
 import {RoomOptions} from '../types/RoomOptions';
 import {Answers} from '../enums/Answers';
 import {Result} from '../types/Result';
+import {clearStateAfterLeave} from '../../store/utils';
 
 const initialState: State = {
 	...getGameInitialState<Player, RoomStatus, RoomOptions>({ minPlayers: 3, maxPlayers: 16, secondsToAsk: 60, secondsToAnswer: 60 }, 'idle'),
@@ -40,15 +41,7 @@ const slice = createSlice({
 			}
 		},
 		clearStoreAfterLeaving(state) {
-			state.ownerKey = '';
-			state.members = [];
-			state.iAmPlayer = false;
-			state.players = [];
-			state.roomStatus = 'idle';
-			state.restrictionsToStart = [];
-			state.iAmActing = false;
-			state.timer = { currentTime: 0, maxTime: 0 };
-			state.logs = [];
+			clearStateAfterLeave(state);
 			state.question = '';
 			state.countOfAnswers = 0;
 			delete state.result;
@@ -65,5 +58,6 @@ const slice = createSlice({
 
 export const {setLogs, addLogRecord, setTimer, setIAmActingFlag, setIAmPlayerFlag, setOwnerKey, setRestrictionsToStart,
 	setMembers, setRoomStatus, setPlayers, setRoomOptions, setOptionMinPlayers, setOptionMaxPlayers, clearStoreAfterLeaving,
-	setQuestion, setAnswer, setResult, setGameIsOnPauseFlag, setOptionSecondsToAnswer, setOptionSecondsToAsk, setCountOfAnswers} = slice.actions;
+	setQuestion, setAnswer, setResult, setGameIsOnPauseFlag, setOptionSecondsToAnswer, setOptionSecondsToAsk, setCountOfAnswers,
+	setRoomTitle} = slice.actions;
 export default slice.reducer;

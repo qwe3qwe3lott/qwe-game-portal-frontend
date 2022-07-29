@@ -12,3 +12,4 @@ const Router: React.FC = () => {
 export default Router;
 
 export const routePath = 'spy';
+export const gameTitle = 'Шпион';

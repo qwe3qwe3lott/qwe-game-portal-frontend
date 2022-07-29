@@ -7,13 +7,19 @@ import styles from './GameOwnerPanel.module.scss';
 import React from 'react';
 import {GamePlayer} from '../../types/GamePlayer';
 import {GameRoomOptions} from '../../types/GameRoomOptions';
+import ModalButton from '../ModalButton';
 
+type PropsOfForm = {
+	onSuccess: () => void
+	api: GameApi<GamePlayer, string, GameRoomOptions>
+}
 type Props = {
 	api: GameApi<GamePlayer, string, GameRoomOptions>
 	selectOwnerKey: (state: RootState) => string
 	selectGameIsRunning: (state: RootState) => boolean
 	selectGameIsOnPause: (state: RootState) => boolean
 	selectRestrictionsToStart: (state: RootState) => string[]
+	RoomTitleForm: React.FC<PropsOfForm>
 }
 const GameOwnerPanel: React.FC<Props> = (props) => {
 	const ownerKey = useAppSelector(props.selectOwnerKey);
@@ -22,7 +28,7 @@ const GameOwnerPanel: React.FC<Props> = (props) => {
 
 export default GameOwnerPanel;
 
-const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart, api}) => {
+const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart, api, RoomTitleForm}) => {
 	const { gameIsRunning, gameIsOnPause, startHandler, stopHandler, pauseHandler, restrictionsToStart }
 		= useOwnerPanel(api, selectOwnerKey, selectGameIsRunning, selectGameIsOnPause, selectRestrictionsToStart);
 	return(<ColumnPanel title={'Панель владельца'}>
@@ -37,5 +43,6 @@ const Content: React.FC<Props> = ({selectOwnerKey, selectGameIsRunning, selectGa
 			onClick={startHandler}>{gameIsOnPause ? 'Продолжить' : 'Старт'}</button>
 		<button className={styles.button} disabled={!gameIsRunning || gameIsOnPause} onClick={pauseHandler}>Пауза</button>
 		<button className={styles.button} disabled={!gameIsRunning} onClick={stopHandler}>Стоп</button>
+		<ModalButton label={'Переименновать комнату'} formSet={{ form: RoomTitleForm, api }}/>
 	</ColumnPanel>);
 };

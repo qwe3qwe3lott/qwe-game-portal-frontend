@@ -3,10 +3,24 @@
 .layout {
   background-color: $primary-color;
   display: grid;
+  padding: 0.25em 1em;
+  gap: 0.1em;
+}
+.titleLayout {
+  color: $primary-text-color;
+  display: grid;
+  gap: 1em;
+  place-items: end;
+  grid-template-columns: max-content 1fr;
+}
+.roomTitle {
+  text-align: end;
+}
+.buttonsLayout {
+  display: grid;
   grid-auto-flow: column;
   place-items: center;
-  gap: 1em;
-  padding: 0.5em 1em;
+  gap: 0.5em;
 }
 .button {
   @include roomBarButton;

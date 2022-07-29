@@ -2,7 +2,7 @@
 .list {
   display: grid;
   place-items: stretch;
-  gap: 0.5em;
+  gap: 0.7em;
 }
 .button {
   @include button;

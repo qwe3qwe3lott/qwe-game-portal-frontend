@@ -21,7 +21,8 @@ export const getGameInitialState =
 		timer: { currentTime: 0, maxTime: 0 },
 		logs: [],
 		roomOptions: options,
-		gameIsOnPause: false
+		gameIsOnPause: false,
+		roomTitle: ''
 	});
 
 export const getGameReducers = <PLAYER extends GamePlayer, STATE extends GameState<PLAYER, STATUS, OPTIONS>, STATUS extends string, OPTIONS extends GameRoomOptions>() => ({
@@ -41,7 +42,8 @@ export const getGameReducers = <PLAYER extends GamePlayer, STATE extends GameSta
 		state.membersRestriction.max = action.payload.maxPlayers;
 	},
 	setOptionMinPlayers(state: STATE, action: PayloadAction<number>) { state.roomOptions.minPlayers = action.payload; },
-	setOptionMaxPlayers(state: STATE, action: PayloadAction<number>) { state.roomOptions.maxPlayers = action.payload; }
+	setOptionMaxPlayers(state: STATE, action: PayloadAction<number>) { state.roomOptions.maxPlayers = action.payload; },
+	setRoomTitle(state: STATE, action: PayloadAction<string>) { state.roomTitle = action.payload; }
 });
 
 export const getGameSelectors =
@@ -58,6 +60,7 @@ export const getGameSelectors =
 		const selectRestrictionsToStart = (state: RootState): string[] => state[module].restrictionsToStart;
 		const selectMembersRestriction = (state: RootState): MembersRestriction => state[module].membersRestriction;
 		const selectLogs = (state: RootState): LogRecord[] => state[module].logs;
+		const selectRoomTitle = (state: RootState): string => state[module].roomTitle;
 		const selectPlayers = (state: RootState): PLAYER[] => state[module].players as PLAYER[];
 		const computePlayersAmongMembers = createSelector(
 			[selectMembers],
@@ -85,5 +88,6 @@ export const getGameSelectors =
 		);
 		return {selectOwnerKey, selectGameIsOnPause, selectTimer, selectIAmActing, selectIAmPlayer,
 			selectMembers, selectRestrictionsToStart, selectMembersRestriction, selectLogs, selectPlayers, computePlayersAmongMembers,
-			computeMembersRestriction, computeLastLogs, computeCurrentPlayer, selectRoomOptions, selectRoomMinPlayers, selectRoomMaxPlayers};
+			computeMembersRestriction, computeLastLogs, computeCurrentPlayer, selectRoomOptions, selectRoomMinPlayers, selectRoomMaxPlayers,
+			selectRoomTitle};
 	};

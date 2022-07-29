@@ -7,13 +7,13 @@ import {RoomOptions} from '../types/RoomOptions';
 import {CardOptions} from '../types/CardOptions';
 import {getGameInitialState, getGameReducers} from '../../store/factories';
 import {RoomStatus} from '../types/RoomStatus';
+import {clearStateAfterLeave} from '../../store/utils';
 
 const initialState: State = {
 	...getGameInitialState<Player, RoomStatus, RoomOptions>({ rows: 5, maxPlayers: 8, winScore: 3, secondsToAct: 60, minPlayers: 2, columns: 5 }, 'idle'),
 	fieldCards: [],
 	sizes: { rows: 0, columns: 0 },
 	lastWinner: '',
-	membersRestriction: { min: 2, max: 8 },
 	optionsOfCardsIdCounter: 1,
 	optionsOfCards: []
 };
@@ -51,19 +51,13 @@ const slice = createSlice({
 		setSizes(state, action: PayloadAction<Sizes>) { state.sizes = action.payload; },
 		setCard(state, action: PayloadAction<FieldCard>) { state.card = action.payload; },
 		clearStoreAfterLeaving(state) {
-			state.ownerKey = '';
-			state.members = [];
-			state.iAmPlayer = false;
-			state.players = [];
-			state.roomStatus = 'idle';
+			clearStateAfterLeave(state);
 			state.fieldCards = [];
-			state.restrictionsToStart = [];
 			state.sizes = { rows: 0, columns: 0 };
-			state.iAmActing = false;
-			state.timer = { currentTime: 0, maxTime: 0 };
-			state.logs = [];
 			state.lastWinner = '';
 			delete state.card;
+			state.optionsOfCards = [];
+			state.optionsOfCardsIdCounter = 1;
 		},
 		setOptionSecondsToAct(state, action: PayloadAction<number>) { state.roomOptions.secondsToAct = action.payload; },
 		setOptionWinScore(state, action: PayloadAction<number>) { state.roomOptions.winScore = action.payload; },
@@ -93,5 +87,6 @@ export const {setMembers, setIAmPlayerFlag, setOwnerKey, clearStoreAfterLeaving,
 	setRestrictionsToStart, setIAmActingFlag, setSizes, setRoomStatus, setTimer, setCard,
 	setLogs, addLogRecord, addActCardIds, setLastWinner, setRoomOptions, setOptionSecondsToAct, setOptionWinScore,
 	setOptionColumns, setOptionRows, setOptionMaxPlayers, setOptionMinPlayers, changeOptionTitleOfCard,
-	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard, setGameIsOnPauseFlag} = slice.actions;
+	changeOptionUrlOfCard, setOptionsOfCards, addOptionsOfCard, deleteOptionsOfCard, setGameIsOnPauseFlag,
+	setRoomTitle} = slice.actions;
 export default slice.reducer;

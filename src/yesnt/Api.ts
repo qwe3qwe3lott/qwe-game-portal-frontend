@@ -8,7 +8,7 @@ import {
 	setMembers,
 	setOwnerKey, setPlayers, setQuestion,
 	setRestrictionsToStart, setResult, setRoomOptions,
-	setRoomStatus, setTimer
+	setRoomStatus, setRoomTitle, setTimer
 } from './store';
 import {Player} from './types/Player';
 import {RoomStatus} from './types/RoomStatus';
@@ -31,7 +31,8 @@ export class Api extends GameApi<Player, RoomStatus, RoomOptions> {
 	public subscribe(): void {
 		this._socket = GameApi.createSocket(routePath);
 		this.superSubscribe(setMembers, setOwnerKey, setRoomStatus, setRestrictionsToStart,
-			setIAmActingFlag, setLogs, addLogRecord, setTimer, setNickname, setPlayers, setRoomOptions, setGameIsOnPauseFlag);
+			setIAmActingFlag, setLogs, addLogRecord, setTimer, setNickname, setPlayers, setRoomOptions,
+			setGameIsOnPauseFlag, setRoomTitle);
 		this._socket?.on(Events.GET_QUESTION, (question: string) => {
 			this._appDispatch(setQuestion(question));
 		});

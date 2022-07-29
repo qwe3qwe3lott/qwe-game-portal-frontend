@@ -9,7 +9,7 @@ import {createSelector} from '@reduxjs/toolkit';
 export const {selectOwnerKey, selectGameIsOnPause, selectIAmActing, selectIAmPlayer, selectTimer,
 	selectMembers, selectMembersRestriction, selectRestrictionsToStart, selectPlayers, selectLogs,
 	computeMembersRestriction, computePlayersAmongMembers, computeCurrentPlayer, computeLastLogs, selectRoomOptions,
-	selectRoomMaxPlayers, selectRoomMinPlayers} = getGameSelectors<'yesnt', Player, RoomOptions>('yesnt');
+	selectRoomMaxPlayers, selectRoomMinPlayers, selectRoomTitle} = getGameSelectors<'yesnt', Player, RoomOptions>('yesnt');
 
 export const selectGameIsRunning = (state: RootState): boolean => state.yesnt.roomStatus === 'ask' || state.yesnt.roomStatus === 'answer';
 export const selectGameIsOnAsking = (state: RootState): boolean => state.yesnt.roomStatus === 'ask';
